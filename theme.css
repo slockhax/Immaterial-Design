@@ -1,0 +1,172 @@
+/* ============================================================
+   IMMATERIAL — THEME TOKENS  (designer input file)
+   ------------------------------------------------------------
+   THIS is the file you edit to rebrand the system. Every colour
+   the components use is defined here as a CSS custom property.
+   Change these values (or override them in your own stylesheet)
+   and the whole library re-skins. immaterial.css never hardcodes
+   a colour — it only references these tokens.
+
+   Load order matters:  theme.css  BEFORE  immaterial.css
+   ------------------------------------------------------------
+   Light  = the :root defaults below
+   Dark   = <html data-theme="dark">  OR  the OS media query
+   Force light on a dark OS: <html data-theme="light">
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+  --bg:                  #E9DFFA;
+  --surface:             #F6F1FF;
+  --surface-2:           #ECE3FB;
+  --surface-3:           #E0D2F7;
+  --border:              #C9B4E8;
+  --divider:             #E4DAF6;
+  --outline:             #B4A3CF;
+
+  --primary:             #6D28D9;
+  --primary-hover:       #7C3AED;
+  --primary-strong:      #4C1D95;
+  --on-primary:          #FFFFFF;
+  --primary-container:   #D9C4FE;
+  --on-primary-container:#2A1256;
+
+  --text:                #241A38;
+  --text-muted:          #5D5473;
+  --text-faint:          #9C8AB8;
+
+  --danger:              #B3261E;
+  --danger-hover:        #9C1F18;
+  --on-danger:           #FFFFFF;
+  --danger-text:         #B3261E;
+
+  --success:             #0E7A43;
+  --success-container:   #BBEBCE;
+  --on-success-container:#0B4A26;
+  --warning-container:   #FBE3B9;
+  --on-warning-container:#6B4A0A;
+
+  --disabled-bg:         #E5DFF0;
+  --disabled-text:       #9C93AD;
+
+  --track:               #CBBEE0;
+  --row-hover:           #F0E8FC;
+  --row-selected:        #EDE2FE;
+  --chart-bar:           #A374E8;
+  --ring:                #7C3AED;
+
+  --scrim:               rgba(36, 26, 56, 0.45);
+  --snackbar-bg:         #322A44;
+  --snackbar-text:       #F1EAFB;
+  --snackbar-action:     #C9AFFA;
+
+  --shadow-card:   0 4px 14px rgba(76, 29, 149, 0.12);
+  --shadow-pop:    0 6px 20px rgba(76, 29, 149, 0.22);
+  --shadow-dialog: 0 12px 40px rgba(36, 26, 56, 0.35);
+}
+
+/* Dark palette — shared by explicit opt-in and OS preference */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:                  #14101C;
+  --surface:             #211A2E;
+  --surface-2:           #2A2140;
+  --surface-3:           #352A4E;
+  --border:              #43395A;
+  --divider:             #322A44;
+  --outline:             #6A5B84;
+
+  --primary:             #C9A9FF;
+  --primary-hover:       #D8C0FF;
+  --primary-strong:      #E7D6FF;
+  --on-primary:          #2A1256;
+  --primary-container:   #4A2E7A;
+  --on-primary-container:#EADBFF;
+
+  --text:                #ECE4F8;
+  --text-muted:          #B4A7C9;
+  --text-faint:          #82758F;
+
+  --danger:              #93000A;
+  --danger-hover:        #B21F13;
+  --on-danger:           #FFDAD6;
+  --danger-text:         #FFB4AB;
+
+  --success:             #6FD79B;
+  --success-container:   #0B4A26;
+  --on-success-container:#BBEBCE;
+  --warning-container:   #5A4212;
+  --on-warning-container:#FBE3B9;
+
+  --disabled-bg:         #2A2440;
+  --disabled-text:       #6E6486;
+
+  --track:               #3A3152;
+  --row-hover:           #2A2240;
+  --row-selected:        #38295A;
+  --chart-bar:           #9B72E8;
+  --ring:                #C9A9FF;
+
+  --scrim:               rgba(0, 0, 0, 0.62);
+  --snackbar-bg:         #E7DEF6;
+  --snackbar-text:       #241A38;
+  --snackbar-action:     #6D28D9;
+
+  --shadow-card:   0 4px 14px rgba(0, 0, 0, 0.40);
+  --shadow-pop:    0 6px 20px rgba(0, 0, 0, 0.50);
+  --shadow-dialog: 0 12px 40px rgba(0, 0, 0, 0.60);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg:                  #14101C;
+    --surface:             #211A2E;
+    --surface-2:           #2A2140;
+    --surface-3:           #352A4E;
+    --border:              #43395A;
+    --divider:             #322A44;
+    --outline:             #6A5B84;
+
+    --primary:             #C9A9FF;
+    --primary-hover:       #D8C0FF;
+    --primary-strong:      #E7D6FF;
+    --on-primary:          #2A1256;
+    --primary-container:   #4A2E7A;
+    --on-primary-container:#EADBFF;
+
+    --text:                #ECE4F8;
+    --text-muted:          #B4A7C9;
+    --text-faint:          #82758F;
+
+    --danger:              #93000A;
+    --danger-hover:        #B21F13;
+    --on-danger:           #FFDAD6;
+    --danger-text:         #FFB4AB;
+
+    --success:             #6FD79B;
+    --success-container:   #0B4A26;
+    --on-success-container:#BBEBCE;
+    --warning-container:   #5A4212;
+    --on-warning-container:#FBE3B9;
+
+    --disabled-bg:         #2A2440;
+    --disabled-text:       #6E6486;
+
+    --track:               #3A3152;
+    --row-hover:           #2A2240;
+    --row-selected:        #38295A;
+    --chart-bar:           #9B72E8;
+    --ring:                #C9A9FF;
+
+    --scrim:               rgba(0, 0, 0, 0.62);
+    --snackbar-bg:         #E7DEF6;
+    --snackbar-text:       #241A38;
+    --snackbar-action:     #6D28D9;
+
+    --shadow-card:   0 4px 14px rgba(0, 0, 0, 0.40);
+    --shadow-pop:    0 6px 20px rgba(0, 0, 0, 0.50);
+    --shadow-dialog: 0 12px 40px rgba(0, 0, 0, 0.60);
+  }
+}
+
