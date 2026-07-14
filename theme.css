@@ -1,172 +1,120 @@
 /* ============================================================
    IMMATERIAL — THEME TOKENS  (designer input file)
    ------------------------------------------------------------
-   THIS is the file you edit to rebrand the system. Every colour
-   the components use is defined here as a CSS custom property.
-   Change these values (or override them in your own stylesheet)
-   and the whole library re-skins. immaterial.css never hardcodes
-   a colour — it only references these tokens.
+   Rebrand by editing the SEED colours below — every other token
+   is CALCULATED from them with relative colour syntax (oklch)
+   and light-dark(). immaterial.css never hardcodes a colour.
 
-   Load order matters:  theme.css  BEFORE  immaterial.css
+   Load order:  theme.css  BEFORE  immaterial.css
+
+   Light/dark: every token carries both values via light-dark().
+   Follow the OS (default), or force with
+   <html data-theme="light"> / <html data-theme="dark">.
+
+   Escape hatch: any computed token can be overridden with a
+   literal colour in your own stylesheet — e.g. if an extreme
+   seed (neon yellow) produces a low-contrast on-colour:
+     :root { --on-primary-container: #1A1400; }
+
    ------------------------------------------------------------
-   Light  = the :root defaults below
-   Dark   = <html data-theme="dark">  OR  the OS media query
-   Force light on a dark OS: <html data-theme="light">
+   RENAMING MAP (v1 token → Material role name)
+   Search-and-replace in this order if migrating an existing app:
+     --text-muted   →  --on-surface-variant
+     --text-faint   →  --on-surface-faint
+     --text         →  --on-surface
+     --bg           →  --surface-dim
+     --surface-3    →  --surface-container-high
+     --surface-2    →  --surface-container
+     --border       →  --outline-variant
+     --danger-hover →  --error-hover
+     --danger-text  →  --error-text
+     --on-danger    →  --on-error
+     --danger       →  --error
+   Unchanged: --surface --primary* --on-primary* --outline
+   --divider --success* --warning* --disabled-* --track
+   --row-* --chart-bar --ring --scrim --snackbar-* --shadow-*
    ============================================================ */
 
+:root { color-scheme: light dark; }
+[data-theme="light"] { color-scheme: light; }
+[data-theme="dark"]  { color-scheme: dark; }
+
 :root {
-  color-scheme: light;
-  --bg:                  #E9DFFA;
-  --surface:             #F6F1FF;
-  --surface-2:           #ECE3FB;
-  --surface-3:           #E0D2F7;
-  --border:              #C9B4E8;
-  --divider:             #E4DAF6;
-  --outline:             #B4A3CF;
+  /* ---------- SEEDS — the values a designer edits ---------- */
+  --seed-primary:   #6D28D9;
+  /* secondary/tertiary default to derivations of primary
+     (muted sibling / hue-shifted accent) — replace with your
+     own hexes to break the link. */
+  --seed-secondary: oklch(from var(--seed-primary) l calc(c * 0.45) h);
+  --seed-tertiary:  oklch(from var(--seed-primary) l calc(c * 0.75) calc(h + 60));
+  --seed-error:     #B3261E;
+  --seed-success:   #0E7A43;
+  --seed-warning:   #9A6A00;
 
-  --primary:             #6D28D9;
-  --primary-hover:       #7C3AED;
-  --primary-strong:      #4C1D95;
-  --on-primary:          #FFFFFF;
-  --primary-container:   #D9C4FE;
-  --on-primary-container:#2A1256;
+  /* ---------- PRIMARY ---------- */
+  --primary:              light-dark(var(--seed-primary), oklch(from var(--seed-primary) 0.78 calc(c * 0.45) h));
+  --primary-hover:        light-dark(oklch(from var(--seed-primary) 0.52 c h), oklch(from var(--seed-primary) 0.84 calc(c * 0.35) h));
+  --primary-strong:       light-dark(oklch(from var(--seed-primary) 0.38 c h), oklch(from var(--seed-primary) 0.89 calc(c * 0.25) h));
+  --on-primary:           light-dark(#FFFFFF, oklch(from var(--seed-primary) 0.25 calc(c * 0.5) h));
+  --primary-container:    light-dark(oklch(from var(--seed-primary) 0.86 calc(c * 0.38) h), oklch(from var(--seed-primary) 0.37 calc(c * 0.5) h));
+  --on-primary-container: light-dark(oklch(from var(--seed-primary) 0.25 calc(c * 0.5) h), oklch(from var(--seed-primary) 0.90 calc(c * 0.2) h));
 
-  --text:                #241A38;
-  --text-muted:          #5D5473;
-  --text-faint:          #9C8AB8;
+  /* ---------- SECONDARY ---------- */
+  --secondary:              light-dark(var(--seed-secondary), oklch(from var(--seed-secondary) 0.78 calc(c * 0.45) h));
+  --on-secondary:           light-dark(#FFFFFF, oklch(from var(--seed-secondary) 0.25 calc(c * 0.5) h));
+  --secondary-container:    light-dark(oklch(from var(--seed-secondary) 0.86 calc(c * 0.38) h), oklch(from var(--seed-secondary) 0.37 calc(c * 0.5) h));
+  --on-secondary-container: light-dark(oklch(from var(--seed-secondary) 0.25 calc(c * 0.5) h), oklch(from var(--seed-secondary) 0.90 calc(c * 0.2) h));
 
-  --danger:              #B3261E;
-  --danger-hover:        #9C1F18;
-  --on-danger:           #FFFFFF;
-  --danger-text:         #B3261E;
+  /* ---------- TERTIARY ---------- */
+  --tertiary:              light-dark(var(--seed-tertiary), oklch(from var(--seed-tertiary) 0.78 calc(c * 0.45) h));
+  --on-tertiary:           light-dark(#FFFFFF, oklch(from var(--seed-tertiary) 0.25 calc(c * 0.5) h));
+  --tertiary-container:    light-dark(oklch(from var(--seed-tertiary) 0.86 calc(c * 0.38) h), oklch(from var(--seed-tertiary) 0.37 calc(c * 0.5) h));
+  --on-tertiary-container: light-dark(oklch(from var(--seed-tertiary) 0.25 calc(c * 0.5) h), oklch(from var(--seed-tertiary) 0.90 calc(c * 0.2) h));
 
-  --success:             #0E7A43;
-  --success-container:   #BBEBCE;
-  --on-success-container:#0B4A26;
-  --warning-container:   #FBE3B9;
-  --on-warning-container:#6B4A0A;
+  /* ---------- SURFACES (neutrals tinted by the primary hue) ---------- */
+  --surface:                light-dark(oklch(from var(--seed-primary) 0.965 0.015 h), oklch(from var(--seed-primary) 0.24 0.03 h));
+  --surface-dim:            light-dark(oklch(from var(--seed-primary) 0.91 0.04 h), oklch(from var(--seed-primary) 0.18 0.025 h));  /* page background */
+  --surface-container:      light-dark(oklch(from var(--seed-primary) 0.93 0.03 h), oklch(from var(--seed-primary) 0.28 0.04 h));
+  --surface-container-high: light-dark(oklch(from var(--seed-primary) 0.89 0.05 h), oklch(from var(--seed-primary) 0.32 0.05 h));
+  --outline:                light-dark(oklch(from var(--seed-primary) 0.74 0.06 h), oklch(from var(--seed-primary) 0.52 0.06 h));
+  --outline-variant:        light-dark(oklch(from var(--seed-primary) 0.79 0.075 h), oklch(from var(--seed-primary) 0.40 0.05 h));  /* borders */
+  --divider:                light-dark(oklch(from var(--seed-primary) 0.905 0.04 h), oklch(from var(--seed-primary) 0.30 0.035 h));
 
-  --disabled-bg:         #E5DFF0;
-  --disabled-text:       #9C93AD;
+  /* ---------- ON-SURFACE (text) ---------- */
+  --on-surface:         light-dark(oklch(from var(--seed-primary) 0.25 0.05 h), oklch(from var(--seed-primary) 0.93 0.02 h));
+  --on-surface-variant: light-dark(oklch(from var(--seed-primary) 0.46 0.04 h), oklch(from var(--seed-primary) 0.75 0.05 h));
+  --on-surface-faint:   light-dark(oklch(from var(--seed-primary) 0.66 0.06 h), oklch(from var(--seed-primary) 0.57 0.04 h));
 
-  --track:               #CBBEE0;
-  --row-hover:           #F0E8FC;
-  --row-selected:        #EDE2FE;
-  --chart-bar:           #A374E8;
-  --ring:                #7C3AED;
+  /* ---------- ERROR ---------- */
+  --error:       light-dark(var(--seed-error), oklch(from var(--seed-error) 0.42 c h));
+  --error-hover: light-dark(oklch(from var(--seed-error) 0.42 c h), oklch(from var(--seed-error) 0.50 c h));
+  --on-error:    light-dark(#FFFFFF, oklch(from var(--seed-error) 0.90 calc(c * 0.25) h));
+  --error-text:  light-dark(var(--seed-error), oklch(from var(--seed-error) 0.80 calc(c * 0.55) h));
+  --error-container:    light-dark(oklch(from var(--seed-error) 0.88 calc(c * 0.35) h), oklch(from var(--seed-error) 0.30 calc(c * 0.6) h));
+  --on-error-container: light-dark(oklch(from var(--seed-error) 0.28 calc(c * 0.8) h), oklch(from var(--seed-error) 0.90 calc(c * 0.3) h));
 
-  --scrim:               rgba(36, 26, 56, 0.45);
-  --snackbar-bg:         #322A44;
-  --snackbar-text:       #F1EAFB;
-  --snackbar-action:     #C9AFFA;
+  /* ---------- SUCCESS / WARNING ---------- */
+  --success:              light-dark(var(--seed-success), oklch(from var(--seed-success) 0.80 calc(c * 0.8) h));
+  --success-container:    light-dark(oklch(from var(--seed-success) 0.90 calc(c * 0.5) h), oklch(from var(--seed-success) 0.32 calc(c * 0.8) h));
+  --on-success-container: light-dark(oklch(from var(--seed-success) 0.32 calc(c * 0.8) h), oklch(from var(--seed-success) 0.90 calc(c * 0.5) h));
+  --warning-container:    light-dark(oklch(from var(--seed-warning) 0.91 calc(c * 0.5) h), oklch(from var(--seed-warning) 0.35 calc(c * 0.8) h));
+  --on-warning-container: light-dark(oklch(from var(--seed-warning) 0.35 c h), oklch(from var(--seed-warning) 0.91 calc(c * 0.5) h));
 
-  --shadow-card:   0 4px 14px rgba(76, 29, 149, 0.12);
-  --shadow-pop:    0 6px 20px rgba(76, 29, 149, 0.22);
-  --shadow-dialog: 0 12px 40px rgba(36, 26, 56, 0.35);
+  /* ---------- STATES & COMPONENT COLOURS ---------- */
+  --disabled-bg:   light-dark(oklch(from var(--seed-primary) 0.92 0.02 h), oklch(from var(--seed-primary) 0.27 0.03 h));
+  --disabled-text: light-dark(oklch(from var(--seed-primary) 0.66 0.03 h), oklch(from var(--seed-primary) 0.50 0.03 h));
+  --track:         light-dark(oklch(from var(--seed-primary) 0.81 0.05 h), oklch(from var(--seed-primary) 0.33 0.05 h));
+  --row-hover:     light-dark(oklch(from var(--seed-primary) 0.94 0.025 h), oklch(from var(--seed-primary) 0.27 0.035 h));
+  --row-selected:  light-dark(oklch(from var(--seed-primary) 0.92 0.045 h), oklch(from var(--seed-primary) 0.35 0.08 h));
+  --chart-bar:     light-dark(oklch(from var(--seed-primary) 0.65 calc(c * 0.65) h), oklch(from var(--seed-primary) 0.62 calc(c * 0.6) h));
+  --ring:          light-dark(oklch(from var(--seed-primary) 0.52 c h), oklch(from var(--seed-primary) 0.78 calc(c * 0.45) h));
+
+  --scrim:           light-dark(oklch(from var(--seed-primary) 0.25 0.05 h / 0.45), oklch(0 0 0 / 0.62));
+  --snackbar-bg:     light-dark(oklch(from var(--seed-primary) 0.32 0.04 h), oklch(from var(--seed-primary) 0.91 0.03 h));
+  --snackbar-text:   light-dark(oklch(from var(--seed-primary) 0.94 0.02 h), oklch(from var(--seed-primary) 0.25 0.05 h));
+  --snackbar-action: light-dark(oklch(from var(--seed-primary) 0.78 calc(c * 0.45) h), var(--seed-primary));
+
+  --shadow-card:   0 4px 14px light-dark(oklch(from var(--seed-primary) 0.38 c h / 0.12), rgb(0 0 0 / 0.40));
+  --shadow-pop:    0 6px 20px light-dark(oklch(from var(--seed-primary) 0.38 c h / 0.22), rgb(0 0 0 / 0.50));
+  --shadow-dialog: 0 12px 40px light-dark(oklch(from var(--seed-primary) 0.25 0.05 h / 0.35), rgb(0 0 0 / 0.60));
 }
-
-/* Dark palette — shared by explicit opt-in and OS preference */
-[data-theme="dark"] {
-  color-scheme: dark;
-  --bg:                  #14101C;
-  --surface:             #211A2E;
-  --surface-2:           #2A2140;
-  --surface-3:           #352A4E;
-  --border:              #43395A;
-  --divider:             #322A44;
-  --outline:             #6A5B84;
-
-  --primary:             #C9A9FF;
-  --primary-hover:       #D8C0FF;
-  --primary-strong:      #E7D6FF;
-  --on-primary:          #2A1256;
-  --primary-container:   #4A2E7A;
-  --on-primary-container:#EADBFF;
-
-  --text:                #ECE4F8;
-  --text-muted:          #B4A7C9;
-  --text-faint:          #82758F;
-
-  --danger:              #93000A;
-  --danger-hover:        #B21F13;
-  --on-danger:           #FFDAD6;
-  --danger-text:         #FFB4AB;
-
-  --success:             #6FD79B;
-  --success-container:   #0B4A26;
-  --on-success-container:#BBEBCE;
-  --warning-container:   #5A4212;
-  --on-warning-container:#FBE3B9;
-
-  --disabled-bg:         #2A2440;
-  --disabled-text:       #6E6486;
-
-  --track:               #3A3152;
-  --row-hover:           #2A2240;
-  --row-selected:        #38295A;
-  --chart-bar:           #9B72E8;
-  --ring:                #C9A9FF;
-
-  --scrim:               rgba(0, 0, 0, 0.62);
-  --snackbar-bg:         #E7DEF6;
-  --snackbar-text:       #241A38;
-  --snackbar-action:     #6D28D9;
-
-  --shadow-card:   0 4px 14px rgba(0, 0, 0, 0.40);
-  --shadow-pop:    0 6px 20px rgba(0, 0, 0, 0.50);
-  --shadow-dialog: 0 12px 40px rgba(0, 0, 0, 0.60);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --bg:                  #14101C;
-    --surface:             #211A2E;
-    --surface-2:           #2A2140;
-    --surface-3:           #352A4E;
-    --border:              #43395A;
-    --divider:             #322A44;
-    --outline:             #6A5B84;
-
-    --primary:             #C9A9FF;
-    --primary-hover:       #D8C0FF;
-    --primary-strong:      #E7D6FF;
-    --on-primary:          #2A1256;
-    --primary-container:   #4A2E7A;
-    --on-primary-container:#EADBFF;
-
-    --text:                #ECE4F8;
-    --text-muted:          #B4A7C9;
-    --text-faint:          #82758F;
-
-    --danger:              #93000A;
-    --danger-hover:        #B21F13;
-    --on-danger:           #FFDAD6;
-    --danger-text:         #FFB4AB;
-
-    --success:             #6FD79B;
-    --success-container:   #0B4A26;
-    --on-success-container:#BBEBCE;
-    --warning-container:   #5A4212;
-    --on-warning-container:#FBE3B9;
-
-    --disabled-bg:         #2A2440;
-    --disabled-text:       #6E6486;
-
-    --track:               #3A3152;
-    --row-hover:           #2A2240;
-    --row-selected:        #38295A;
-    --chart-bar:           #9B72E8;
-    --ring:                #C9A9FF;
-
-    --scrim:               rgba(0, 0, 0, 0.62);
-    --snackbar-bg:         #E7DEF6;
-    --snackbar-text:       #241A38;
-    --snackbar-action:     #6D28D9;
-
-    --shadow-card:   0 4px 14px rgba(0, 0, 0, 0.40);
-    --shadow-pop:    0 6px 20px rgba(0, 0, 0, 0.50);
-    --shadow-dialog: 0 12px 40px rgba(0, 0, 0, 0.60);
-  }
-}
-

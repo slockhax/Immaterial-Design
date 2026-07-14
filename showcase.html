@@ -6,10 +6,14 @@
 <title>Immaterial Design System — Reference</title>
 <link rel="stylesheet" href="theme.css">
 <link rel="stylesheet" href="immaterial.css">
+<!-- CDN fallback so the demo renders fonts/icons when local files in fonts/ are absent.
+     Remove once you self-host (README §1). The @font-face rules below take priority when present. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
 <style>
-  /* Fonts are assumed to be self-hosted locally (see README §1).
-     Point these at your own font files; the demo falls back to
-     system fonts if they aren't present. */
+  /* Self-hosted fonts (see README §1) — commented out while using the CDN
+     fallback above, because a same-family @font-face with a missing local
+     file shadows the CDN faces. When you add the files to fonts/,
+     re-enable this block and delete the CDN <link>.
   @font-face {
     font-family: 'Roboto Flex';
     src: url('fonts/RobotoFlex.woff2') format('woff2');
@@ -20,6 +24,7 @@
     src: url('fonts/MaterialSymbolsRounded.woff2') format('woff2');
     font-weight: 100 700; font-display: swap;
   }
+  */
 </style>
 <style>
   /* Demo-page scaffolding only — NOT part of the design system. */
@@ -28,7 +33,7 @@
     position: sticky; top: 0; z-index: 50;
     display: flex; align-items: center; gap: 16px;
     padding: 16px 32px;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    background: color-mix(in srgb, var(--surface-dim) 88%, transparent);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--divider);
   }
@@ -37,23 +42,23 @@
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
   .lead { padding: 40px 0 8px; }
   .lead h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin: 0 0 8px; }
-  .lead p { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin: 0; max-width: 620px; }
+  .lead p { color: var(--on-surface-variant); font-size: 15px; line-height: 1.6; margin: 0; max-width: 620px; }
   section.block { padding: 40px 0; border-top: 1px solid var(--divider); }
   section.block > h2 { font-size: 13px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--primary); margin: 0 0 4px; }
-  section.block > .desc { color: var(--text-muted); font-size: 14px; margin: 0 0 22px; }
+  section.block > .desc { color: var(--on-surface-variant); font-size: 14px; margin: 0 0 22px; }
   .row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
   .row--top { align-items: flex-start; }
   .stack { display: flex; flex-direction: column; gap: 16px; }
   .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
-  .swatch { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; font-size: 12px; }
+  .swatch { border: 1px solid var(--outline-variant); border-radius: 12px; overflow: hidden; font-size: 12px; }
   .swatch__chip { height: 52px; }
-  .swatch__name { padding: 8px 10px; background: var(--surface); color: var(--text-muted); font-family: ui-monospace, monospace; }
+  .swatch__name { padding: 8px 10px; background: var(--surface); color: var(--on-surface-variant); font-family: ui-monospace, monospace; }
   .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 34px 24px; }
   .cardcase { display: flex; flex-direction: column; gap: 10px; }
-  .cardcase__tag { font-family: ui-monospace, monospace; font-size: 12px; color: var(--text-muted); }
+  .cardcase__tag { font-family: ui-monospace, monospace; font-size: 12px; color: var(--on-surface-variant); }
   .demo-body { display: flex; flex-direction: column; gap: 13px; }
   .demo-body__row { display: flex; justify-content: space-between; align-items: baseline; }
-  .caption { font-size: 12px; color: var(--text-muted); font-family: ui-monospace, monospace; }
+  .caption { font-size: 12px; color: var(--on-surface-variant); font-family: ui-monospace, monospace; }
 </style>
 </head>
 <body>
@@ -78,17 +83,57 @@
   <!-- COLOUR TOKENS -->
   <section class="block">
     <h2>Colour tokens</h2>
-    <p class="desc">Defined in <code>theme.css</code> as CSS custom properties — the one file to edit when rebranding. Defaults shown; replace with your own.</p>
+    <p class="desc">Material-role tokens in <code>theme.css</code> — computed from a few <code>--seed-*</code> colours via <code>oklch(from …)</code> + <code>light-dark()</code>. Rebrand by changing the seeds.</p>
     <div class="swatches">
+      <div class="swatch"><div class="swatch__chip" style="background:var(--seed-primary)"></div><div class="swatch__name">--seed-primary</div></div>
       <div class="swatch"><div class="swatch__chip" style="background:var(--primary)"></div><div class="swatch__name">--primary</div></div>
       <div class="swatch"><div class="swatch__chip" style="background:var(--primary-container)"></div><div class="swatch__name">--primary-container</div></div>
+      <div class="swatch"><div class="swatch__chip" style="background:var(--secondary)"></div><div class="swatch__name">--secondary</div></div>
+      <div class="swatch"><div class="swatch__chip" style="background:var(--secondary-container)"></div><div class="swatch__name">--secondary-container</div></div>
+      <div class="swatch"><div class="swatch__chip" style="background:var(--tertiary)"></div><div class="swatch__name">--tertiary</div></div>
+      <div class="swatch"><div class="swatch__chip" style="background:var(--tertiary-container)"></div><div class="swatch__name">--tertiary-container</div></div>
       <div class="swatch"><div class="swatch__chip" style="background:var(--surface)"></div><div class="swatch__name">--surface</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--surface-2)"></div><div class="swatch__name">--surface-2</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--bg)"></div><div class="swatch__name">--bg</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--danger)"></div><div class="swatch__name">--danger</div></div>
+      <div class="swatch"><div class="swatch__chip" style="background:var(--surface-container)"></div><div class="swatch__name">--surface-container</div></div>
+      <div class="swatch"><div class="swatch__chip" style="background:var(--surface-container-high)"></div><div class="swatch__name">--surface-container-high</div></div>
+      <div class="swatch"><div class="swatch__chip" style="background:var(--surface-dim)"></div><div class="swatch__name">--surface-dim</div></div>
+      <div class="swatch"><div class="swatch__chip" style="background:var(--outline-variant)"></div><div class="swatch__name">--outline-variant</div></div>
+      <div class="swatch"><div class="swatch__chip" style="background:var(--error)"></div><div class="swatch__name">--error</div></div>
       <div class="swatch"><div class="swatch__chip" style="background:var(--success-container)"></div><div class="swatch__name">--success-container</div></div>
       <div class="swatch"><div class="swatch__chip" style="background:var(--warning-container)"></div><div class="swatch__name">--warning-container</div></div>
     </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="block">
+    <h2>Typography</h2>
+    <p class="desc">Five type roles for free-standing text — components carry their own type. Apply the class to any element (<code>h2 class="text-title"</code>, <code>span</code>, …).</p>
+    <div class="card"><div class="card__body" style="display:flex;flex-direction:column;gap:18px">
+      <div style="display:grid;grid-template-columns:130px 1fr auto;gap:16px;align-items:baseline">
+        <code style="font-size:12px;color:var(--on-surface-variant)">.text-value</code>
+        <span class="text-value">1,284</span>
+        <span style="font-size:12px;color:var(--on-surface-faint)">28 / 700 — indicators, KPIs</span>
+      </div>
+      <div style="display:grid;grid-template-columns:130px 1fr auto;gap:16px;align-items:baseline">
+        <code style="font-size:12px;color:var(--on-surface-variant)">.text-title</code>
+        <span class="text-title">Maintenance queue</span>
+        <span style="font-size:12px;color:var(--on-surface-faint)">16 / 650 — section headers</span>
+      </div>
+      <div style="display:grid;grid-template-columns:130px 1fr auto;gap:16px;align-items:baseline">
+        <code style="font-size:12px;color:var(--on-surface-variant)">.text-body</code>
+        <span class="text-body">All systems reported nominal during the last inspection window.</span>
+        <span style="font-size:12px;color:var(--on-surface-faint)">14 / 400 — default copy</span>
+      </div>
+      <div style="display:grid;grid-template-columns:130px 1fr auto;gap:16px;align-items:baseline">
+        <code style="font-size:12px;color:var(--on-surface-variant)">.text-label</code>
+        <span class="text-label">Open work orders</span>
+        <span style="font-size:12px;color:var(--on-surface-faint)">13 / 500 muted — card labels</span>
+      </div>
+      <div style="display:grid;grid-template-columns:130px 1fr auto;gap:16px;align-items:baseline">
+        <code style="font-size:12px;color:var(--on-surface-variant)">.text-overline</code>
+        <span class="text-overline">Facilities — Zone 4</span>
+        <span style="font-size:12px;color:var(--on-surface-faint)">11 / 700 caps — group headers</span>
+      </div>
+    </div></div>
   </section>
 
   <!-- BUTTONS -->
@@ -199,7 +244,7 @@
         </div>
       </div>
     </div></div>
-    <p class="caption" style="margin-top:14px">The label’s background = the surface behind the field (<code>var(--surface)</code> inside a card). Put a field directly on the page and set <code>.field__label { background: var(--bg); }</code> so the border still “breaks” cleanly around the text.</p>
+    <p class="caption" style="margin-top:14px">The label’s background = the surface behind the field (<code>var(--surface)</code> inside a card). Put a field directly on the page and set <code>.field__label { background: var(--surface-dim); }</code> so the border still “breaks” cleanly around the text.</p>
   </section>
 
   <!-- SLIDER -->
@@ -207,7 +252,7 @@
     <h2>Slider</h2>
     <p class="desc"><code>data-slider</code> with min/max/value. JS handles drag + keyboard, writes to <code>data-output</code>.</p>
     <div style="max-width:360px">
-      <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px">Estimated duration — <span id="dur">3 hours</span></div>
+      <div style="font-size:13px;font-weight:600;color:var(--on-surface);margin-bottom:2px">Estimated duration — <span id="dur">3 hours</span></div>
       <div class="slider" data-slider data-min="1" data-max="8" data-step="1" data-value="3" data-output="#dur" data-suffix=" hours" aria-label="Duration">
         <div class="slider__track"></div>
         <div class="slider__fill"></div>
@@ -226,6 +271,18 @@
       <label class="switch"><input type="checkbox"><span class="switch__track"><span class="switch__thumb"></span></span></label>
       <input class="checkbox" type="checkbox" checked>
       <input class="checkbox" type="checkbox">
+    </div>
+  </section>
+
+  <!-- RADIO -->
+  <section class="block">
+    <h2>Radio buttons</h2>
+    <p class="desc">Native inputs, pure CSS. Group with <code>.radio-group</code>; wrap each in a <code>.radio-group__option</code> label.</p>
+    <div class="radio-group">
+      <label class="radio-group__option"><input class="radio" type="radio" name="poll" checked> Every hour</label>
+      <label class="radio-group__option"><input class="radio" type="radio" name="poll"> Every 4 hours</label>
+      <label class="radio-group__option"><input class="radio" type="radio" name="poll"> Daily</label>
+      <label class="radio-group__option" style="color:var(--disabled-text);cursor:not-allowed"><input class="radio" type="radio" name="poll" disabled> Manual only</label>
     </div>
   </section>
 
@@ -265,9 +322,9 @@
       <button class="tab" data-tab="queued">Queued <span class="tab__count">4</span></button>
       <button class="tab" data-tab="done">Done <span class="tab__count">2</span></button>
     </div>
-    <div class="tab-panel" data-tab-panel="all"    style="padding:18px 2px;color:var(--text-muted)">Showing all 9 tasks.</div>
-    <div class="tab-panel" data-tab-panel="queued" style="padding:18px 2px;color:var(--text-muted)" hidden>Showing 4 queued tasks.</div>
-    <div class="tab-panel" data-tab-panel="done"   style="padding:18px 2px;color:var(--text-muted)" hidden>Showing 2 completed tasks.</div>
+    <div class="tab-panel" data-tab-panel="all"    style="padding:18px 2px;color:var(--on-surface-variant)">Showing all 9 tasks.</div>
+    <div class="tab-panel" data-tab-panel="queued" style="padding:18px 2px;color:var(--on-surface-variant)" hidden>Showing 4 queued tasks.</div>
+    <div class="tab-panel" data-tab-panel="done"   style="padding:18px 2px;color:var(--on-surface-variant)" hidden>Showing 2 completed tasks.</div>
   </section>
 
   <!-- CARD HEADERS -->
@@ -280,7 +337,7 @@
         <span class="cardcase__tag">1a · inside · divider</span>
         <div class="card">
           <div class="card__header card__header--divider"><span class="card__title"><span class="icon">ecg_heart</span>Asset health</span></div>
-          <div class="card__body"><div class="demo-body"><div class="demo-body__row"><span style="font-size:13px;color:var(--text-muted)">Uptime</span><span style="font-size:22px;font-weight:700">98.2%</span></div><div class="progress"><div class="progress__bar" style="width:82%"></div></div></div></div>
+          <div class="card__body"><div class="demo-body"><div class="demo-body__row"><span style="font-size:13px;color:var(--on-surface-variant)">Uptime</span><span style="font-size:22px;font-weight:700">98.2%</span></div><div class="progress"><div class="progress__bar" style="width:82%"></div></div></div></div>
         </div>
       </div>
 
@@ -288,7 +345,7 @@
         <span class="cardcase__tag">1b · inside · filled bar</span>
         <div class="card card--clip">
           <div class="card__header card__header--filled"><span class="card__title" style="color:inherit"><span class="icon">ecg_heart</span>Asset health</span></div>
-          <div class="card__body"><div class="demo-body"><div class="demo-body__row"><span style="font-size:13px;color:var(--text-muted)">Uptime</span><span style="font-size:22px;font-weight:700">98.2%</span></div><div class="progress"><div class="progress__bar" style="width:82%"></div></div></div></div>
+          <div class="card__body"><div class="demo-body"><div class="demo-body__row"><span style="font-size:13px;color:var(--on-surface-variant)">Uptime</span><span style="font-size:22px;font-weight:700">98.2%</span></div><div class="progress"><div class="progress__bar" style="width:82%"></div></div></div></div>
         </div>
       </div>
 
@@ -304,7 +361,7 @@
     <!-- static preview (renders the modal inline, no trigger needed) -->
     <div style="margin-top:20px; background:var(--scrim); border-radius:16px; padding:44px; display:flex; justify-content:center;">
       <div class="dialog" style="animation:none">
-        <div class="dialog__icon dialog__icon--danger"><span class="icon">delete_forever</span></div>
+        <div class="dialog__icon dialog__icon--error"><span class="icon">delete_forever</span></div>
         <div class="dialog__title">Delete 3 tasks?</div>
         <div class="dialog__text">This will permanently remove the selected tasks from the maintenance queue. This action can't be undone.</div>
         <div class="dialog__actions">
@@ -316,7 +373,7 @@
 
     <div class="dialog-scrim" id="demo-dialog" hidden>
       <div class="dialog">
-        <div class="dialog__icon dialog__icon--danger"><span class="icon">delete_forever</span></div>
+        <div class="dialog__icon dialog__icon--error"><span class="icon">delete_forever</span></div>
         <div class="dialog__title">Delete 3 tasks?</div>
         <div class="dialog__text">This will permanently remove the selected tasks from the maintenance queue. This action can't be undone.</div>
         <div class="dialog__actions">
@@ -337,10 +394,22 @@
     </div>
   </section>
 
+  <!-- ALERTS -->
+  <section class="block">
+    <h2>Alerts / banners</h2>
+    <p class="desc">Persistent inline messaging — for transient feedback use the toast. Optional <code>.alert__title</code> and dismiss button.</p>
+    <div style="display:flex;flex-direction:column;gap:12px;max-width:640px">
+      <div class="alert alert--info"><span class="icon">info</span><div class="alert__content"><span>Scheduled maintenance window starts Friday at 22:00.</span></div></div>
+      <div class="alert alert--success"><span class="icon">check_circle</span><div class="alert__content"><span class="alert__title">Sync complete</span><span>All 42 sensors reported within the last 5 minutes.</span></div></div>
+      <div class="alert alert--warning"><span class="icon">warning</span><div class="alert__content"><span>3 sensors have not reported in over an hour.</span></div><button class="icon-btn icon-btn--sm" title="Dismiss"><span class="icon">close</span></button></div>
+      <div class="alert alert--error"><span class="icon">error</span><div class="alert__content"><span class="alert__title">Connection lost</span><span>Live data paused — reconnecting…</span></div></div>
+    </div>
+  </section>
+
   <!-- TABLE -->
   <section class="block">
     <h2>Data table</h2>
-    <p class="desc">Grid-driven. Columns set via <code>--cols</code>. Toggle density, select rows, sort. See README for the full recipe.</p>
+    <p class="desc">Native <code>&lt;table&gt;</code> — fills its container, columns size to content (or pin widths via <code>&lt;colgroup&gt;</code>). Toggle density, column visibility, select rows, sort. See README for the full recipe.</p>
     <div class="toolbar" style="margin-bottom:12px">
       <span style="font-size:16px;font-weight:650">Maintenance queue</span>
       <span class="toolbar__spacer"></span>
@@ -349,43 +418,60 @@
         <button title="Compact"><span class="icon">density_small</span></button>
       </div>
       <span class="toolbar__divider"></span>
+      <button class="icon-btn icon-btn--sm" title="Toggle Category column" onclick="document.querySelectorAll('#demo-table tr').forEach(function(r){r.cells[2].classList.toggle('is-hidden')})"><span class="icon">view_column</span></button>
       <button class="icon-btn icon-btn--sm" title="Refresh"><span class="icon">refresh</span></button>
       <button class="icon-btn icon-btn--sm" title="Export"><span class="icon">download</span></button>
     </div>
 
     <div class="card" style="overflow:hidden">
-      <div id="demo-table" class="table">
-        <div class="table__head" style="--cols: 44px 2.4fr 1fr 0.9fr 1.1fr">
-          <span><input class="checkbox" type="checkbox" onclick="var c=this.checked;document.querySelectorAll('#demo-table .table__row .checkbox').forEach(function(x){x.checked=c;x.closest('.table__row').classList.toggle('is-selected',c)})"></span>
-          <span class="table__sort is-active">Task <span class="icon">arrow_upward</span></span>
-          <span>Category</span>
-          <span class="table__sort">Priority <span class="icon">unfold_more</span></span>
-          <span class="table__sort">Status <span class="icon">unfold_more</span></span>
-        </div>
-        <div class="table__row" style="--cols: 44px 2.4fr 1fr 0.9fr 1.1fr">
-          <span><input class="checkbox" type="checkbox" onclick="this.closest('.table__row').classList.toggle('is-selected',this.checked)"></span>
-          <span style="font-weight:550">Compressor A-12 — quarterly service</span>
-          <span style="color:var(--text-muted)">HVAC</span>
-          <span class="priority priority--medium">Medium</span>
-          <span><span class="badge badge--primary">In progress</span></span>
-        </div>
-        <div class="table__row" style="--cols: 44px 2.4fr 1fr 0.9fr 1.1fr">
-          <span><input class="checkbox" type="checkbox" onclick="this.closest('.table__row').classList.toggle('is-selected',this.checked)"></span>
-          <span style="font-weight:550">Chiller B-03 — fault inspection</span>
-          <span style="color:var(--text-muted)">HVAC</span>
-          <span class="priority priority--high">High</span>
-          <span><span class="badge badge--warning">Queued</span></span>
-        </div>
-        <div class="table__row" style="--cols: 44px 2.4fr 1fr 0.9fr 1.1fr">
-          <span><input class="checkbox" type="checkbox" onclick="this.closest('.table__row').classList.toggle('is-selected',this.checked)"></span>
-          <span style="font-weight:550">Panel 7 — thermal scan</span>
-          <span style="color:var(--text-muted)">Electrical</span>
-          <span class="priority priority--low">Low</span>
-          <span><span class="badge badge--success">Done</span></span>
-        </div>
-      </div>
+      <table id="demo-table" class="table">
+        <colgroup><col style="width:44px"><col><col><col><col></colgroup>
+        <thead>
+          <tr>
+            <th><input class="checkbox" type="checkbox" onclick="var c=this.checked;document.querySelectorAll('#demo-table tbody .checkbox').forEach(function(x){x.checked=c;x.closest('tr').classList.toggle('is-selected',c)})"></th>
+            <th><span class="table__sort is-active">Task <span class="icon">arrow_upward</span></span></th>
+            <th>Category</th>
+            <th><span class="table__sort">Priority <span class="icon">unfold_more</span></span></th>
+            <th><span class="table__sort">Status <span class="icon">unfold_more</span></span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input class="checkbox" type="checkbox" onclick="this.closest('tr').classList.toggle('is-selected',this.checked)"></td>
+            <td style="font-weight:550">Compressor A-12 — quarterly service</td>
+            <td style="color:var(--on-surface-variant)">HVAC</td>
+            <td><span class="priority priority--medium">Medium</span></td>
+            <td><span class="badge badge--primary">In progress</span></td>
+          </tr>
+          <tr>
+            <td><input class="checkbox" type="checkbox" onclick="this.closest('tr').classList.toggle('is-selected',this.checked)"></td>
+            <td style="font-weight:550">Chiller B-03 — fault inspection</td>
+            <td style="color:var(--on-surface-variant)">HVAC</td>
+            <td><span class="priority priority--high">High</span></td>
+            <td><span class="badge badge--warning">Queued</span></td>
+          </tr>
+          <tr>
+            <td><input class="checkbox" type="checkbox" onclick="this.closest('tr').classList.toggle('is-selected',this.checked)"></td>
+            <td style="font-weight:550">Panel 7 — thermal scan</td>
+            <td style="color:var(--on-surface-variant)">Electrical</td>
+            <td><span class="priority priority--low">Low</span></td>
+            <td><span class="badge badge--success">Done</span></td>
+          </tr>
+        </tbody>
+      </table>
       <div class="pagination"><span style="margin-right:8px">1–3 of 9</span><button class="icon-btn icon-btn--sm"><span class="icon">chevron_left</span></button><button class="icon-btn icon-btn--sm"><span class="icon">chevron_right</span></button></div>
     </div>
+
+    <p class="desc" style="margin-top:20px">Standalone variant — <code>table--standalone</code>, no card wrapper needed.</p>
+    <table class="table table--standalone">
+      <thead>
+        <tr><th>Site</th><th>Uptime</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:550">Plant North</td><td style="color:var(--on-surface-variant)">99.2%</td><td><span class="badge badge--success">Online</span></td></tr>
+        <tr><td style="font-weight:550">Plant South</td><td style="color:var(--on-surface-variant)">97.8%</td><td><span class="badge badge--warning">Degraded</span></td></tr>
+      </tbody>
+    </table>
   </section>
 
   <!-- BAR CHART -->
@@ -406,15 +492,43 @@
     </div>
   </section>
 
+  <!-- BREADCRUMBS -->
+  <section class="block">
+    <h2>Breadcrumbs</h2>
+    <p class="desc">Links + <code>chevron_right</code> separators; the current page is a plain <code>.breadcrumbs__current</code>.</p>
+    <nav class="breadcrumbs">
+      <a href="#">Dashboard</a>
+      <span class="icon">chevron_right</span>
+      <a href="#">Facilities</a>
+      <span class="icon">chevron_right</span>
+      <span class="breadcrumbs__current">Zone 4</span>
+    </nav>
+  </section>
+
+  <!-- LIST -->
+  <section class="block">
+    <h2>List</h2>
+    <p class="desc">Icon + content + trailing rows. Add <code>.list--interactive</code> for hover states.</p>
+    <div class="card" style="max-width:480px">
+      <div class="list list--interactive">
+        <div class="list__item"><span class="icon">build</span><div class="list__content"><span class="list__title">Work order #4211 closed</span><span class="list__meta">Compressor A-12 · J. Moreno</span></div><span class="list__trailing">12m ago</span></div>
+        <div class="list__item"><span class="icon">sensors</span><div class="list__content"><span class="list__title">Sensor threshold updated</span><span class="list__meta">Zone 4 · humidity max → 65%</span></div><span class="list__trailing">1h ago</span></div>
+        <div class="list__item"><span class="icon">person_add</span><div class="list__content"><span class="list__title">Technician assigned</span><span class="list__meta">Chiller B-03 · fault inspection</span></div><span class="list__trailing">3h ago</span></div>
+      </div>
+    </div>
+  </section>
+
   <!-- SIDEBAR + STAT CARDS -->
   <section class="block">
     <h2>Sidebar nav &amp; stat cards</h2>
     <div class="row row--top" style="gap:24px">
-      <div class="sidebar" style="border-radius:16px;border:1px solid var(--border)">
+      <div class="sidebar" style="border-radius:16px;border:1px solid var(--outline-variant)">
+        <div class="nav-section">Overview</div>
         <a class="nav-item is-active"><span class="icon">dashboard</span>Dashboard</a>
+        <a class="nav-item"><span class="icon">monitoring</span>Reports</a>
+        <div class="nav-section">Operations</div>
         <a class="nav-item"><span class="icon">inventory_2</span>Assets</a>
         <a class="nav-item"><span class="icon">task_alt</span>Tasks</a>
-        <a class="nav-item"><span class="icon">monitoring</span>Reports</a>
       </div>
       <div style="flex:1;min-width:280px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <div class="stat-card"><div class="stat-card__label"><span class="icon">bolt</span>Active jobs</div><div class="stat-card__value">128</div><div class="stat-card__delta stat-card__delta--up">▲ 12% this week</div></div>
