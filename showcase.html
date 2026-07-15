@@ -409,7 +409,7 @@
   <!-- TABLE -->
   <section class="block">
     <h2>Data table</h2>
-    <p class="desc">Native <code>&lt;table&gt;</code> — fills its container, columns size to content (or pin widths via <code>&lt;colgroup&gt;</code>). Toggle density, column visibility, select rows, sort. See README for the full recipe.</p>
+    <p class="desc">Native <code>&lt;table&gt;</code> — fills its container, columns size to content (or pin widths via <code>&lt;colgroup&gt;</code>). Toggle density, column visibility, select rows, sort. Column filters (see <a href="table-filters-mockup.html">filter mockup</a> for the live demo + wiring) and group rows are optional add-ons. See README for the full recipe.</p>
     <div class="toolbar" style="margin-bottom:12px">
       <span style="font-size:16px;font-weight:650">Maintenance queue</span>
       <span class="toolbar__spacer"></span>
@@ -461,6 +461,23 @@
       </table>
       <div class="pagination"><span style="margin-right:8px">1–3 of 9</span><button class="icon-btn icon-btn--sm"><span class="icon">chevron_left</span></button><button class="icon-btn icon-btn--sm"><span class="icon">chevron_right</span></button></div>
     </div>
+
+      <p class="desc" style="margin-top:20px">Group rows — <code>table__group</code>, optionally <code>--collapsible</code> (click a group header).</p>
+      <div class="card" style="overflow:hidden">
+      <table class="table">
+        <colgroup><col><col style="width:130px"><col style="width:130px"></colgroup>
+        <thead>
+          <tr><th>Task</th><th>Priority</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr class="table__group table__group--collapsible"><th colspan="3"><button class="table__group-toggle"><span class="icon">expand_more</span>HVAC</button></th></tr>
+          <tr><td style="font-weight:550">Compressor A-12 — quarterly service</td><td><span class="priority priority--medium">Medium</span></td><td><span class="badge badge--primary">In progress</span></td></tr>
+          <tr><td style="font-weight:550">Chiller B-03 — fault inspection</td><td><span class="priority priority--high">High</span></td><td><span class="badge badge--warning">Queued</span></td></tr>
+          <tr class="table__group table__group--collapsible"><th colspan="3"><button class="table__group-toggle"><span class="icon">expand_more</span>Electrical</button></th></tr>
+          <tr><td style="font-weight:550">Panel 7 — thermal scan</td><td><span class="priority priority--low">Low</span></td><td><span class="badge badge--success">Done</span></td></tr>
+        </tbody>
+      </table>
+      </div>
 
     <p class="desc" style="margin-top:20px">Standalone variant — <code>table--standalone</code>, no card wrapper needed.</p>
     <table class="table table--standalone">

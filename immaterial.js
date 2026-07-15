@@ -200,6 +200,26 @@
   }
 
   /* ========================================================
+     TABLE GROUPS  —  collapsible group rows (delegated, no init)
+     <tr class="table__group table__group--collapsible">
+       <th colspan="N"><button class="table__group-toggle">
+         <span class="icon">expand_more</span>Label</button></th></tr>
+     Toggling hides following rows until the next .table__group.
+     ======================================================== */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.table__group-toggle');
+    if (!btn) return;
+    var groupRow = btn.closest('tr');
+    if (!groupRow) return;
+    var collapsed = groupRow.classList.toggle('is-collapsed');
+    var r = groupRow.nextElementSibling;
+    while (r && !r.classList.contains('table__group')) {
+      r.classList.toggle('is-hidden-by-group', collapsed);
+      r = r.nextElementSibling;
+    }
+  });
+
+  /* ========================================================
      THEME  —  Immaterial.setTheme('light' | 'dark' | 'auto')
      ======================================================== */
   function setTheme(mode) {
