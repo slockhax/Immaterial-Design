@@ -435,6 +435,37 @@ The table is a native `<table>` with the `table` class. It fills its container (
   // hide/show column index i
   table.querySelectorAll('tr').forEach(r => r.cells[i].classList.toggle('is-hidden'));
   ```
+- **Group rows:** insert a full-width header row between groups — columns stay aligned across groups:
+  ```html
+  <tr class="table__group"><th colspan="3">HVAC</th></tr>
+  ```
+  Make a group collapsible by adding `table__group--collapsible` and wrapping the label in a toggle button (behaviour is in `immaterial.js`, event-delegated — no init call):
+  ```html
+  <tr class="table__group table__group--collapsible">
+    <th colspan="3"><button class="table__group-toggle"><span class="icon">expand_more</span>HVAC</button></th>
+  </tr>
+  ```
+  Note: `.table__group` rows are skipped by the column-visibility snippet above only if you account for the `colspan` — hide data-row cells, not group rows. When groups exist, sort within groups (or disable sorting) so a sort doesn't scatter group members.
+- **Column filters:** an optional `table__filters` row in `<thead>` under the column labels, one filter per column. Text columns use `.table__filter-input`; enum columns use `.table__filter-select` with the existing `.menu` (the `data-menu-toggle` behaviour in `immaterial.js` handles open/close). Placeholder text on inputs is optional — the search icon carries the meaning; add a short one only where the column is wide:
+  ```html
+  <tr class="table__filters">
+    <th>
+      <div class="table__filter-input">
+        <span class="icon">search</span><input type="text" data-filter-col="0">
+      </div>
+    </th>
+    <th>
+      <div data-menu-wrap style="position:relative">
+        <button class="table__filter-select" data-menu-toggle><span data-value-label>All</span><span class="icon">arrow_drop_down</span></button>
+        <div class="menu" hidden style="left:0;right:0">
+          <button class="menu__item menu__item--selected" data-filter-value="">All</button>
+          <button class="menu__item" data-filter-value="High">High</button>
+        </div>
+      </div>
+    </th>
+  </tr>
+  ```
+  The *filtering logic itself is app-side* (match rows, set `row.style.display`) since matching rules are data-specific — `table-filters-mockup.html` in this folder has a complete working reference (~40 lines), including the `has-value` selected state and an optional `.table__filter-clear` button.
 - **Standalone (no card):** add `table--standalone` to the `<table>` — it gets its own border, rounded corners, and surface background. Note: no footer slot; put `.pagination` outside it if needed.
 - **Density:** add `table--dense` to the `<table>` to tighten row padding (wire it to a `.button-group--icons` toggle).
 - **Selected row:** add `is-selected` to a `<tr>`.
@@ -524,7 +555,7 @@ Uses modern CSS: custom properties, `:has()`, `color-mix()`, relative colour syn
 | Dialog | `.dialog-scrim` `.dialog` `.dialog__icon` `--error` `__title` `__text` `__actions` |
 | Snackbar | `.snackbar-host` `.snackbar` `.snackbar__action` |
 | Progress | `.progress` `--tall` `.progress__bar` · `.spinner` `--sm` `--lg` |
-| Table | `.table` (on `<table>`) `--dense` `--standalone` · `tr.is-selected` · `th/td.is-hidden` · `.table__sort` `.is-active` · `.pagination` |
+| Table | `.table` (on `<table>`) `--dense` `--standalone` · `tr.is-selected` · `th/td.is-hidden` · `.table__sort` `.is-active` · `.table__group` `--collapsible` `.table__group-toggle` · `.table__filters` `.table__filter-input` `__filter-select` `.has-value` `__filter-clear` · `.pagination` |
 | Radio | `.radio` · `.radio-group` `.radio-group__option` |
 | Alert | `.alert` `--info` `--success` `--warning` `--error` · `.alert__content` `__title` |
 | Breadcrumbs | `.breadcrumbs` `.breadcrumbs__current` |
