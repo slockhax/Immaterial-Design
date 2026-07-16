@@ -13,7 +13,7 @@ showcase.html    — live reference of every component
 
 ## 1. Setup
 
-The system uses two typefaces, which it assumes are **already installed / self-hosted** in your app: **Roboto Flex** (UI text) and **Material Symbols Rounded** (icons). Make them available under those exact `font-family` names — e.g. via your own `@font-face` rules pointing at local files:
+The system uses two typefaces, which it assumes are **already installed / self-hosted** in your app: **Roboto Flex** (UI text) and **Material Symbols Rounded** (icons) — plus optional **Roboto Mono** for the `.text-mono` role. Table cells also use `font-variant-numeric: tabular-nums`, so numeric columns align without needing mono. Make them available under those exact `font-family` names — e.g. via your own `@font-face` rules pointing at local files:
 
 ```css
 /* your app's font setup — serve the files from your own assets */
@@ -85,7 +85,7 @@ Token roles (see `theme.css` for the formulas):
 - Brand — `--primary` `--primary-hover` `--primary-strong` `--on-primary` `--primary-container` `--on-primary-container` (same set for `secondary` and `tertiary`)
 - Surfaces — `--surface`, `--surface-dim` (page bg), `--surface-container`, `--surface-container-high`, `--outline`, `--outline-variant` (borders), `--divider`
 - Text — `--on-surface`, `--on-surface-variant`, `--on-surface-faint`
-- Semantic — `--error` `--error-hover` `--on-error` `--error-text` `--error-container` `--on-error-container` · `--success(-container)` · `--warning-container`
+- Semantic — `--error` `--error-hover` `--on-error` `--error-text` `--error-container` `--on-error-container` · `--success(-container)` · `--warning(-container)`
 - Component — `--track`, `--row-hover`, `--row-selected`, `--chart-bar`, `--ring`, `--scrim`, `--snackbar-*`, `--disabled-*`
 
 Non-colour values (radii, spacing, shadows) are intentionally baked into the component rules to keep the token surface small. Radii in use: **16px** cards, **10px** controls, **999px** pills.
@@ -99,10 +99,12 @@ The system is dashboard-scaled — components carry their own type, so these fiv
 | Role | Class | Spec | Use for |
 | --- | --- | --- | --- |
 | Value | `.text-value` | 28px / 700 | KPIs, indicators |
+| Mono | `.text-mono` | 13px / Roboto Mono | IDs, code literals, logs |
 | Title | `.text-title` | 16px / 650 | section & card headers |
 | Body | `.text-body` | 14px / 400 | default copy |
 | Label | `.text-label` | 13px / 500, muted | card labels, form context |
 | Overline | `.text-overline` | 11px / 700, caps, letterspaced | group headers |
+| Overline + rule | `.text-overline--rule` | adds a hairline to the container edge | uncarded section headers |
 
 ```html
 <span class="text-overline">Facilities — Zone 4</span>
@@ -412,8 +414,8 @@ The table is a native `<table>` with the `table` class. It fills its container (
     <tbody>
       <tr>
         <td><input class="checkbox" type="checkbox"></td>
-        <td style="font-weight:550">Compressor A-12 — quarterly service</td>
-        <td style="color:var(--on-surface-variant)">HVAC</td>
+        <td class="is-primary">Compressor A-12 — quarterly service</td>
+        <td class="is-muted">HVAC</td>
         <td><span class="priority priority--medium">Medium</span></td>
         <td><span class="badge badge--primary">In progress</span></td>
       </tr>
@@ -465,7 +467,7 @@ The table is a native `<table>` with the `table` class. It fills its container (
     </th>
   </tr>
   ```
-  The *filtering logic itself is app-side* (match rows, set `row.style.display`) since matching rules are data-specific — `table-filters-mockup.html` in this folder has a complete working reference (~40 lines), including the `has-value` selected state and an optional `.table__filter-clear` button.
+  The *filtering logic itself is app-side* (match rows, set `row.style.display`) since matching rules are data-specific — the `table-filters-mockup.html` file alongside this package has a complete working reference (~40 lines), including the `has-value` selected state and an optional `.table__filter-clear` button.
 - **Standalone (no card):** add `table--standalone` to the `<table>` — it gets its own border, rounded corners, and surface background. Note: no footer slot; put `.pagination` outside it if needed.
 - **Density:** add `table--dense` to the `<table>` to tighten row padding (wire it to a `.button-group--icons` toggle).
 - **Selected row:** add `is-selected` to a `<tr>`.
@@ -537,7 +539,7 @@ Uses modern CSS: custom properties, `:has()`, `color-mix()`, relative colour syn
 
 | Area | Classes |
 | --- | --- |
-| Typography | `.text-value` (28/700) `.text-title` (16/650) `.text-body` (14/400) `.text-label` (13/500 muted) `.text-overline` (11/700 caps) |
+| Typography | `.text-value` (28/700) `.text-title` (16/650) `.text-body` (14/400) `.text-label` (13/500 muted) `.text-overline` (11/700 caps) `.text-mono` (13 mono) |
 | Buttons | `.btn` · `--filled` `--tonal` `--outlined` `--text` `--danger` · `--sm` `--lg` |
 | Icon buttons | `.icon-btn` · `--filled` `--selected` `--sm` |
 | Split button | `.split-button` `.split-button__main` `.split-button__arrow` |
@@ -545,17 +547,17 @@ Uses modern CSS: custom properties, `:has()`, `color-mix()`, relative colour syn
 | Segmented | `.segmented` `.segmented__option` `.segmented__check` |
 | Button group | `.button-group` `--icons` · `.is-active` |
 | Chips | `.chip` `--selected`/`.is-selected` `--assist` |
-| Fields | `.field` `--block` `--pill` `--error` `--select` `--area` · `.field__label` `__input` `__leading` `__trailing` `__caret` `__error` |
+| Fields | `.field` `--block` `--pill` `--sm` `--error` `--select` `--area` · `.field__label` `__input` `__leading` `__trailing` `__caret` `__error` |
 | Slider | `.slider` `.slider__track` `__fill` `__thumb` `__scale` |
 | Switch / checkbox | `.switch` `.switch__track` `__thumb` · `.checkbox` |
 | Cards | `.card` `--clip` · `.card__header` `--divider` `--filled` · `.card__body` `__title` |
-| Badges | `.badge` `--primary` `--success` `--warning` `--neutral` · `.priority` `--high` `--medium` `--low` |
-| Tabs | `.tabs` `.tab` `.is-active` `.tab__count` `.tab-panel` |
+| Badges | `.badge` `--primary` `--success` `--warning` `--neutral` · `--dot` (quiet weight) · `.priority` `--high` `--medium` `--low` |
+| Tabs | `.tabs` (`--pill`) `.tab` `.is-active` `.tab__count` `.tab-panel` |
 | Toolbar | `.toolbar` `.toolbar__spacer` `.toolbar__divider` |
 | Dialog | `.dialog-scrim` `.dialog` `.dialog__icon` `--error` `__title` `__text` `__actions` |
 | Snackbar | `.snackbar-host` `.snackbar` `.snackbar__action` |
 | Progress | `.progress` `--tall` `.progress__bar` · `.spinner` `--sm` `--lg` |
-| Table | `.table` (on `<table>`) `--dense` `--standalone` · `tr.is-selected` · `th/td.is-hidden` · `.table__sort` `.is-active` · `.table__group` `--collapsible` `.table__group-toggle` · `.table__filters` `.table__filter-input` `__filter-select` `.has-value` `__filter-clear` · `.pagination` |
+| Table | `.table` (on `<table>`) `--dense` `--standalone` · `tr.is-selected` · `th/td.is-hidden` · `td.is-primary` `td.is-muted` · `.table__sort` `.is-active` · `.table__group` `--collapsible` `.table__group-toggle` · `.table__filters` `.table__filter-input` `__filter-select` `.has-value` `__filter-clear` · `.pagination` |
 | Radio | `.radio` · `.radio-group` `.radio-group__option` |
 | Alert | `.alert` `--info` `--success` `--warning` `--error` · `.alert__content` `__title` |
 | Breadcrumbs | `.breadcrumbs` `.breadcrumbs__current` |

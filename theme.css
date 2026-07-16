@@ -97,6 +97,7 @@
   --success:              light-dark(var(--seed-success), oklch(from var(--seed-success) 0.80 calc(c * 0.8) h));
   --success-container:    light-dark(oklch(from var(--seed-success) 0.90 calc(c * 0.5) h), oklch(from var(--seed-success) 0.32 calc(c * 0.8) h));
   --on-success-container: light-dark(oklch(from var(--seed-success) 0.32 calc(c * 0.8) h), oklch(from var(--seed-success) 0.90 calc(c * 0.5) h));
+  --warning:              light-dark(var(--seed-warning), oklch(from var(--seed-warning) 0.80 calc(c * 0.8) h));
   --warning-container:    light-dark(oklch(from var(--seed-warning) 0.91 calc(c * 0.5) h), oklch(from var(--seed-warning) 0.35 calc(c * 0.8) h));
   --on-warning-container: light-dark(oklch(from var(--seed-warning) 0.35 c h), oklch(from var(--seed-warning) 0.91 calc(c * 0.5) h));
 

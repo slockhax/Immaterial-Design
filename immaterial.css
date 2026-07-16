@@ -34,6 +34,17 @@ a:hover { color: var(--primary-strong); text-decoration: underline; }
   vertical-align: middle;
 }
 
+/* ---------- 2b. TYPE ROLES ----------
+   Utilities for free-standing text; components carry their own type. */
+.text-title    { font-size: 16px; font-weight: 650; line-height: 1.3; color: var(--on-surface); }
+.text-label    { font-size: 13px; font-weight: 500; line-height: 1.4; color: var(--on-surface-variant); }
+.text-overline { font-size: 11px; font-weight: 700; line-height: 1.4; letter-spacing: .6px; text-transform: uppercase; color: var(--on-surface-variant); }
+.text-overline--rule { display: flex; align-items: center; gap: 12px; }
+.text-overline--rule::after { content: ''; flex: 1; height: 1px; background: var(--outline-variant); }
+.text-body     { font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--on-surface); }
+.text-value    { font-size: 28px; font-weight: 700; line-height: 1.15; color: var(--on-surface); }
+.text-mono     { font-family: 'Roboto Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: var(--on-surface); }
+
 /* ---------- 3. BUTTONS ---------- */
 .btn {
   font-family: inherit;
@@ -250,6 +261,11 @@ a:hover { color: var(--primary-strong); text-decoration: underline; }
 .field__leading  { margin-right: 10px; }
 .field__trailing { margin-left: 10px; }
 .field--pill { border-radius: 999px; }
+/* small (32px) — toolbars and dense contexts; use placeholder, not a notched label */
+.field--sm { padding: 6px 10px; border-radius: 8px; }
+.field--sm .field__input { font-size: 13px; }
+.field--sm .field__leading { margin-right: 8px; }
+.field--sm .field__leading.icon { font-size: 16px; }
 
 .field--error { border-color: var(--error); }
 .field--error .field__label { color: var(--error-text); }
@@ -368,6 +384,13 @@ a:hover { color: var(--primary-strong); text-decoration: underline; }
 .badge--success { background: var(--success-container); color: var(--on-success-container); border-color: color-mix(in oklab, var(--on-success-container) 30%, transparent); }
 .badge--warning { background: var(--warning-container); color: var(--on-warning-container); border-color: color-mix(in oklab, var(--on-warning-container) 30%, transparent); }
 .badge--neutral { background: var(--surface-container); color: var(--on-surface-variant); border-color: color-mix(in oklab, var(--on-surface-variant) 30%, transparent); }
+/* dot variant — quietest weight, for dense tables */
+.badge--dot { background: transparent; border: none; padding: 3px 0; font-weight: 550; color: var(--on-surface); display: inline-flex; align-items: center; gap: 7px; }
+.badge--dot::before { content: ''; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.badge--dot.badge--primary::before { background: var(--primary); }
+.badge--dot.badge--success::before { background: var(--success); }
+.badge--dot.badge--warning::before { background: var(--warning); }
+.badge--dot.badge--neutral::before { background: var(--outline); }
 
 .priority { font-weight: 600; }
 .priority--high   { color: var(--error-text); }
@@ -393,6 +416,11 @@ a:hover { color: var(--primary-strong); text-decoration: underline; }
   background: var(--surface-container); color: var(--on-surface-variant);
 }
 .tab.is-active .tab__count, .tab--active .tab__count { background: var(--primary-container); color: var(--on-primary-container); }
+/* pill variant — anchored; works on tonal surfaces and inside cards */
+.tabs--pill { gap: 6px; }
+.tabs--pill .tab { border-bottom: none; border-radius: 999px; padding: 8px 16px; }
+.tabs--pill .tab:hover { background: var(--surface-container); }
+.tabs--pill .tab.is-active, .tabs--pill .tab--active { background: var(--secondary-container); color: var(--on-secondary-container); }
 .tab-panel[hidden] { display: none; }
 
 /* ---------- 16. TOOLBAR ---------- */
@@ -471,6 +499,7 @@ a:hover { color: var(--primary-strong); text-decoration: underline; }
 .table td {
   padding: 12px 20px; vertical-align: middle;
   font-size: 14px; color: var(--on-surface);
+  font-variant-numeric: tabular-nums;
   border-bottom: 1px solid var(--divider);
 }
 .table tbody tr { transition: background .1s; }
@@ -479,6 +508,9 @@ a:hover { color: var(--primary-strong); text-decoration: underline; }
 .table--dense td { padding: 7px 20px; }
 /* column visibility: toggle .is-hidden on the column's th + td cells */
 .table th.is-hidden, .table td.is-hidden { display: none; }
+/* cell typography: primary (name) column / muted secondary columns */
+.table td.is-primary { font-weight: 550; }
+.table td.is-muted { color: var(--on-surface-variant); }
 
 /* standalone table (no card wrapper): own border + rounded corners */
 .table--standalone {
@@ -708,11 +740,3 @@ a:hover { color: var(--primary-strong); text-decoration: underline; }
 .table__filter-clear:hover { background: var(--surface-container-high); }
 .table__filter-clear[hidden] { display: none; }
 .table__filter-clear .icon { font-size: 15px; }
-
-/* ---------- 2b. TYPE ROLES ----------
-   Utilities for free-standing text; components carry their own type. */
-.text-title    { font-size: 16px; font-weight: 650; line-height: 1.3; color: var(--on-surface); }
-.text-label    { font-size: 13px; font-weight: 500; line-height: 1.4; color: var(--on-surface-variant); }
-.text-overline { font-size: 11px; font-weight: 700; line-height: 1.4; letter-spacing: .6px; text-transform: uppercase; color: var(--on-surface-variant); }
-.text-body     { font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--on-surface); }
-.text-value    { font-size: 28px; font-weight: 700; line-height: 1.15; color: var(--on-surface); }
