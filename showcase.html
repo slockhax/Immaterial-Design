@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="immaterial.css">
 <!-- CDN fallback so the demo renders fonts/icons when local files in fonts/ are absent.
      Remove once you self-host (README §1). The @font-face rules below take priority when present. -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
 <style>
   /* Self-hosted fonts (see README §1) — commented out while using the CDN
      fallback above, because a same-family @font-face with a missing local
@@ -22,6 +22,11 @@
   @font-face {
     font-family: 'Material Symbols Rounded';
     src: url('fonts/MaterialSymbolsRounded.woff2') format('woff2');
+    font-weight: 100 700; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Roboto Mono';
+    src: url('fonts/RobotoMono.woff2') format('woff2');
     font-weight: 100 700; font-display: swap;
   }
   */
@@ -80,30 +85,56 @@
     <p>Every element in the Immaterial system, rendered live from <code>immaterial.css</code> + <code>immaterial.js</code>. Toggle the theme above. See <strong>README.md</strong> for markup and construction notes.</p>
   </div>
 
-  <!-- COLOUR TOKENS -->
+    <!-- ===== CORE — BATTERIES INCLUDED ===== -->
+  <section class="block" style="margin-bottom:8px">
+    <h1 style="font-size:22px;font-weight:700;margin:0 0 6px">Core — batteries included</h1>
+    <p class="desc" style="max-width:72ch">Everything in this section works out of the box with classes alone (plus <code>immaterial.js</code> where noted) — no custom CSS expected.</p>
+    <div style="height:1px;background:var(--outline-variant)"></div>
+  </section>
+
+<!-- COLOUR TOKENS -->
   <section class="block">
     <h2>Colour tokens</h2>
     <p class="desc">Material-role tokens in <code>theme.css</code> — computed from a few <code>--seed-*</code> colours via <code>oklch(from …)</code> + <code>light-dark()</code>. Rebrand by changing the seeds.</p>
-    <div class="swatches">
-      <div class="swatch"><div class="swatch__chip" style="background:var(--seed-primary)"></div><div class="swatch__name">--seed-primary</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--primary)"></div><div class="swatch__name">--primary</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--primary-container)"></div><div class="swatch__name">--primary-container</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--secondary)"></div><div class="swatch__name">--secondary</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--secondary-container)"></div><div class="swatch__name">--secondary-container</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--tertiary)"></div><div class="swatch__name">--tertiary</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--tertiary-container)"></div><div class="swatch__name">--tertiary-container</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--surface)"></div><div class="swatch__name">--surface</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--surface-container)"></div><div class="swatch__name">--surface-container</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--surface-container-high)"></div><div class="swatch__name">--surface-container-high</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--surface-dim)"></div><div class="swatch__name">--surface-dim</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--outline-variant)"></div><div class="swatch__name">--outline-variant</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--error)"></div><div class="swatch__name">--error</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--success-container)"></div><div class="swatch__name">--success-container</div></div>
-      <div class="swatch"><div class="swatch__chip" style="background:var(--warning-container)"></div><div class="swatch__name">--warning-container</div></div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="swatches">
+        <div class="swatch"><div class="swatch__chip" style="background:var(--seed-primary)"></div><div class="swatch__name">--seed-primary</div></div>
+      </div>
+      <div class="swatches">
+        <div class="swatch"><div class="swatch__chip" style="background:var(--primary)"></div><div class="swatch__name">--primary</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--secondary)"></div><div class="swatch__name">--secondary</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--tertiary)"></div><div class="swatch__name">--tertiary</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--error)"></div><div class="swatch__name">--error</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--success)"></div><div class="swatch__name">--success</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--warning)"></div><div class="swatch__name">--warning</div></div>
+      </div>
+      <div class="swatches">
+        <div class="swatch"><div class="swatch__chip" style="background:var(--primary-container)"></div><div class="swatch__name">--primary-container</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--secondary-container)"></div><div class="swatch__name">--secondary-container</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--tertiary-container)"></div><div class="swatch__name">--tertiary-container</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--error-container)"></div><div class="swatch__name">--error-container</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--success-container)"></div><div class="swatch__name">--success-container</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--warning-container)"></div><div class="swatch__name">--warning-container</div></div>
+      </div>
+      <div class="swatches">
+        <div class="swatch"><div class="swatch__chip" style="background:var(--on-primary-container)"></div><div class="swatch__name">--on-primary-container</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--on-secondary-container)"></div><div class="swatch__name">--on-secondary-container</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--on-tertiary-container)"></div><div class="swatch__name">--on-tertiary-container</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--on-error-container)"></div><div class="swatch__name">--on-error-container</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--on-success-container)"></div><div class="swatch__name">--on-success-container</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--on-warning-container)"></div><div class="swatch__name">--on-warning-container</div></div>
+      </div>
+      <div class="swatches">
+        <div class="swatch"><div class="swatch__chip" style="background:var(--surface)"></div><div class="swatch__name">--surface</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--surface-container)"></div><div class="swatch__name">--surface-container</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--surface-container-high)"></div><div class="swatch__name">--surface-container-high</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--surface-dim)"></div><div class="swatch__name">--surface-dim</div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:var(--outline-variant)"></div><div class="swatch__name">--outline-variant</div></div>
+      </div>
     </div>
   </section>
 
-  <!-- TYPOGRAPHY -->
+<!-- TYPOGRAPHY -->
   <section class="block">
     <h2>Typography</h2>
     <p class="desc">Five type roles for free-standing text — components carry their own type. Apply the class to any element (<code>h2 class="text-title"</code>, <code>span</code>, …).</p>
@@ -133,10 +164,20 @@
         <span class="text-overline">Facilities — Zone 4</span>
         <span style="font-size:12px;color:var(--on-surface-faint)">11 / 700 caps — group headers</span>
       </div>
+      <div style="display:grid;grid-template-columns:130px 1fr auto;gap:16px;align-items:baseline">
+        <code style="font-size:12px;color:var(--on-surface-variant)">.text-overline--rule</code>
+        <span class="text-overline text-overline--rule">Facilities — Zone 4</span>
+        <span style="font-size:12px;color:var(--on-surface-faint)">rule extends to container edge</span>
+      </div>
+      <div style="display:grid;grid-template-columns:130px 1fr auto;gap:16px;align-items:baseline">
+        <code style="font-size:12px;color:var(--on-surface-variant)">.text-mono</code>
+        <span class="text-mono">WO-1041 · sensor_id: Z4-H2</span>
+        <span style="font-size:12px;color:var(--on-surface-faint)">13 / Roboto Mono — IDs, code, logs</span>
+      </div>
     </div></div>
   </section>
 
-  <!-- BUTTONS -->
+<!-- BUTTONS -->
   <section class="block">
     <h2>Buttons</h2>
     <p class="desc"><code>.btn</code> + a variant. Sizes <code>--sm</code>/<code>--lg</code>. Add <code>disabled</code> to disable.</p>
@@ -157,7 +198,7 @@
     </div>
   </section>
 
-  <!-- ICON BUTTONS -->
+<!-- ICON BUTTONS -->
   <section class="block">
     <h2>Icon buttons</h2>
     <p class="desc"><code>.icon-btn</code> — standard, <code>--filled</code>, <code>--selected</code>, <code>--sm</code>.</p>
@@ -169,7 +210,7 @@
     </div>
   </section>
 
-  <!-- SPLIT BUTTON -->
+<!-- SPLIT BUTTON -->
   <section class="block">
     <h2>Split button</h2>
     <p class="desc">Primary action + a menu of secondary actions. JS wires the menu via <code>data-menu-toggle</code>.</p>
@@ -183,7 +224,7 @@
     </div>
   </section>
 
-  <!-- SEGMENTED -->
+<!-- SEGMENTED -->
   <section class="block">
     <h2>Segmented buttons</h2>
     <p class="desc">Pure CSS — radio inputs. Selected option shows a check. No JS needed.</p>
@@ -194,7 +235,7 @@
     </div>
   </section>
 
-  <!-- BUTTON GROUP -->
+<!-- BUTTON GROUP -->
   <section class="block">
     <h2>Connected button group</h2>
     <p class="desc"><code>.button-group--icons</code> — toggle <code>.is-active</code> on the chosen segment.</p>
@@ -204,7 +245,7 @@
     </div>
   </section>
 
-  <!-- CHIPS -->
+<!-- CHIPS -->
   <section class="block">
     <h2>Chips</h2>
     <p class="desc">Filter chips toggle <code>.is-selected</code>; assist chips are static.</p>
@@ -216,7 +257,7 @@
     </div>
   </section>
 
-  <!-- FIELDS -->
+<!-- FIELDS -->
   <section class="block">
     <h2>Text fields</h2>
     <p class="desc">The notched label sits on the border; its background matches the surface <em>behind</em> the field. Because these fields sit inside a card (<code>--surface</code>), the label reads seamlessly — see the note below.</p>
@@ -242,12 +283,16 @@
           <span class="icon field__leading">search</span>
           <input class="field__input" placeholder="Search tasks…">
         </div>
+        <div class="field field--sm" style="width:180px">
+          <span class="icon field__leading">search</span>
+          <input class="field__input" placeholder="Small (32px)">
+        </div>
       </div>
     </div></div>
-    <p class="caption" style="margin-top:14px">The label’s background = the surface behind the field (<code>var(--surface)</code> inside a card). Put a field directly on the page and set <code>.field__label { background: var(--surface-dim); }</code> so the border still “breaks” cleanly around the text.</p>
+    <p class="caption" style="margin-top:14px">The label’s background = the surface behind the field (<code>var(--surface)</code> inside a card). Put a field directly on the page and set <code>.field__label { background: var(--surface-dim); }</code> so the border still “breaks” cleanly around the text. The small field (<code>field--sm</code>, 32px) is for toolbars and dense contexts — use a placeholder or adjacent label, not the notched label.</p>
   </section>
 
-  <!-- SLIDER -->
+<!-- SLIDER -->
   <section class="block">
     <h2>Slider</h2>
     <p class="desc"><code>data-slider</code> with min/max/value. JS handles drag + keyboard, writes to <code>data-output</code>.</p>
@@ -262,7 +307,7 @@
     </div>
   </section>
 
-  <!-- SWITCH + CHECKBOX -->
+<!-- SWITCH + CHECKBOX -->
   <section class="block">
     <h2>Switch &amp; checkbox</h2>
     <p class="desc">Native inputs, styled with pure CSS.</p>
@@ -274,7 +319,7 @@
     </div>
   </section>
 
-  <!-- RADIO -->
+<!-- RADIO -->
   <section class="block">
     <h2>Radio buttons</h2>
     <p class="desc">Native inputs, pure CSS. Group with <code>.radio-group</code>; wrap each in a <code>.radio-group__option</code> label.</p>
@@ -286,9 +331,10 @@
     </div>
   </section>
 
-  <!-- BADGES -->
+<!-- BADGES -->
   <section class="block">
     <h2>Status badges &amp; priority</h2>
+    <p class="desc">Filled (default) and <code>badge--dot</code> — the quiet weight for dense tables.</p>
     <div class="row">
       <span class="badge badge--primary">In progress</span>
       <span class="badge badge--warning">Queued</span>
@@ -298,9 +344,15 @@
       <span class="priority priority--medium">Medium</span>
       <span class="priority priority--low">Low</span>
     </div>
+    <div class="row" style="margin-top:12px">
+      <span class="badge badge--dot badge--primary">In progress</span>
+      <span class="badge badge--dot badge--warning">Queued</span>
+      <span class="badge badge--dot badge--success">Done</span>
+      <span class="badge badge--dot badge--neutral">Draft</span>
+    </div>
   </section>
 
-  <!-- PROGRESS -->
+<!-- PROGRESS -->
   <section class="block">
     <h2>Progress</h2>
     <p class="desc">Linear <code>.progress</code> (set the inner width) and the <code>.spinner</code>.</p>
@@ -313,7 +365,7 @@
     </div>
   </section>
 
-  <!-- TABS -->
+<!-- TABS -->
   <section class="block" data-tabs-scope>
     <h2>Tabs</h2>
     <p class="desc">JS switches panels. Counts use <code>.tab__count</code>.</p>
@@ -325,34 +377,16 @@
     <div class="tab-panel" data-tab-panel="all"    style="padding:18px 2px;color:var(--on-surface-variant)">Showing all 9 tasks.</div>
     <div class="tab-panel" data-tab-panel="queued" style="padding:18px 2px;color:var(--on-surface-variant)" hidden>Showing 4 queued tasks.</div>
     <div class="tab-panel" data-tab-panel="done"   style="padding:18px 2px;color:var(--on-surface-variant)" hidden>Showing 2 completed tasks.</div>
-  </section>
 
-  <!-- CARD HEADERS -->
-  <section class="block">
-    <h2>Card header treatments</h2>
-    <p class="desc">Two ways to anchor a title inside its card — a divider rule, or a filled tonal bar.</p>
-    <div class="cards-grid">
-
-      <div class="cardcase">
-        <span class="cardcase__tag">1a · inside · divider</span>
-        <div class="card">
-          <div class="card__header card__header--divider"><span class="card__title"><span class="icon">ecg_heart</span>Asset health</span></div>
-          <div class="card__body"><div class="demo-body"><div class="demo-body__row"><span style="font-size:13px;color:var(--on-surface-variant)">Uptime</span><span style="font-size:22px;font-weight:700">98.2%</span></div><div class="progress"><div class="progress__bar" style="width:82%"></div></div></div></div>
-        </div>
-      </div>
-
-      <div class="cardcase">
-        <span class="cardcase__tag">1b · inside · filled bar</span>
-        <div class="card card--clip">
-          <div class="card__header card__header--filled"><span class="card__title" style="color:inherit"><span class="icon">ecg_heart</span>Asset health</span></div>
-          <div class="card__body"><div class="demo-body"><div class="demo-body__row"><span style="font-size:13px;color:var(--on-surface-variant)">Uptime</span><span style="font-size:22px;font-weight:700">98.2%</span></div><div class="progress"><div class="progress__bar" style="width:82%"></div></div></div></div>
-        </div>
-      </div>
-
+    <p class="desc" style="margin-top:12px">Pill variant — <code>tabs--pill</code>; anchored, so it works on tonal surfaces and inside cards where the underline floats.</p>
+    <div class="tabs tabs--pill">
+      <button class="tab is-active">All <span class="tab__count">9</span></button>
+      <button class="tab">Queued <span class="tab__count">4</span></button>
+      <button class="tab">Done <span class="tab__count">2</span></button>
     </div>
   </section>
 
-  <!-- DIALOG -->
+<!-- DIALOG -->
   <section class="block">
     <h2>Dialog</h2>
     <p class="desc">Trigger with <code>data-dialog-open="ID"</code>. Closes on scrim click, close button, or Esc. A static preview is shown below the button.</p>
@@ -384,7 +418,7 @@
     </div>
   </section>
 
-  <!-- TOAST -->
+<!-- TOAST -->
   <section class="block">
     <h2>Toast / snackbar</h2>
     <p class="desc"><code>Immaterial.toast(message, { actionLabel, onAction, duration })</code>.</p>
@@ -394,7 +428,7 @@
     </div>
   </section>
 
-  <!-- ALERTS -->
+<!-- ALERTS -->
   <section class="block">
     <h2>Alerts / banners</h2>
     <p class="desc">Persistent inline messaging — for transient feedback use the toast. Optional <code>.alert__title</code> and dismiss button.</p>
@@ -406,10 +440,23 @@
     </div>
   </section>
 
-  <!-- TABLE -->
+<!-- BREADCRUMBS -->
+  <section class="block">
+    <h2>Breadcrumbs</h2>
+    <p class="desc">Links + <code>chevron_right</code> separators; the current page is a plain <code>.breadcrumbs__current</code>.</p>
+    <nav class="breadcrumbs">
+      <a href="#">Dashboard</a>
+      <span class="icon">chevron_right</span>
+      <a href="#">Facilities</a>
+      <span class="icon">chevron_right</span>
+      <span class="breadcrumbs__current">Zone 4</span>
+    </nav>
+  </section>
+
+<!-- TABLE -->
   <section class="block">
     <h2>Data table</h2>
-    <p class="desc">Native <code>&lt;table&gt;</code> — fills its container, columns size to content (or pin widths via <code>&lt;colgroup&gt;</code>). Toggle density, column visibility, select rows, sort. Column filters (see <a href="table-filters-mockup.html">filter mockup</a> for the live demo + wiring) and group rows are optional add-ons. See README for the full recipe.</p>
+    <p class="desc">Native <code>&lt;table&gt;</code> — fills its container, columns size to content (or pin widths via <code>&lt;colgroup&gt;</code>). Cells use <code>font-variant-numeric: tabular-nums</code>, so numeric columns align digit-for-digit. Toggle density, column visibility, select rows, sort. Column filters (see <a href="../table-filters-mockup.html">filter mockup</a> for the live demo + wiring) and group rows are optional add-ons. See README for the full recipe.</p>
     <div class="toolbar" style="margin-bottom:12px">
       <span style="font-size:16px;font-weight:650">Maintenance queue</span>
       <span class="toolbar__spacer"></span>
@@ -438,22 +485,22 @@
         <tbody>
           <tr>
             <td><input class="checkbox" type="checkbox" onclick="this.closest('tr').classList.toggle('is-selected',this.checked)"></td>
-            <td style="font-weight:550">Compressor A-12 — quarterly service</td>
-            <td style="color:var(--on-surface-variant)">HVAC</td>
+            <td class="is-primary">Compressor A-12 — quarterly service</td>
+            <td class="is-muted">HVAC</td>
             <td><span class="priority priority--medium">Medium</span></td>
             <td><span class="badge badge--primary">In progress</span></td>
           </tr>
           <tr>
             <td><input class="checkbox" type="checkbox" onclick="this.closest('tr').classList.toggle('is-selected',this.checked)"></td>
-            <td style="font-weight:550">Chiller B-03 — fault inspection</td>
-            <td style="color:var(--on-surface-variant)">HVAC</td>
+            <td class="is-primary">Chiller B-03 — fault inspection</td>
+            <td class="is-muted">HVAC</td>
             <td><span class="priority priority--high">High</span></td>
             <td><span class="badge badge--warning">Queued</span></td>
           </tr>
           <tr>
             <td><input class="checkbox" type="checkbox" onclick="this.closest('tr').classList.toggle('is-selected',this.checked)"></td>
-            <td style="font-weight:550">Panel 7 — thermal scan</td>
-            <td style="color:var(--on-surface-variant)">Electrical</td>
+            <td class="is-primary">Panel 7 — thermal scan</td>
+            <td class="is-muted">Electrical</td>
             <td><span class="priority priority--low">Low</span></td>
             <td><span class="badge badge--success">Done</span></td>
           </tr>
@@ -462,7 +509,23 @@
       <div class="pagination"><span style="margin-right:8px">1–3 of 9</span><button class="icon-btn icon-btn--sm"><span class="icon">chevron_left</span></button><button class="icon-btn icon-btn--sm"><span class="icon">chevron_right</span></button></div>
     </div>
 
-      <p class="desc" style="margin-top:20px">Group rows — <code>table__group</code>, optionally <code>--collapsible</code> (click a group header).</p>
+      <p class="desc" style="margin-top:20px">Numeric alignment — table cells set <code>font-variant-numeric: tabular-nums</code>, so digits share a fixed width and columns stay aligned. Compare the same values in default proportional figures vs a table:</p>
+    <div class="row row--top" style="gap:24px;align-items:stretch">
+      <div class="card" style="width:200px"><div class="card__body">
+        <div class="text-overline" style="margin-bottom:8px">Proportional</div>
+        <div style="font-size:14px;text-align:right;line-height:1.9">1,111,111<br>7,474,747<br>909,090<br>888</div>
+      </div></div>
+      <table class="table table--standalone" style="width:200px">
+        <tbody>
+          <tr><td class="is-muted">Q1</td><td style="text-align:right">1,111,111</td></tr>
+          <tr><td class="is-muted">Q2</td><td style="text-align:right">7,474,747</td></tr>
+          <tr><td class="is-muted">Q3</td><td style="text-align:right">909,090</td></tr>
+          <tr><td class="is-muted">Q4</td><td style="text-align:right">888</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="desc" style="margin-top:20px">Group rows — <code>table__group</code>, optionally <code>--collapsible</code> (click a group header).</p>
       <div class="card" style="overflow:hidden">
       <table class="table">
         <colgroup><col><col style="width:130px"><col style="width:130px"></colgroup>
@@ -471,10 +534,10 @@
         </thead>
         <tbody>
           <tr class="table__group table__group--collapsible"><th colspan="3"><button class="table__group-toggle"><span class="icon">expand_more</span>HVAC</button></th></tr>
-          <tr><td style="font-weight:550">Compressor A-12 — quarterly service</td><td><span class="priority priority--medium">Medium</span></td><td><span class="badge badge--primary">In progress</span></td></tr>
-          <tr><td style="font-weight:550">Chiller B-03 — fault inspection</td><td><span class="priority priority--high">High</span></td><td><span class="badge badge--warning">Queued</span></td></tr>
+          <tr><td class="is-primary">Compressor A-12 — quarterly service</td><td><span class="priority priority--medium">Medium</span></td><td><span class="badge badge--primary">In progress</span></td></tr>
+          <tr><td class="is-primary">Chiller B-03 — fault inspection</td><td><span class="priority priority--high">High</span></td><td><span class="badge badge--warning">Queued</span></td></tr>
           <tr class="table__group table__group--collapsible"><th colspan="3"><button class="table__group-toggle"><span class="icon">expand_more</span>Electrical</button></th></tr>
-          <tr><td style="font-weight:550">Panel 7 — thermal scan</td><td><span class="priority priority--low">Low</span></td><td><span class="badge badge--success">Done</span></td></tr>
+          <tr><td class="is-primary">Panel 7 — thermal scan</td><td><span class="priority priority--low">Low</span></td><td><span class="badge badge--success">Done</span></td></tr>
         </tbody>
       </table>
       </div>
@@ -485,13 +548,92 @@
         <tr><th>Site</th><th>Uptime</th><th>Status</th></tr>
       </thead>
       <tbody>
-        <tr><td style="font-weight:550">Plant North</td><td style="color:var(--on-surface-variant)">99.2%</td><td><span class="badge badge--success">Online</span></td></tr>
-        <tr><td style="font-weight:550">Plant South</td><td style="color:var(--on-surface-variant)">97.8%</td><td><span class="badge badge--warning">Degraded</span></td></tr>
+        <tr><td class="is-primary">Plant North</td><td class="is-muted">99.2%</td><td><span class="badge badge--success">Online</span></td></tr>
+        <tr><td class="is-primary">Plant South</td><td class="is-muted">97.8%</td><td><span class="badge badge--warning">Degraded</span></td></tr>
       </tbody>
     </table>
   </section>
 
-  <!-- BAR CHART -->
+  <!-- ===== COMPOSED PATTERNS — BUILT FROM THE CORE ===== -->
+  <section class="block" style="margin-bottom:8px">
+    <h1 style="font-size:22px;font-weight:700;margin:0 0 6px">Composed patterns — built from the core</h1>
+    <p class="desc" style="max-width:72ch">These are assembled from core pieces and conventions — they need per-use decisions (anatomy, widths, inline values) and are starting points, not drop-in components.</p>
+    <div style="height:1px;background:var(--outline-variant)"></div>
+  </section>
+
+<!-- CARD HEADERS -->
+  <section class="block">
+    <h2>Card header treatments</h2>
+    <p class="desc">Two ways to anchor a title inside its card — a divider rule, or a filled tonal bar — plus a divider header with trailing actions.</p>
+    <div class="cards-grid">
+
+      <div class="cardcase">
+        <span class="cardcase__tag">1a · inside · divider</span>
+        <div class="card">
+          <div class="card__header card__header--divider"><span class="card__title"><span class="icon">ecg_heart</span>Asset health</span></div>
+          <div class="card__body"><div class="demo-body"><div class="demo-body__row"><span style="font-size:13px;color:var(--on-surface-variant)">Uptime</span><span style="font-size:22px;font-weight:700">98.2%</span></div><div class="progress"><div class="progress__bar" style="width:82%"></div></div></div></div>
+        </div>
+      </div>
+
+      <div class="cardcase">
+        <span class="cardcase__tag">1b · inside · filled bar</span>
+        <div class="card card--clip">
+          <div class="card__header card__header--filled"><span class="card__title" style="color:inherit"><span class="icon">ecg_heart</span>Asset health</span></div>
+          <div class="card__body"><div class="demo-body"><div class="demo-body__row"><span style="font-size:13px;color:var(--on-surface-variant)">Uptime</span><span style="font-size:22px;font-weight:700">98.2%</span></div><div class="progress"><div class="progress__bar" style="width:82%"></div></div></div></div>
+        </div>
+      </div>
+
+      <div class="cardcase">
+        <span class="cardcase__tag">1c · divider · trailing actions</span>
+        <div class="card">
+          <div class="card__header card__header--divider" style="display:flex;align-items:center;gap:8px;padding-right:12px"><span class="card__title"><span class="icon">ecg_heart</span>Asset health</span><span style="flex:1"></span><button class="icon-btn icon-btn--sm" title="Filter"><span class="icon">filter_list</span></button><button class="icon-btn icon-btn--sm" title="More"><span class="icon">more_vert</span></button></div>
+          <div class="card__body"><div class="demo-body"><div class="demo-body__row"><span style="font-size:13px;color:var(--on-surface-variant)">Uptime</span><span style="font-size:22px;font-weight:700">98.2%</span></div><div class="progress"><div class="progress__bar" style="width:82%"></div></div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+<!-- LIST -->
+  <section class="block">
+    <h2>Lists</h2>
+    <p class="desc">Four constructions, by how much anatomy the content earns. A — full anatomy: icon + content + trailing rows; add <code>.list--interactive</code> for hover states.</p>
+    <div class="card" style="max-width:480px">
+      <div class="list list--interactive">
+        <div class="list__item"><span class="icon">build</span><div class="list__content"><span class="list__title">Work order #4211 closed</span><span class="list__meta">Compressor A-12 · J. Moreno</span></div><span class="list__trailing">12m ago</span></div>
+        <div class="list__item"><span class="icon">sensors</span><div class="list__content"><span class="list__title">Sensor threshold updated</span><span class="list__meta">Zone 4 · humidity max → 65%</span></div><span class="list__trailing">1h ago</span></div>
+        <div class="list__item"><span class="icon">person_add</span><div class="list__content"><span class="list__title">Technician assigned</span><span class="list__meta">Chiller B-03 · fault inspection</span></div><span class="list__trailing">3h ago</span></div>
+      </div>
+    </div>
+
+    <p class="desc" style="margin-top:20px">B — stripped: title + trailing only, for lighter content.</p>
+    <div class="card" style="max-width:480px">
+      <div class="list list--interactive">
+        <div class="list__item"><div class="list__content"><span class="list__title">Compressor A-12</span></div><span class="list__trailing"><span class="badge badge--primary">In progress</span></span></div>
+        <div class="list__item"><div class="list__content"><span class="list__title">Chiller B-03</span></div><span class="list__trailing"><span class="badge badge--warning">Queued</span></span></div>
+      </div>
+    </div>
+
+    <p class="desc" style="margin-top:20px">C — headerless table: use when values should align vertically across rows.</p>
+    <table class="table table--standalone" style="max-width:520px">
+      <colgroup><col><col style="width:135px"><col style="width:130px"></colgroup>
+      <tbody>
+        <tr><td class="is-primary">Compressor A-12</td><td class="is-muted">Plant North</td><td><span class="badge badge--primary">In progress</span></td></tr>
+        <tr><td class="is-primary">Chiller B-03</td><td class="is-muted">Plant North</td><td><span class="badge badge--warning">Queued</span></td></tr>
+      </tbody>
+    </table>
+
+    <p class="desc" style="margin-top:20px">D — tonal panel: filled, unraised — reads as secondary/chrome next to raised cards.</p>
+    <div style="background:var(--surface-container);border-radius:16px;padding:18px 20px;max-width:480px;box-sizing:border-box">
+      <div class="text-overline" style="margin-bottom:6px">Recent activity</div>
+      <div class="list">
+        <div class="list__item" style="padding:12px 0"><span class="icon">build</span><div class="list__content"><span class="list__title">WO #4211 closed</span><span class="list__meta">J. Moreno</span></div><span class="list__trailing">12m</span></div>
+        <div class="list__item" style="padding:12px 0;border-bottom:none"><span class="icon">sensors</span><div class="list__content"><span class="list__title">Threshold updated</span><span class="list__meta">Zone 4</span></div><span class="list__trailing">1h</span></div>
+      </div>
+    </div>
+  </section>
+
+<!-- BAR CHART -->
   <section class="block">
     <h2>Bar chart</h2>
     <p class="desc">Flex bars, height set inline as a percentage. See README.</p>
@@ -507,35 +649,29 @@
       </div>
       <div class="bar-chart__labels"><span class="bar-chart__label">Mon</span><span class="bar-chart__label">Tue</span><span class="bar-chart__label">Wed</span><span class="bar-chart__label">Thu</span><span class="bar-chart__label">Fri</span><span class="bar-chart__label">Sat</span><span class="bar-chart__label">Sun</span></div>
     </div>
-  </section>
 
-  <!-- BREADCRUMBS -->
-  <section class="block">
-    <h2>Breadcrumbs</h2>
-    <p class="desc">Links + <code>chevron_right</code> separators; the current page is a plain <code>.breadcrumbs__current</code>.</p>
-    <nav class="breadcrumbs">
-      <a href="#">Dashboard</a>
-      <span class="icon">chevron_right</span>
-      <a href="#">Facilities</a>
-      <span class="icon">chevron_right</span>
-      <span class="breadcrumbs__current">Zone 4</span>
-    </nav>
-  </section>
+    <p class="desc" style="margin-top:20px">Horizontal with values — built from <code>.progress</code> tracks; better for long category names or when exact values matter.</p>
+    <div class="card" style="max-width:420px"><div class="card__body" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:grid;grid-template-columns:80px 1fr 40px;gap:12px;align-items:center"><span class="text-label">HVAC</span><div class="progress"><div class="progress__bar" style="width:78%"></div></div><span style="font-size:13px;font-weight:650;text-align:right">23</span></div>
+      <div style="display:grid;grid-template-columns:80px 1fr 40px;gap:12px;align-items:center"><span class="text-label">Electrical</span><div class="progress"><div class="progress__bar" style="width:52%"></div></div><span style="font-size:13px;font-weight:650;text-align:right">15</span></div>
+      <div style="display:grid;grid-template-columns:80px 1fr 40px;gap:12px;align-items:center"><span class="text-label">Plumbing</span><div class="progress"><div class="progress__bar" style="width:31%"></div></div><span style="font-size:13px;font-weight:650;text-align:right">9</span></div>
+    </div></div>
 
-  <!-- LIST -->
-  <section class="block">
-    <h2>List</h2>
-    <p class="desc">Icon + content + trailing rows. Add <code>.list--interactive</code> for hover states.</p>
-    <div class="card" style="max-width:480px">
-      <div class="list list--interactive">
-        <div class="list__item"><span class="icon">build</span><div class="list__content"><span class="list__title">Work order #4211 closed</span><span class="list__meta">Compressor A-12 · J. Moreno</span></div><span class="list__trailing">12m ago</span></div>
-        <div class="list__item"><span class="icon">sensors</span><div class="list__content"><span class="list__title">Sensor threshold updated</span><span class="list__meta">Zone 4 · humidity max → 65%</span></div><span class="list__trailing">1h ago</span></div>
-        <div class="list__item"><span class="icon">person_add</span><div class="list__content"><span class="list__title">Technician assigned</span><span class="list__meta">Chiller B-03 · fault inspection</span></div><span class="list__trailing">3h ago</span></div>
+    <p class="desc" style="margin-top:20px">Uncarded with overline title — sits directly on the page surface.</p>
+    <div style="max-width:420px">
+      <div class="text-overline" style="margin-bottom:10px">Orders by month</div>
+      <div class="bar-chart" style="height:120px">
+        <div class="bar-chart__bar" style="height:62%"></div>
+        <div class="bar-chart__bar" style="height:80%"></div>
+        <div class="bar-chart__bar" style="height:44%"></div>
+        <div class="bar-chart__bar" style="height:95%"></div>
+        <div class="bar-chart__bar" style="height:70%"></div>
       </div>
+      <div class="bar-chart__labels"><span class="bar-chart__label">Mar</span><span class="bar-chart__label">Apr</span><span class="bar-chart__label">May</span><span class="bar-chart__label">Jun</span><span class="bar-chart__label">Jul</span></div>
     </div>
   </section>
 
-  <!-- SIDEBAR + STAT CARDS -->
+<!-- SIDEBAR + STAT CARDS -->
   <section class="block">
     <h2>Sidebar nav &amp; stat cards</h2>
     <div class="row row--top" style="gap:24px">
@@ -551,10 +687,11 @@
         <div class="stat-card"><div class="stat-card__label"><span class="icon">bolt</span>Active jobs</div><div class="stat-card__value">128</div><div class="stat-card__delta stat-card__delta--up">▲ 12% this week</div></div>
         <div class="stat-card stat-card--accent"><div class="stat-card__label"><span class="icon">warning</span>Needs review</div><div class="stat-card__value">7</div><div class="stat-card__delta">3 flagged urgent</div></div>
         <div class="stat-card"><div class="stat-card__label"><span class="icon">task_alt</span>Open tasks</div><div class="stat-card__value">42</div><div class="stat-card__delta">across 3 sites</div></div>
-        <div class="stat-card"><div class="stat-card__label"><span class="icon">monitoring</span>Fleet uptime</div><div class="stat-card__value">98.2%</div><div class="stat-card__delta">30-day rolling</div></div>
+        <div class="stat-card" style="background:var(--surface-container);border:none"><div class="stat-card__label"><span class="icon">monitoring</span>Fleet uptime</div><div class="stat-card__value">98.2%</div><div class="stat-card__delta">30-day rolling · tonal (unraised)</div></div>
       </div>
     </div>
   </section>
+
 
 </div>
 
