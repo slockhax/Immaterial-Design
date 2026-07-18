@@ -28,7 +28,7 @@
     </div>
 
     <div class="nav-section">Getting Started</div>
-    <a class="nav-item is-active" href="index.html"><span class="icon">home</span>Home &amp; Setup</a>
+    <a class="nav-item" href="index.html"><span class="icon">home</span>Home &amp; Setup</a>
 
     <div class="nav-section">Foundations</div>
     <a class="nav-item" href="foundations.html"><span class="icon">palette</span>Color &amp; Theming</a>
@@ -293,6 +293,7 @@
 </div>
 
 <script src="immaterial.js"></script>
+<script src="site.js"></script>
 <script>
   // Sync theme toggle to current theme on load
   (function () {
@@ -301,6 +302,7 @@
       r.checked = r.value === saved;
     });
     Immaterial.setTheme(saved);
+    setNavActive();
   }());
 </script>
 </body>

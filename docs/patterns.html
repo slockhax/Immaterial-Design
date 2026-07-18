@@ -37,7 +37,7 @@
     <a class="nav-item" href="components-display.html"><span class="icon">label</span>Badges &amp; Status</a>
     <a class="nav-item" href="components-display.html#feedback"><span class="icon">notifications</span>Feedback &amp; Navigation</a>
     <div class="nav-section">Patterns</div>
-    <a class="nav-item is-active" href="patterns.html"><span class="icon">dashboard</span>Cards &amp; Lists</a>
+    <a class="nav-item" href="patterns.html"><span class="icon">dashboard</span>Cards &amp; Lists</a>
     <a class="nav-item" href="patterns.html#data"><span class="icon">table_chart</span>Data Tables &amp; Charts</a>
   </aside>
 
@@ -422,6 +422,7 @@
 </div>
 
 <script src="immaterial.js"></script>
+<script src="site.js"></script>
 <script>
   (function () {
     var saved = localStorage.getItem('immaterial-theme') || 'light';
@@ -429,6 +430,7 @@
       r.checked = r.value === saved;
     });
     Immaterial.setTheme(saved);
+    setNavActive();
   }());
 
   var catVisible = true;
