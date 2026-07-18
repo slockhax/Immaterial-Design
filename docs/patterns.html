@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patterns — Immaterial Design</title>
+<link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../immaterial.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+</head>
+<body>
+<div class="docs-shell">
+
+  <!-- ══════ SIDEBAR ══════ -->
+  <aside class="docs-sidebar">
+    <a class="docs-sidebar__brand" href="index.html">
+      <span class="docs-sidebar__logo">I</span>
+      Immaterial
+    </a>
+    <div class="docs-sidebar__theme">
+      <div class="segmented" role="radiogroup" aria-label="Theme">
+        <label class="segmented__option"><input type="radio" name="theme" value="light" checked onchange="Immaterial.setTheme('light')"><span class="icon segmented__check">check</span>Light</label>
+        <label class="segmented__option"><input type="radio" name="theme" value="dark" onchange="Immaterial.setTheme('dark')"><span class="icon segmented__check">check</span>Dark</label>
+        <label class="segmented__option"><input type="radio" name="theme" value="auto" onchange="Immaterial.setTheme('auto')"><span class="icon segmented__check">check</span>Auto</label>
+      </div>
+    </div>
+    <div class="nav-section">Getting Started</div>
+    <a class="nav-item" href="index.html"><span class="icon">home</span>Home &amp; Setup</a>
+    <div class="nav-section">Foundations</div>
+    <a class="nav-item" href="foundations.html"><span class="icon">palette</span>Color &amp; Theming</a>
+    <a class="nav-item" href="foundations.html#typography"><span class="icon">text_fields</span>Typography</a>
+    <div class="nav-section">Components — Controls</div>
+    <a class="nav-item" href="components-controls.html"><span class="icon">smart_button</span>Buttons &amp; Actions</a>
+    <a class="nav-item" href="components-controls.html#forms"><span class="icon">tune</span>Form Inputs</a>
+    <div class="nav-section">Components — Display</div>
+    <a class="nav-item" href="components-display.html"><span class="icon">label</span>Badges &amp; Status</a>
+    <a class="nav-item" href="components-display.html#feedback"><span class="icon">notifications</span>Feedback &amp; Navigation</a>
+    <div class="nav-section">Patterns</div>
+    <a class="nav-item is-active" href="patterns.html"><span class="icon">dashboard</span>Cards &amp; Lists</a>
+    <a class="nav-item" href="patterns.html#data"><span class="icon">table_chart</span>Data Tables &amp; Charts</a>
+  </aside>
+
+  <!-- ══════ MAIN ══════ -->
+  <main class="docs-main">
+    <div class="docs-content">
+
+      <div class="docs-hero">
+        <h1>Composed patterns</h1>
+        <p>Patterns assembled from core components. They need per-use decisions (anatomy, widths, inline values) and are starting points, not drop-in components.</p>
+      </div>
+
+      <!-- ════════════════════════
+           CARDS
+      ═════════════════════════ -->
+      <section class="docs-section" id="cards">
+        <div class="docs-section__label">Cards</div>
+        <div class="docs-section__title">Card header treatments</div>
+        <div class="docs-section__desc">The base card is a raised white surface. A title sits inside it, anchored one of two ways: a divider rule beneath the title, or a filled tonal bar that spans the full width. Wrap in <code>.card--clip</code> when using the filled bar so it honours the card's border radius.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>Choosing a header treatment</strong>
+            Use the <strong>divider header</strong> (1a) when the card sits on a light background and you want a minimal, clean separation. Use the <strong>filled bar</strong> (1b) when the card needs stronger visual hierarchy, or when it appears on a darker tonal surface where a hairline divider would be hard to see. Add <strong>trailing actions</strong> (1c) — icon buttons, a menu — to the divider header when the card has its own controls (filter, refresh, expand). Never add more than 2–3 trailing icons; overflow into a <code>more_vert</code> menu.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px">
+
+            <!-- 1a divider -->
+            <div>
+              <p style="font-size:12px;font-family:ui-monospace,monospace;color:var(--on-surface-variant);margin:0 0 8px">1a · divider header</p>
+              <div class="card">
+                <div class="card__header card__header--divider"><span class="card__title"><span class="icon">ecg_heart</span>Asset health</span></div>
+                <div class="card__body">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><span style="font-size:13px;color:var(--on-surface-variant)">Uptime</span><span style="font-size:22px;font-weight:700">98.2%</span></div>
+                  <div class="progress"><div class="progress__bar" style="width:82%"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 1b filled bar -->
+            <div>
+              <p style="font-size:12px;font-family:ui-monospace,monospace;color:var(--on-surface-variant);margin:0 0 8px">1b · filled bar (card--clip)</p>
+              <div class="card card--clip">
+                <div class="card__header card__header--filled"><span class="card__title" style="color:inherit"><span class="icon">ecg_heart</span>Asset health</span></div>
+                <div class="card__body">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><span style="font-size:13px;color:var(--on-surface-variant)">Uptime</span><span style="font-size:22px;font-weight:700">98.2%</span></div>
+                  <div class="progress"><div class="progress__bar" style="width:82%"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 1c trailing actions -->
+            <div>
+              <p style="font-size:12px;font-family:ui-monospace,monospace;color:var(--on-surface-variant);margin:0 0 8px">1c · divider + trailing actions</p>
+              <div class="card">
+                <div class="card__header card__header--divider" style="display:flex;align-items:center;gap:8px;padding-right:12px"><span class="card__title"><span class="icon">ecg_heart</span>Asset health</span><span style="flex:1"></span><button class="icon-btn icon-btn--sm" title="Filter"><span class="icon">filter_list</span></button><button class="icon-btn icon-btn--sm" title="More"><span class="icon">more_vert</span></button></div>
+                <div class="card__body">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><span style="font-size:13px;color:var(--on-surface-variant)">Uptime</span><span style="font-size:22px;font-weight:700">98.2%</span></div>
+                  <div class="progress"><div class="progress__bar" style="width:82%"></div></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.card</code> + <code>--clip</code> · <code>.card__header</code> + <code>--divider</code> or <code>--filled</code> · <code>.card__title</code> · <code>.card__body</code></p>
+      </section>
+
+      <!-- LISTS -->
+      <section class="docs-section" id="lists">
+        <div class="docs-section__label">Lists</div>
+        <div class="docs-section__title">Four list constructions</div>
+        <div class="docs-section__desc">Choose the list construction based on how much anatomy the content needs. Add <code>.list--interactive</code> when items are clickable.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>Choosing a construction</strong>
+            <strong>A (full)</strong> — icon + title + meta + trailing. Use when each item has a clear identity and secondary context (activity feeds, notifications, work orders).<br>
+            <strong>B (stripped)</strong> — title + trailing only. Use for lighter content where metadata isn't needed (asset name + status).<br>
+            <strong>C (headerless table)</strong> — use when values need to align vertically across rows. This is a <code>table--standalone</code>, not a list. Better than a list when you have 2+ data columns per row.<br>
+            <strong>D (tonal panel)</strong> — filled surface, no card shadow. Use as secondary/chrome content next to raised cards (sidebars, summary panels).
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="demo-stack">
+
+            <!-- A: full anatomy -->
+            <div>
+              <p style="font-size:12px;font-weight:600;color:var(--on-surface-faint);text-transform:uppercase;letter-spacing:0.4px;margin:0 0 8px">A — Full anatomy</p>
+              <div class="card" style="max-width:480px">
+                <div class="list list--interactive">
+                  <div class="list__item"><span class="icon">build</span><div class="list__content"><span class="list__title">Work order #4211 closed</span><span class="list__meta">Compressor A-12 · J. Moreno</span></div><span class="list__trailing">12m ago</span></div>
+                  <div class="list__item"><span class="icon">sensors</span><div class="list__content"><span class="list__title">Sensor threshold updated</span><span class="list__meta">Zone 4 · humidity max → 65%</span></div><span class="list__trailing">1h ago</span></div>
+                  <div class="list__item"><span class="icon">person_add</span><div class="list__content"><span class="list__title">Technician assigned</span><span class="list__meta">Chiller B-03 · fault inspection</span></div><span class="list__trailing">3h ago</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- B: stripped -->
+            <div>
+              <p style="font-size:12px;font-weight:600;color:var(--on-surface-faint);text-transform:uppercase;letter-spacing:0.4px;margin:0 0 8px">B — Stripped (title + trailing)</p>
+              <div class="card" style="max-width:480px">
+                <div class="list list--interactive">
+                  <div class="list__item"><div class="list__content"><span class="list__title">Compressor A-12</span></div><span class="list__trailing"><span class="badge badge--primary">In progress</span></span></div>
+                  <div class="list__item"><div class="list__content"><span class="list__title">Chiller B-03</span></div><span class="list__trailing"><span class="badge badge--warning">Queued</span></span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- C: headerless table -->
+            <div>
+              <p style="font-size:12px;font-weight:600;color:var(--on-surface-faint);text-transform:uppercase;letter-spacing:0.4px;margin:0 0 8px">C — Headerless table (aligned columns)</p>
+              <table class="table table--standalone" style="max-width:520px">
+                <colgroup><col><col style="width:135px"><col style="width:130px"></colgroup>
+                <tbody>
+                  <tr><td class="is-primary">Compressor A-12</td><td class="is-muted">Plant North</td><td><span class="badge badge--primary">In progress</span></td></tr>
+                  <tr><td class="is-primary">Chiller B-03</td><td class="is-muted">Plant North</td><td><span class="badge badge--warning">Queued</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- D: tonal panel -->
+            <div>
+              <p style="font-size:12px;font-weight:600;color:var(--on-surface-faint);text-transform:uppercase;letter-spacing:0.4px;margin:0 0 8px">D — Tonal panel (secondary surface)</p>
+              <div style="background:var(--surface-container);border-radius:16px;padding:18px 20px;max-width:480px;box-sizing:border-box">
+                <div class="text-overline" style="margin-bottom:6px">Recent activity</div>
+                <div class="list">
+                  <div class="list__item" style="padding:12px 0"><span class="icon">build</span><div class="list__content"><span class="list__title">WO #4211 closed</span><span class="list__meta">J. Moreno</span></div><span class="list__trailing">12m</span></div>
+                  <div class="list__item" style="padding:12px 0;border-bottom:none"><span class="icon">sensors</span><div class="list__content"><span class="list__title">Threshold updated</span><span class="list__meta">Zone 4</span></div><span class="list__trailing">1h</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.list</code> + <code>--interactive</code> · <code>.list__item</code> · <code>.list__content</code> · <code>.list__title</code> <code>.list__meta</code> <code>.list__trailing</code></p>
+      </section>
+
+      <!-- ════════════════════════
+           DATA — TABLES & CHARTS
+      ═════════════════════════ -->
+
+      <!-- DATA TABLE -->
+      <section class="docs-section" id="data">
+        <div class="docs-section__label">Data table</div>
+        <div class="docs-section__title">Native table with rich features</div>
+        <div class="docs-section__desc">A native <code>&lt;table&gt;</code> with the <code>table</code> class. Fills its container; columns size to content or can be pinned with <code>&lt;colgroup&gt;</code>. Cells use tabular-nums for clean numeric alignment. Wrap in a card with <code>overflow:hidden</code> for a contained look, or use <code>table--standalone</code> for a borderless card of its own.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>Table vs. list</strong>
+            Use a table when users need to compare values across rows — especially when column headers help interpret the data, or when you have 3+ data points per row. Use a list (construction A or B) when rows have a primary name/title with supporting meta — no comparison across columns needed.<br><br>
+            <strong>Wiring behaviour</strong>
+            Sorting, filtering, pagination, and select-all are application logic — the design system provides the visual states only (<code>is-active</code> on sort headers, <code>is-selected</code> on rows, <code>is-hidden</code> on cells). See the README §7 for wiring recipes.
+          </div>
+        </div>
+
+        <!-- Full demo table -->
+        <div class="docs-demo" style="padding:20px">
+          <div class="toolbar" style="margin-bottom:12px">
+            <span style="font-size:15px;font-weight:650">Maintenance queue</span>
+            <span class="toolbar__spacer"></span>
+            <div class="button-group button-group--icons" id="tbl-density">
+              <button class="is-active" title="Comfortable" onclick="setDensity(this, false)"><span class="icon">density_medium</span></button>
+              <button title="Compact" onclick="setDensity(this, true)"><span class="icon">density_small</span></button>
+            </div>
+            <span class="toolbar__divider"></span>
+            <button class="icon-btn icon-btn--sm" title="Toggle Category column" onclick="toggleCol()"><span class="icon">view_column</span></button>
+            <button class="icon-btn icon-btn--sm" title="Refresh" onclick="Immaterial.toast('Refreshed')"><span class="icon">refresh</span></button>
+            <button class="icon-btn icon-btn--sm" title="Export" onclick="Immaterial.toast('Export started')"><span class="icon">download</span></button>
+          </div>
+
+          <div class="card" style="overflow:hidden">
+            <table id="demo-table" class="table">
+              <colgroup><col style="width:44px"><col><col><col><col></colgroup>
+              <thead>
+                <tr>
+                  <th><input class="checkbox" type="checkbox" id="select-all" onclick="selectAll(this)"></th>
+                  <th><span class="table__sort is-active">Task <span class="icon">arrow_upward</span></span></th>
+                  <th id="col-cat">Category</th>
+                  <th><span class="table__sort">Priority <span class="icon">unfold_more</span></span></th>
+                  <th><span class="table__sort">Status <span class="icon">unfold_more</span></span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input class="checkbox" type="checkbox" onclick="rowSelect(this)"></td>
+                  <td class="is-primary">Compressor A-12 — quarterly service</td>
+                  <td class="is-muted col-cat">HVAC</td>
+                  <td><span class="priority priority--medium">Medium</span></td>
+                  <td><span class="badge badge--primary">In progress</span></td>
+                </tr>
+                <tr>
+                  <td><input class="checkbox" type="checkbox" onclick="rowSelect(this)"></td>
+                  <td class="is-primary">Chiller B-03 — fault inspection</td>
+                  <td class="is-muted col-cat">HVAC</td>
+                  <td><span class="priority priority--high">High</span></td>
+                  <td><span class="badge badge--warning">Queued</span></td>
+                </tr>
+                <tr>
+                  <td><input class="checkbox" type="checkbox" onclick="rowSelect(this)"></td>
+                  <td class="is-primary">Panel 7 — thermal scan</td>
+                  <td class="is-muted col-cat">Electrical</td>
+                  <td><span class="priority priority--low">Low</span></td>
+                  <td><span class="badge badge--success">Done</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination"><span style="margin-right:8px">1–3 of 9</span><button class="icon-btn icon-btn--sm"><span class="icon">chevron_left</span></button><button class="icon-btn icon-btn--sm"><span class="icon">chevron_right</span></button></div>
+          </div>
+        </div>
+
+        <!-- Group rows -->
+        <div class="docs-subsection">
+          <div class="docs-subsection__title">Collapsible group rows</div>
+          <p style="font-size:13.5px;color:var(--on-surface-variant);margin:0 0 14px">Add <code>table__group--collapsible</code> and a toggle button — <code>immaterial.js</code> wires the collapse behaviour automatically.</p>
+          <div class="card" style="overflow:hidden">
+            <table class="table">
+              <colgroup><col><col style="width:130px"><col style="width:130px"></colgroup>
+              <thead>
+                <tr><th>Task</th><th>Priority</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr class="table__group table__group--collapsible"><th colspan="3"><button class="table__group-toggle"><span class="icon">expand_more</span>HVAC</button></th></tr>
+                <tr><td class="is-primary">Compressor A-12 — quarterly service</td><td><span class="priority priority--medium">Medium</span></td><td><span class="badge badge--primary">In progress</span></td></tr>
+                <tr><td class="is-primary">Chiller B-03 — fault inspection</td><td><span class="priority priority--high">High</span></td><td><span class="badge badge--warning">Queued</span></td></tr>
+                <tr class="table__group table__group--collapsible"><th colspan="3"><button class="table__group-toggle"><span class="icon">expand_more</span>Electrical</button></th></tr>
+                <tr><td class="is-primary">Panel 7 — thermal scan</td><td><span class="priority priority--low">Low</span></td><td><span class="badge badge--success">Done</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Standalone -->
+        <div class="docs-subsection">
+          <div class="docs-subsection__title">Standalone variant</div>
+          <p style="font-size:13.5px;color:var(--on-surface-variant);margin:0 0 14px"><code>table--standalone</code> — no card wrapper needed; the table gets its own border and rounded corners.</p>
+          <table class="table table--standalone">
+            <thead>
+              <tr><th>Site</th><th>Uptime</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="is-primary">Plant North</td><td class="is-muted">99.2%</td><td><span class="badge badge--success">Online</span></td></tr>
+              <tr><td class="is-primary">Plant South</td><td class="is-muted">97.8%</td><td><span class="badge badge--warning">Degraded</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Numeric alignment -->
+        <div class="docs-subsection">
+          <div class="docs-subsection__title">Numeric alignment</div>
+          <p style="font-size:13.5px;color:var(--on-surface-variant);margin:0 0 14px">Table cells use <code>font-variant-numeric: tabular-nums</code> — digits share a fixed width so numeric columns align digit-for-digit. Compare the same values in proportional vs. tabular:</p>
+          <div class="demo-row demo-row--top" style="gap:24px;align-items:stretch">
+            <div class="card" style="width:200px"><div class="card__body">
+              <div class="text-overline" style="margin-bottom:8px">Proportional</div>
+              <div style="font-size:14px;text-align:right;line-height:1.9">1,111,111<br>7,474,747<br>909,090<br>888</div>
+            </div></div>
+            <table class="table table--standalone" style="width:200px">
+              <tbody>
+                <tr><td class="is-muted">Q1</td><td style="text-align:right">1,111,111</td></tr>
+                <tr><td class="is-muted">Q2</td><td style="text-align:right">7,474,747</td></tr>
+                <tr><td class="is-muted">Q3</td><td style="text-align:right">909,090</td></tr>
+                <tr><td class="is-muted">Q4</td><td style="text-align:right">888</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.table</code> + <code>--dense</code> <code>--standalone</code> · <code>tr.is-selected</code> · <code>td.is-primary</code> <code>td.is-muted</code> <code>th.is-hidden td.is-hidden</code> · <code>.table__sort .is-active</code> · <code>.table__group --collapsible</code> · <code>.pagination</code> · See README §7 for full wiring recipes</p>
+      </section>
+
+      <!-- BAR CHART -->
+      <section class="docs-section" id="charts">
+        <div class="docs-section__label">Bar chart</div>
+        <div class="docs-section__title">Flex bar charts</div>
+        <div class="docs-section__desc">Bars in a flex row; each bar's height is a percentage set inline (0–100% of the chart height). Labels are a matching flex row beneath. Convert your data: <code>height = value / max * 100</code>.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use</strong>
+            Use the <strong>vertical bar chart</strong> for a simple time series or category comparison where the category names are short (Mon/Tue, months). Use the <strong>horizontal variant</strong> (progress tracks) when category names are long, when exact values matter alongside the chart, or when comparing 5+ categories — horizontal bars leave more room for labels. For anything beyond simple bars (lines, stacks, scatter) reach for <code>&lt;svg&gt;</code> or <code>&lt;canvas&gt;</code> directly.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="demo-stack">
+
+            <!-- Vertical -->
+            <div>
+              <p style="font-size:12px;font-weight:600;color:var(--on-surface-faint);text-transform:uppercase;letter-spacing:0.4px;margin:0 0 10px">Vertical — orders by day</p>
+              <div style="max-width:420px">
+                <div class="bar-chart">
+                  <div class="bar-chart__bar" style="height:46%"></div>
+                  <div class="bar-chart__bar" style="height:62%"></div>
+                  <div class="bar-chart__bar" style="height:54%"></div>
+                  <div class="bar-chart__bar" style="height:78%"></div>
+                  <div class="bar-chart__bar" style="height:58%"></div>
+                  <div class="bar-chart__bar" style="height:72%"></div>
+                  <div class="bar-chart__bar" style="height:88%"></div>
+                </div>
+                <div class="bar-chart__labels"><span class="bar-chart__label">Mon</span><span class="bar-chart__label">Tue</span><span class="bar-chart__label">Wed</span><span class="bar-chart__label">Thu</span><span class="bar-chart__label">Fri</span><span class="bar-chart__label">Sat</span><span class="bar-chart__label">Sun</span></div>
+              </div>
+            </div>
+
+            <!-- Horizontal -->
+            <div>
+              <p style="font-size:12px;font-weight:600;color:var(--on-surface-faint);text-transform:uppercase;letter-spacing:0.4px;margin:0 0 10px">Horizontal (progress tracks) — work orders by category</p>
+              <div class="card" style="max-width:420px"><div class="card__body" style="display:flex;flex-direction:column;gap:12px">
+                <div style="display:grid;grid-template-columns:80px 1fr 36px;gap:12px;align-items:center"><span class="text-label">HVAC</span><div class="progress"><div class="progress__bar" style="width:78%"></div></div><span style="font-size:13px;font-weight:650;text-align:right">23</span></div>
+                <div style="display:grid;grid-template-columns:80px 1fr 36px;gap:12px;align-items:center"><span class="text-label">Electrical</span><div class="progress"><div class="progress__bar" style="width:52%"></div></div><span style="font-size:13px;font-weight:650;text-align:right">15</span></div>
+                <div style="display:grid;grid-template-columns:80px 1fr 36px;gap:12px;align-items:center"><span class="text-label">Plumbing</span><div class="progress"><div class="progress__bar" style="width:31%"></div></div><span style="font-size:13px;font-weight:650;text-align:right">9</span></div>
+              </div></div>
+            </div>
+
+            <!-- Uncarded with overline -->
+            <div>
+              <p style="font-size:12px;font-weight:600;color:var(--on-surface-faint);text-transform:uppercase;letter-spacing:0.4px;margin:0 0 10px">Uncarded — sits directly on the page</p>
+              <div style="max-width:420px">
+                <div class="text-overline" style="margin-bottom:10px">Orders by month</div>
+                <div class="bar-chart" style="height:120px">
+                  <div class="bar-chart__bar" style="height:62%"></div>
+                  <div class="bar-chart__bar" style="height:80%"></div>
+                  <div class="bar-chart__bar" style="height:44%"></div>
+                  <div class="bar-chart__bar" style="height:95%"></div>
+                  <div class="bar-chart__bar" style="height:70%"></div>
+                </div>
+                <div class="bar-chart__labels"><span class="bar-chart__label">Mar</span><span class="bar-chart__label">Apr</span><span class="bar-chart__label">May</span><span class="bar-chart__label">Jun</span><span class="bar-chart__label">Jul</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.bar-chart</code> · <code>.bar-chart__bar</code> (height set inline as %) · <code>.bar-chart__labels</code> · <code>.bar-chart__label</code> · Override chart height with inline <code>style="height:120px"</code></p>
+      </section>
+
+      <!-- SIDEBAR & STAT CARDS -->
+      <section class="docs-section" id="nav">
+        <div class="docs-section__label">Navigation &amp; stats</div>
+        <div class="docs-section__title">Sidebar nav &amp; stat cards</div>
+        <div class="docs-section__desc">A persistent sidebar using <code>.sidebar</code> / <code>.nav-item</code> — the same component this documentation uses. Stat cards sit beside it in a grid, using <code>.stat-card</code>.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>Sidebar nav</strong>
+            Use for apps with 3+ main sections. Group items under <code>.nav-section</code> overline headers. Mark the current page with <code>.is-active</code>. The sidebar itself provides no scroll or responsive behaviour — wrap it in a container with <code>position: sticky; height: 100vh; overflow-y: auto</code> for a fixed left sidebar.<br><br>
+            <strong>Stat cards</strong>
+            Use for KPIs at the top of a dashboard — 3–6 values that summarise the current state. The <code>--accent</code> variant uses the primary container colour to draw attention to the most important metric. The tonal (no border/shadow) variant reads as secondary information.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="demo-row demo-row--top" style="gap:20px">
+            <div class="sidebar" style="border-radius:16px;border:1px solid var(--outline-variant);min-width:200px">
+              <div class="nav-section">Overview</div>
+              <a class="nav-item is-active"><span class="icon">dashboard</span>Dashboard</a>
+              <a class="nav-item"><span class="icon">monitoring</span>Reports</a>
+              <div class="nav-section">Operations</div>
+              <a class="nav-item"><span class="icon">inventory_2</span>Assets</a>
+              <a class="nav-item"><span class="icon">task_alt</span>Tasks</a>
+            </div>
+            <div style="flex:1;min-width:220px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <div class="stat-card"><div class="stat-card__label"><span class="icon">bolt</span>Active jobs</div><div class="stat-card__value">128</div><div class="stat-card__delta stat-card__delta--up">▲ 12% this week</div></div>
+              <div class="stat-card stat-card--accent"><div class="stat-card__label"><span class="icon">warning</span>Needs review</div><div class="stat-card__value">7</div><div class="stat-card__delta">3 flagged urgent</div></div>
+              <div class="stat-card"><div class="stat-card__label"><span class="icon">task_alt</span>Open tasks</div><div class="stat-card__value">42</div><div class="stat-card__delta">across 3 sites</div></div>
+              <div class="stat-card" style="background:var(--surface-container);border:none"><div class="stat-card__label"><span class="icon">monitoring</span>Fleet uptime</div><div class="stat-card__value">98.2%</div><div class="stat-card__delta">30-day rolling</div></div>
+            </div>
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.sidebar</code> · <code>.nav-section</code> (group header) · <code>.nav-item</code> + <code>.is-active</code> · <code>.stat-card</code> + <code>--accent</code> · <code>.stat-card__label</code> <code>__value</code> <code>__delta</code> + <code>--up</code> <code>--down</code></p>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="../immaterial.js"></script>
+<script>
+  (function () {
+    var saved = localStorage.getItem('immaterial-theme') || 'light';
+    document.querySelectorAll('[name="theme"]').forEach(function (r) {
+      r.checked = r.value === saved;
+    });
+    Immaterial.setTheme(saved);
+  }());
+
+  var catVisible = true;
+  function toggleCol() {
+    catVisible = !catVisible;
+    document.querySelectorAll('.col-cat').forEach(function (c) { c.classList.toggle('is-hidden', !catVisible); });
+    document.getElementById('col-cat').classList.toggle('is-hidden', !catVisible);
+  }
+
+  function setDensity(btn, dense) {
+    Array.from(btn.parentElement.children).forEach(function (b) { b.classList.remove('is-active'); });
+    btn.classList.add('is-active');
+    document.getElementById('demo-table').classList.toggle('table--dense', dense);
+  }
+
+  function selectAll(cb) {
+    document.querySelectorAll('#demo-table tbody .checkbox').forEach(function (x) {
+      x.checked = cb.checked;
+      x.closest('tr').classList.toggle('is-selected', cb.checked);
+    });
+  }
+
+  function rowSelect(cb) {
+    cb.closest('tr').classList.toggle('is-selected', cb.checked);
+  }
+</script>
+</body>
+</html>

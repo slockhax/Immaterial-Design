@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Components: Controls — Immaterial Design</title>
+<link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../immaterial.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+</head>
+<body>
+<div class="docs-shell">
+
+  <!-- ══════ SIDEBAR ══════ -->
+  <aside class="docs-sidebar">
+    <a class="docs-sidebar__brand" href="index.html">
+      <span class="docs-sidebar__logo">I</span>
+      Immaterial
+    </a>
+    <div class="docs-sidebar__theme">
+      <div class="segmented" role="radiogroup" aria-label="Theme">
+        <label class="segmented__option"><input type="radio" name="theme" value="light" checked onchange="Immaterial.setTheme('light')"><span class="icon segmented__check">check</span>Light</label>
+        <label class="segmented__option"><input type="radio" name="theme" value="dark" onchange="Immaterial.setTheme('dark')"><span class="icon segmented__check">check</span>Dark</label>
+        <label class="segmented__option"><input type="radio" name="theme" value="auto" onchange="Immaterial.setTheme('auto')"><span class="icon segmented__check">check</span>Auto</label>
+      </div>
+    </div>
+    <div class="nav-section">Getting Started</div>
+    <a class="nav-item" href="index.html"><span class="icon">home</span>Home &amp; Setup</a>
+    <div class="nav-section">Foundations</div>
+    <a class="nav-item" href="foundations.html"><span class="icon">palette</span>Color &amp; Theming</a>
+    <a class="nav-item" href="foundations.html#typography"><span class="icon">text_fields</span>Typography</a>
+    <div class="nav-section">Components — Controls</div>
+    <a class="nav-item is-active" href="components-controls.html"><span class="icon">smart_button</span>Buttons &amp; Actions</a>
+    <a class="nav-item" href="components-controls.html#forms"><span class="icon">tune</span>Form Inputs</a>
+    <div class="nav-section">Components — Display</div>
+    <a class="nav-item" href="components-display.html"><span class="icon">label</span>Badges &amp; Status</a>
+    <a class="nav-item" href="components-display.html#feedback"><span class="icon">notifications</span>Feedback &amp; Navigation</a>
+    <div class="nav-section">Patterns</div>
+    <a class="nav-item" href="patterns.html"><span class="icon">dashboard</span>Cards &amp; Lists</a>
+    <a class="nav-item" href="patterns.html#data"><span class="icon">table_chart</span>Data Tables &amp; Charts</a>
+  </aside>
+
+  <!-- ══════ MAIN ══════ -->
+  <main class="docs-main">
+    <div class="docs-content">
+
+      <div class="docs-hero">
+        <h1>Components — Controls</h1>
+        <p>Interactive elements that trigger actions or accept user input. All pure CSS unless noted — no JS required.</p>
+      </div>
+
+      <!-- ════════════════════════
+           BUTTONS
+      ═════════════════════════ -->
+      <section class="docs-section" id="buttons">
+        <div class="docs-section__label">Buttons</div>
+        <div class="docs-section__title">Button variants</div>
+        <div class="docs-section__desc">Five visual weights from high-emphasis filled to low-emphasis text. Pick the weight that matches the action's prominence. Add a leading <code>&lt;span class="icon"&gt;</code> for an icon.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use each variant</strong>
+            Use <strong>Filled</strong> for the single primary action on a surface (save, submit, create). Use <strong>Tonal</strong> for secondary actions that are still fairly important. Use <strong>Outlined</strong> for actions that need a boundary but not strong emphasis (cancel, back). Use <strong>Text</strong> for the lowest-emphasis option when context makes the action obvious. Use <strong>Danger</strong> to signal a destructive, irreversible action — pair it with a confirmation dialog. Don't place two filled buttons side by side; one should always be the primary.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="demo-stack">
+            <div class="demo-row">
+              <button class="btn btn--filled">Filled</button>
+              <button class="btn btn--tonal">Tonal</button>
+              <button class="btn btn--outlined">Outlined</button>
+              <button class="btn btn--text">Text</button>
+              <button class="btn btn--danger">Danger</button>
+              <button class="btn btn--filled" disabled>Disabled</button>
+            </div>
+            <div class="demo-row">
+              <button class="btn btn--filled"><span class="icon">add</span>With icon</button>
+              <button class="btn btn--sm btn--outlined">Small</button>
+              <button class="btn btn--lg btn--filled">Large</button>
+            </div>
+          </div>
+        </div>
+        <p class="docs-ref">Markup reference: <a href="../README.md#L152" target="_blank">README §4 — Buttons</a> · Classes: <code>.btn</code> + <code>--filled</code> <code>--tonal</code> <code>--outlined</code> <code>--text</code> <code>--danger</code> · Sizes: <code>--sm</code> <code>--lg</code></p>
+      </section>
+
+      <!-- ICON BUTTONS -->
+      <section class="docs-section" id="icon-buttons">
+        <div class="docs-section__label">Icon buttons</div>
+        <div class="docs-section__title">Icon-only actions</div>
+        <div class="docs-section__desc">For compact, toolstrip-style actions where the icon alone communicates intent. Always include an <code>aria-label</code> or <code>title</code> attribute for accessibility.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use</strong>
+            Use icon buttons in toolbars, card headers, and dense table rows where labelled buttons would consume too much space. Use the <strong>filled</strong> variant as a mini-FAB for a contextual primary action. Use <strong>selected</strong> for toggle actions (favourite, bookmark, pin) that have an on/off state.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="demo-row">
+            <button class="icon-btn" title="Notifications"><span class="icon">notifications</span></button>
+            <button class="icon-btn icon-btn--filled" title="Search"><span class="icon">search</span></button>
+            <button class="icon-btn icon-btn--selected" title="Favourite"><span class="icon">favorite</span></button>
+            <button class="icon-btn icon-btn--sm" title="More options"><span class="icon">more_vert</span></button>
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.icon-btn</code> + <code>--filled</code> <code>--selected</code> <code>--sm</code></p>
+      </section>
+
+      <!-- SPLIT BUTTON -->
+      <section class="docs-section" id="split-button">
+        <div class="docs-section__label">Split button</div>
+        <div class="docs-section__title">Primary action + overflow menu</div>
+        <div class="docs-section__desc">A filled button split into a main action and a dropdown arrow. JS wires the dropdown via <code>data-menu-toggle</code> — no init call needed.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use</strong>
+            Use a split button when there is one clear primary action alongside 2–5 secondary variants of that action. Good examples: "Create task" with options to also assign or save as draft; "Export" with options for CSV, PDF, or JSON. Avoid it when the variants are unrelated — use a menu button instead.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="split-button" data-menu-wrap>
+            <button class="btn btn--filled split-button__main" onclick="Immaterial.toast('Task created')">Create task</button>
+            <button class="btn btn--filled split-button__arrow" data-menu-toggle aria-label="More actions"><span class="icon">arrow_drop_down</span></button>
+            <div class="menu menu--right" hidden>
+              <button class="menu__item" onclick="Immaterial.toast('Opening assignment…')">Create &amp; assign…</button>
+              <button class="menu__item" onclick="Immaterial.toast('Saved as draft')">Save as draft</button>
+            </div>
+          </div>
+        </div>
+        <p class="docs-ref">Requires <code>immaterial.js</code>. Wrap with <code>[data-menu-wrap]</code>, arrow carries <code>data-menu-toggle</code>.</p>
+      </section>
+
+      <!-- SEGMENTED BUTTONS -->
+      <section class="docs-section" id="segmented">
+        <div class="docs-section__label">Segmented buttons</div>
+        <div class="docs-section__title">Single-select control group</div>
+        <div class="docs-section__desc">Pure CSS — driven by radio inputs. The selected option shows a leading checkmark automatically. No JS needed.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use</strong>
+            Use segmented buttons for 2–5 mutually exclusive view or filter options that are always visible — time ranges, chart granularity, density levels, theme selection. Prefer this over a dropdown when all options should be scannable at once and switching is frequent. For longer or dynamic option lists, use a select field or chips instead.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="segmented" role="radiogroup" aria-label="Date range">
+            <label class="segmented__option"><input type="radio" name="range-demo" checked><span class="icon segmented__check">check</span><span class="icon">calendar_view_week</span>Week</label>
+            <label class="segmented__option"><input type="radio" name="range-demo"><span class="icon segmented__check">check</span><span class="icon">calendar_view_month</span>Month</label>
+            <label class="segmented__option"><input type="radio" name="range-demo"><span class="icon segmented__check">check</span><span class="icon">calendar_today</span>Quarter</label>
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.segmented</code> · <code>.segmented__option</code> (wraps a radio input) · <code>.segmented__check</code> (the checkmark icon — always present, revealed by CSS on checked state)</p>
+      </section>
+
+      <!-- BUTTON GROUP -->
+      <section class="docs-section" id="button-group">
+        <div class="docs-section__label">Connected button group</div>
+        <div class="docs-section__title">Fused toggle buttons</div>
+        <div class="docs-section__desc">Icon or labelled buttons fused at their borders. Toggle <code>.is-active</code> on the selected segment via a few lines of JS.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use</strong>
+            Use a connected button group for compact binary or ternary toggles in toolbars — density, view mode (grid/list), text alignment. For more than 4 options or when options have labels as well as icons, switch to a segmented control. The button group looks best with icons only (<code>button-group--icons</code>).
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="button-group button-group--icons" id="demo-group">
+            <button class="is-active" onclick="pickBtn(this)" title="Comfortable"><span class="icon">density_medium</span></button>
+            <button onclick="pickBtn(this)" title="Compact"><span class="icon">density_small</span></button>
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.button-group</code> + <code>--icons</code> · Mark the active button with <code>.is-active</code></p>
+      </section>
+
+      <!-- CHIPS -->
+      <section class="docs-section" id="chips">
+        <div class="docs-section__label">Chips</div>
+        <div class="docs-section__title">Filter &amp; assist chips</div>
+        <div class="docs-section__desc">Filter chips toggle <code>.is-selected</code> to represent an active filter. Assist chips are static suggestion links. Both accept a leading icon.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>Filter chips — when to use</strong>
+            Use filter chips when users need to narrow a list by multiple independent categories (e.g. HVAC + Electrical + High priority), and when none, some, or all can be active simultaneously. Chips are better than segmented buttons here because multiple can be selected at once.<br><br>
+            <strong>Assist chips — when to use</strong>
+            Use assist chips for contextual, read-only labels — a "Due today" tag, a category label, or a system-generated suggestion. They look like chips but are not interactive.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="demo-row">
+            <button class="chip is-selected" onclick="toggleChip(this)"><span class="icon">check</span>HVAC</button>
+            <button class="chip" onclick="toggleChip(this)"><span class="icon">add</span>Electrical</button>
+            <button class="chip" onclick="toggleChip(this)"><span class="icon">add</span>Plumbing</button>
+            <span class="chip chip--assist"><span class="icon">schedule</span>Due today</span>
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.chip</code> + <code>.is-selected</code> for active filter · <code>.chip--assist</code> for static chips</p>
+      </section>
+
+      <!-- ════════════════════════
+           FORM INPUTS
+      ═════════════════════════ -->
+      <section class="docs-section" id="forms">
+        <div class="docs-section__label">Form inputs</div>
+        <div class="docs-section__title">Text fields</div>
+        <div class="docs-section__desc">The notched label floats on the field border. Its background must match the surface behind the field — <code>var(--surface)</code> inside a card, <code>var(--surface-dim)</code> on the page. All variants wrap in <code>.field</code>.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use each variant</strong>
+            Use the <strong>standard field</strong> inside cards or on surfaces where the border-break label reads naturally. Use <strong>pill</strong> for search bars and single-line filter inputs — the rounded shape signals "search" more intuitively. Use <strong>small (32px)</strong> in toolbars, table headers, or any dense context where a full-height field would dominate — use a placeholder or adjacent label instead of the notched label in this case. Use the <strong>select variant</strong> when the set of options is fixed and known upfront; prefer chips or a filter dropdown for dynamic or multi-select scenarios.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="demo-row demo-row--top" style="gap:20px;flex-wrap:wrap">
+            <label class="field" style="width:220px">
+              <span class="field__label">Task name</span>
+              <input class="field__input" placeholder="Describe the task…">
+            </label>
+            <div style="width:220px">
+              <label class="field field--error field--block">
+                <span class="field__label">Task name</span>
+                <input class="field__input" placeholder="Required field">
+              </label>
+              <div class="field__error">Task name is required</div>
+            </div>
+            <label class="field field--select" style="width:160px">
+              <span class="field__label">Priority</span>
+              <select><option>High</option><option selected>Medium</option><option>Low</option></select>
+              <span class="icon field__caret">arrow_drop_down</span>
+            </label>
+            <div class="field field--pill" style="width:240px">
+              <span class="icon field__leading">search</span>
+              <input class="field__input" placeholder="Search tasks…">
+            </div>
+            <div class="field field--sm" style="width:180px">
+              <span class="icon field__leading">search</span>
+              <input class="field__input" placeholder="Small (32px)">
+            </div>
+          </div>
+        </div>
+
+        <div class="docs-subsection">
+          <div class="docs-subsection__title">Notch background note</div>
+          <p style="font-size:13.5px;color:var(--on-surface-variant);margin:0">The label's background must equal the surface it sits on. Inside a card: <code>.field__label { background: var(--surface); }</code> (the default). Directly on the page: override to <code>var(--surface-dim)</code>. Getting this wrong leaves a stripe of border across the label text.</p>
+        </div>
+        <p class="docs-ref">Classes: <code>.field</code> + <code>--pill</code> <code>--sm</code> <code>--error</code> <code>--select</code> · Children: <code>.field__label</code> <code>.field__input</code> <code>.field__leading</code> <code>.field__caret</code> <code>.field__error</code></p>
+      </section>
+
+      <!-- SLIDER -->
+      <section class="docs-section" id="slider">
+        <div class="docs-section__label">Slider</div>
+        <div class="docs-section__title">Range input</div>
+        <div class="docs-section__desc">Drag or use arrow keys / Home / End to set a value. JS handles interaction and optionally writes the value to any element via <code>data-output</code>. Listen for <code>'change'</code> events for custom logic.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use</strong>
+            Use a slider when the user needs to select a value from a continuous or stepped range, and when the relative position within the range is meaningful (e.g. duration, threshold, budget). For small, discrete sets of values, segmented buttons are clearer. For precise numeric entry, use a text field instead — sliders are notoriously hard to hit exactly.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div style="max-width:360px">
+            <div style="font-size:13px;font-weight:600;color:var(--on-surface);margin-bottom:2px">Estimated duration — <span id="dur-out">3 hours</span></div>
+            <div class="slider" data-slider data-min="1" data-max="8" data-step="1" data-value="3" data-output="#dur-out" data-suffix=" hours" aria-label="Duration">
+              <div class="slider__track"></div>
+              <div class="slider__fill"></div>
+              <div class="slider__thumb"></div>
+            </div>
+            <div class="slider__scale"><span>1 h</span><span>8 h</span></div>
+          </div>
+        </div>
+        <p class="docs-ref">Requires <code>immaterial.js</code>. Attributes: <code>data-min</code> <code>data-max</code> <code>data-step</code> <code>data-value</code> <code>data-output</code> (selector) <code>data-suffix</code></p>
+      </section>
+
+      <!-- SWITCH & CHECKBOX -->
+      <section class="docs-section" id="switch">
+        <div class="docs-section__label">Switch &amp; checkbox</div>
+        <div class="docs-section__title">Toggle controls</div>
+        <div class="docs-section__desc">Both are native inputs styled purely with CSS — no JS, no wrappers beyond a label for the switch. The checkbox check glyph is drawn by CSS.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>Switch vs. checkbox</strong>
+            Use a <strong>switch</strong> for a setting that takes immediate effect when toggled (turn notifications on, enable a feature flag). Use a <strong>checkbox</strong> inside a form where the change only takes effect when the form is submitted, or for multi-select within a list. If you have a single on/off option in a form, a checkbox with a label is clearer than a switch.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="demo-row" style="gap:28px">
+            <label class="switch"><input type="checkbox" checked><span class="switch__track"><span class="switch__thumb"></span></span></label>
+            <label class="switch"><input type="checkbox"><span class="switch__track"><span class="switch__thumb"></span></span></label>
+            <input class="checkbox" type="checkbox" checked>
+            <input class="checkbox" type="checkbox">
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.switch</code> wrapping a checkbox input + <code>.switch__track &gt; .switch__thumb</code> · <code>.checkbox</code> on a bare input</p>
+      </section>
+
+      <!-- RADIO -->
+      <section class="docs-section" id="radio">
+        <div class="docs-section__label">Radio buttons</div>
+        <div class="docs-section__title">Single-select option list</div>
+        <div class="docs-section__desc">Native radio inputs styled with pure CSS. Group with <code>.radio-group</code>; wrap each in a <code>.radio-group__option</code> label.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use</strong>
+            Use radio buttons when the user must choose exactly one option from 3 or more choices, especially when the labels are longer than 2–3 words. For 2–4 short, always-visible options, prefer segmented buttons — they are more compact and immediately communicate the current selection. For long or dynamic lists, a select field scales better.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="radio-group">
+            <label class="radio-group__option"><input class="radio" type="radio" name="poll-demo" checked> Every hour</label>
+            <label class="radio-group__option"><input class="radio" type="radio" name="poll-demo"> Every 4 hours</label>
+            <label class="radio-group__option"><input class="radio" type="radio" name="poll-demo"> Daily</label>
+            <label class="radio-group__option" style="color:var(--disabled-text);cursor:not-allowed"><input class="radio" type="radio" name="poll-demo" disabled> Manual only</label>
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.radio-group</code> · <code>.radio-group__option</code> (label) · <code>.radio</code> (input)</p>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="../immaterial.js"></script>
+<script>
+  (function () {
+    var saved = localStorage.getItem('immaterial-theme') || 'light';
+    document.querySelectorAll('[name="theme"]').forEach(function (r) {
+      r.checked = r.value === saved;
+    });
+    Immaterial.setTheme(saved);
+  }());
+
+  function pickBtn(btn) {
+    Array.from(btn.parentElement.children).forEach(function (b) { b.classList.remove('is-active'); });
+    btn.classList.add('is-active');
+  }
+
+  function toggleChip(chip) {
+    chip.classList.toggle('is-selected');
+    chip.querySelector('.icon').textContent = chip.classList.contains('is-selected') ? 'check' : 'add';
+  }
+</script>
+</body>
+</html>

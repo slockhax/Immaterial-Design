@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Immaterial Design System</title>
+<link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../immaterial.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+</head>
+<body>
+<div class="docs-shell">
+
+  <!-- ══════ SIDEBAR ══════ -->
+  <aside class="docs-sidebar">
+    <a class="docs-sidebar__brand" href="index.html">
+      <span class="docs-sidebar__logo">I</span>
+      Immaterial
+    </a>
+
+    <div class="docs-sidebar__theme">
+      <div class="segmented" role="radiogroup" aria-label="Theme">
+        <label class="segmented__option"><input type="radio" name="theme" value="light" checked onchange="Immaterial.setTheme('light')"><span class="icon segmented__check">check</span>Light</label>
+        <label class="segmented__option"><input type="radio" name="theme" value="dark" onchange="Immaterial.setTheme('dark')"><span class="icon segmented__check">check</span>Dark</label>
+        <label class="segmented__option"><input type="radio" name="theme" value="auto" onchange="Immaterial.setTheme('auto')"><span class="icon segmented__check">check</span>Auto</label>
+      </div>
+    </div>
+
+    <div class="nav-section">Getting Started</div>
+    <a class="nav-item is-active" href="index.html"><span class="icon">home</span>Home &amp; Setup</a>
+
+    <div class="nav-section">Foundations</div>
+    <a class="nav-item" href="foundations.html"><span class="icon">palette</span>Color &amp; Theming</a>
+    <a class="nav-item" href="foundations.html#typography"><span class="icon">text_fields</span>Typography</a>
+
+    <div class="nav-section">Components — Controls</div>
+    <a class="nav-item" href="components-controls.html"><span class="icon">smart_button</span>Buttons &amp; Actions</a>
+    <a class="nav-item" href="components-controls.html#forms"><span class="icon">tune</span>Form Inputs</a>
+
+    <div class="nav-section">Components — Display</div>
+    <a class="nav-item" href="components-display.html"><span class="icon">label</span>Badges &amp; Status</a>
+    <a class="nav-item" href="components-display.html#feedback"><span class="icon">notifications</span>Feedback &amp; Navigation</a>
+
+    <div class="nav-section">Patterns</div>
+    <a class="nav-item" href="patterns.html"><span class="icon">dashboard</span>Cards &amp; Lists</a>
+    <a class="nav-item" href="patterns.html#data"><span class="icon">table_chart</span>Data Tables &amp; Charts</a>
+  </aside>
+
+  <!-- ══════ MAIN ══════ -->
+  <main class="docs-main">
+    <div class="docs-content">
+
+      <div class="docs-hero">
+        <h1>Immaterial Design System</h1>
+        <p>A small, framework-free UI kit built on Material Design principles. One stylesheet, one optional behaviour script, automatic light &amp; dark mode, and a colour system that rebrands from a single seed colour.</p>
+      </div>
+
+      <!-- OVERVIEW -->
+      <section class="docs-section">
+        <div class="docs-section__label">Overview</div>
+        <div class="docs-section__title">What's included</div>
+        <div class="docs-section__desc">Everything you need to build polished data-dense interfaces — dashboards, admin panels, tooling UIs — without adding a framework dependency.</div>
+
+        <div class="docs-features">
+          <div class="docs-feature">
+            <span class="icon">style</span>
+            <div class="docs-feature__title">One stylesheet</div>
+            <div class="docs-feature__desc"><code>immaterial.css</code> — all component styles, no hardcoded colours, no build step.</div>
+          </div>
+          <div class="docs-feature">
+            <span class="icon">code</span>
+            <div class="docs-feature__title">~5 KB of JS</div>
+            <div class="docs-feature__desc"><code>immaterial.js</code> adds dialogs, toasts, sliders, tabs, and menus. Everything else is pure CSS.</div>
+          </div>
+          <div class="docs-feature">
+            <span class="icon">palette</span>
+            <div class="docs-feature__title">Semantic colour system</div>
+            <div class="docs-feature__desc">Material Design role tokens computed from a few seed colours. Rebrand by changing one hex.</div>
+          </div>
+          <div class="docs-feature">
+            <span class="icon">dark_mode</span>
+            <div class="docs-feature__title">Light &amp; dark built in</div>
+            <div class="docs-feature__desc">Every token carries both values via <code>light-dark()</code>. OS auto-detection or manual override.</div>
+          </div>
+          <div class="docs-feature">
+            <span class="icon">table_chart</span>
+            <div class="docs-feature__title">30+ components</div>
+            <div class="docs-feature__desc">Buttons, forms, tables, cards, charts, dialogs, toasts, nav — all coordinated.</div>
+          </div>
+          <div class="docs-feature">
+            <span class="icon">block</span>
+            <div class="docs-feature__title">No dependencies</div>
+            <div class="docs-feature__desc">Vanilla HTML, CSS, and JS. Works in any stack. Evergreen browsers, no polyfills.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- QUICK PREVIEW -->
+      <section class="docs-section">
+        <div class="docs-section__label">Quick preview</div>
+        <div class="docs-section__title">Component sampler</div>
+        <div class="docs-section__desc">A snapshot of what the system includes — see the component pages for the full set with usage guidance.</div>
+
+        <div class="docs-demo">
+          <div class="demo-stack">
+            <!-- Buttons -->
+            <div class="demo-row">
+              <button class="btn btn--filled">Filled</button>
+              <button class="btn btn--tonal">Tonal</button>
+              <button class="btn btn--outlined">Outlined</button>
+              <button class="btn btn--text">Text</button>
+              <button class="btn btn--danger">Danger</button>
+            </div>
+            <!-- Badges + priority -->
+            <div class="demo-row">
+              <span class="badge badge--primary">In progress</span>
+              <span class="badge badge--warning">Queued</span>
+              <span class="badge badge--success">Done</span>
+              <span class="badge badge--neutral">Draft</span>
+              <span class="priority priority--high">High</span>
+              <span class="priority priority--medium">Medium</span>
+            </div>
+            <!-- Chips + switch -->
+            <div class="demo-row">
+              <button class="chip is-selected"><span class="icon">check</span>HVAC</button>
+              <button class="chip"><span class="icon">add</span>Electrical</button>
+              <span class="chip chip--assist"><span class="icon">schedule</span>Due today</span>
+              <label class="switch"><input type="checkbox" checked><span class="switch__track"><span class="switch__thumb"></span></span></label>
+              <input class="checkbox" type="checkbox" checked>
+            </div>
+            <!-- Alert -->
+            <div class="alert alert--info"><span class="icon">info</span><div class="alert__content"><span>Scheduled maintenance window starts Friday at 22:00.</span></div></div>
+            <!-- Progress -->
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span style="font-weight:600">Monthly PM plan</span><span style="font-weight:700;color:var(--primary)">68%</span></div>
+              <div class="progress"><div class="progress__bar" style="width:68%"></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SETUP -->
+      <section class="docs-section" id="setup">
+        <div class="docs-section__label">Setup</div>
+        <div class="docs-section__title">Installation</div>
+        <div class="docs-section__desc">Three files, no build step. Add the fonts, drop in the stylesheets, and include the script before <code>&lt;/body&gt;</code>.</div>
+
+        <div class="docs-steps">
+          <div class="docs-step">
+            <div class="docs-step__num">1</div>
+            <div>
+              <div class="docs-step__title">Self-host the fonts</div>
+              <div class="docs-step__desc">The system uses <strong>Roboto Flex</strong> (UI text), <strong>Material Symbols Rounded</strong> (icons), and optionally <strong>Roboto Mono</strong>. Serve the <code>.woff2</code> files from your own assets and declare them under these exact family names. The fonts folder in this repo includes the files.</div>
+              <pre class="docs-code">@font-face {
+  font-family: 'Roboto Flex';
+  src: url('/fonts/RobotoFlex.woff2') format('woff2');
+  font-weight: 100 1000;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Material Symbols Rounded';
+  src: url('/fonts/MaterialSymbolsRounded.woff2') format('woff2');
+  font-weight: 100 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('/fonts/RobotoMono.woff2') format('woff2');
+  font-weight: 100 700;
+  font-display: swap;
+}</pre>
+            </div>
+          </div>
+          <div class="docs-step">
+            <div class="docs-step__num">2</div>
+            <div>
+              <div class="docs-step__title">Load the stylesheets</div>
+              <div class="docs-step__desc"><code>theme.css</code> must come <strong>before</strong> <code>immaterial.css</code> — every component colour references a token defined in the theme file.</div>
+              <pre class="docs-code">&lt;link rel="stylesheet" href="theme.css"&gt;    &lt;!-- tokens first --&gt;
+&lt;link rel="stylesheet" href="immaterial.css"&gt;</pre>
+            </div>
+          </div>
+          <div class="docs-step">
+            <div class="docs-step__num">3</div>
+            <div>
+              <div class="docs-step__title">Add the behaviour script</div>
+              <div class="docs-step__desc">Add <code>immaterial.js</code> before <code>&lt;/body&gt;</code>. It auto-initialises sliders, tabs, menus, and dialogs. If you inject markup dynamically, call <code>Immaterial.init()</code> to wire the new elements.</div>
+              <pre class="docs-code">&lt;script src="immaterial.js"&gt;&lt;/script&gt;</pre>
+            </div>
+          </div>
+          <div class="docs-step">
+            <div class="docs-step__num">4</div>
+            <div>
+              <div class="docs-step__title">Set the colour scheme on <code>&lt;html&gt;</code></div>
+              <div class="docs-step__desc">For OS-based auto mode, add nothing. To force a theme on load, set <code>data-theme</code>. <code>Immaterial.setTheme()</code> updates this attribute at runtime and persists the choice in <code>localStorage</code>.</div>
+              <pre class="docs-code">&lt;html data-theme="light"&gt;   &lt;!-- force light --&gt;
+&lt;html data-theme="dark"&gt;    &lt;!-- force dark --&gt;
+&lt;html&gt;                       &lt;!-- follows the OS (default) --&gt;</pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- THEMING OVERVIEW -->
+      <section class="docs-section" id="theming">
+        <div class="docs-section__label">Theming</div>
+        <div class="docs-section__title">Rebranding in one step</div>
+        <div class="docs-section__desc">All colour lives in <code>theme.css</code>. Change <code>--seed-primary</code> and the full token set — containers, on-colours, surfaces, hover states, chart bars, focus rings, shadows — is recalculated automatically for both light and dark modes.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>Rebrand checklist</strong>
+            Change <code>--seed-primary</code> to your brand colour. Override <code>--seed-secondary</code> and <code>--seed-tertiary</code> to break from the auto-derived hues. Spot-check contrast on extreme seeds (neon, very light) and pin any offender with a literal override like <code>:root { --on-primary-container: #1A1400; }</code>.
+          </div>
+        </div>
+
+        <pre class="docs-code">/* theme.css — the only file a designer edits */
+:root {
+  --seed-primary:   #2563EB;   /* change to your brand colour */
+  --seed-secondary: #6D7C8A;   /* optional — defaults to a muted sibling */
+  --seed-tertiary:  #7C5EBD;   /* optional — defaults to +60° hue shift */
+  --seed-error:     #B3261E;
+  --seed-success:   #0E7A43;
+  --seed-warning:   #9A6A00;
+}</pre>
+
+        <div class="docs-section__desc">For the full token reference and light/dark mode instructions, see <a href="foundations.html" style="color:var(--primary);font-weight:600">Color &amp; Theming →</a></div>
+      </section>
+
+      <!-- JS API -->
+      <section class="docs-section" id="js-api">
+        <div class="docs-section__label">JavaScript</div>
+        <div class="docs-section__title">The <code>Immaterial</code> API</div>
+        <div class="docs-section__desc">The script exposes a single global object. Most behaviours (menus, table group toggles) wire themselves automatically — you only call the API for toasts, dialogs, and theme changes.</div>
+
+        <div class="card"><div class="card__body">
+          <div style="display:flex;flex-direction:column;gap:0">
+            <div style="display:grid;grid-template-columns:260px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--outline-variant);align-items:baseline">
+              <code style="font-size:12.5px;color:var(--on-surface-variant)">Immaterial.toast(msg, opts)</code>
+              <span style="font-size:13.5px;color:var(--on-surface-variant)">Show a snackbar. Optional <code>actionLabel</code>, <code>onAction</code>, <code>duration</code>. Returns <code>dismiss()</code>.</span>
+            </div>
+            <div style="display:grid;grid-template-columns:260px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--outline-variant);align-items:baseline">
+              <code style="font-size:12.5px;color:var(--on-surface-variant)">Immaterial.openDialog(id)</code>
+              <span style="font-size:13.5px;color:var(--on-surface-variant)">Open a dialog by its element ID.</span>
+            </div>
+            <div style="display:grid;grid-template-columns:260px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--outline-variant);align-items:baseline">
+              <code style="font-size:12.5px;color:var(--on-surface-variant)">Immaterial.closeDialog(id)</code>
+              <span style="font-size:13.5px;color:var(--on-surface-variant)">Close a dialog by its element ID.</span>
+            </div>
+            <div style="display:grid;grid-template-columns:260px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--outline-variant);align-items:baseline">
+              <code style="font-size:12.5px;color:var(--on-surface-variant)">Immaterial.setTheme(mode)</code>
+              <span style="font-size:13.5px;color:var(--on-surface-variant)">Set <code>'light'</code>, <code>'dark'</code>, or <code>'auto'</code>. Persists to <code>localStorage</code>.</span>
+            </div>
+            <div style="display:grid;grid-template-columns:260px 1fr;gap:16px;padding:12px 0;align-items:baseline">
+              <code style="font-size:12.5px;color:var(--on-surface-variant)">Immaterial.init(root?)</code>
+              <span style="font-size:13.5px;color:var(--on-surface-variant)">Re-wire sliders and tabs inside <code>root</code> (defaults to <code>document</code>) after injecting dynamic markup.</span>
+            </div>
+          </div>
+        </div></div>
+      </section>
+
+      <!-- BROWSER SUPPORT -->
+      <section class="docs-section" id="browser-support">
+        <div class="docs-section__label">Compatibility</div>
+        <div class="docs-section__title">Browser support</div>
+        <div class="docs-section__desc">Targets evergreen Chrome, Edge, Firefox, and Safari (2024+). No build step, no polyfills, no transpilation.</div>
+        <div class="demo-row">
+          <span class="badge badge--neutral">Chrome 115+</span>
+          <span class="badge badge--neutral">Edge 115+</span>
+          <span class="badge badge--neutral">Firefox 117+</span>
+          <span class="badge badge--neutral">Safari 17.4+</span>
+        </div>
+        <p style="font-size:13px;color:var(--on-surface-variant);margin-top:12px">Uses: <code>color-mix()</code> · <code>oklch(from …)</code> relative colour · <code>light-dark()</code> · <code>:has()</code> · CSS custom properties</p>
+      </section>
+
+      <!-- LINKS -->
+      <section class="docs-section">
+        <div class="docs-section__label">Resources</div>
+        <div class="docs-section__title">Next steps</div>
+        <div class="demo-row" style="gap:12px">
+          <a href="foundations.html" class="btn btn--tonal"><span class="icon">palette</span>Color &amp; Theming</a>
+          <a href="components-controls.html" class="btn btn--tonal"><span class="icon">smart_button</span>Components</a>
+          <a href="patterns.html" class="btn btn--tonal"><span class="icon">dashboard</span>Patterns</a>
+          <a href="../showcase.html" class="btn btn--outlined" target="_blank"><span class="icon">open_in_new</span>Live showcase</a>
+          <a href="https://github.com" class="btn btn--text" target="_blank"><span class="icon">code</span>README on GitHub</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="../immaterial.js"></script>
+<script>
+  // Sync theme toggle to current theme on load
+  (function () {
+    var saved = localStorage.getItem('immaterial-theme') || 'light';
+    document.querySelectorAll('[name="theme"]').forEach(function (r) {
+      r.checked = r.value === saved;
+    });
+    Immaterial.setTheme(saved);
+  }());
+</script>
+</body>
+</html>

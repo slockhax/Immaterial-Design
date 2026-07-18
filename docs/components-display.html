@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Components: Display — Immaterial Design</title>
+<link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../immaterial.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+</head>
+<body>
+<div class="docs-shell">
+
+  <!-- ══════ SIDEBAR ══════ -->
+  <aside class="docs-sidebar">
+    <a class="docs-sidebar__brand" href="index.html">
+      <span class="docs-sidebar__logo">I</span>
+      Immaterial
+    </a>
+    <div class="docs-sidebar__theme">
+      <div class="segmented" role="radiogroup" aria-label="Theme">
+        <label class="segmented__option"><input type="radio" name="theme" value="light" checked onchange="Immaterial.setTheme('light')"><span class="icon segmented__check">check</span>Light</label>
+        <label class="segmented__option"><input type="radio" name="theme" value="dark" onchange="Immaterial.setTheme('dark')"><span class="icon segmented__check">check</span>Dark</label>
+        <label class="segmented__option"><input type="radio" name="theme" value="auto" onchange="Immaterial.setTheme('auto')"><span class="icon segmented__check">check</span>Auto</label>
+      </div>
+    </div>
+    <div class="nav-section">Getting Started</div>
+    <a class="nav-item" href="index.html"><span class="icon">home</span>Home &amp; Setup</a>
+    <div class="nav-section">Foundations</div>
+    <a class="nav-item" href="foundations.html"><span class="icon">palette</span>Color &amp; Theming</a>
+    <a class="nav-item" href="foundations.html#typography"><span class="icon">text_fields</span>Typography</a>
+    <div class="nav-section">Components — Controls</div>
+    <a class="nav-item" href="components-controls.html"><span class="icon">smart_button</span>Buttons &amp; Actions</a>
+    <a class="nav-item" href="components-controls.html#forms"><span class="icon">tune</span>Form Inputs</a>
+    <div class="nav-section">Components — Display</div>
+    <a class="nav-item is-active" href="components-display.html"><span class="icon">label</span>Badges &amp; Status</a>
+    <a class="nav-item" href="components-display.html#feedback"><span class="icon">notifications</span>Feedback &amp; Navigation</a>
+    <div class="nav-section">Patterns</div>
+    <a class="nav-item" href="patterns.html"><span class="icon">dashboard</span>Cards &amp; Lists</a>
+    <a class="nav-item" href="patterns.html#data"><span class="icon">table_chart</span>Data Tables &amp; Charts</a>
+  </aside>
+
+  <!-- ══════ MAIN ══════ -->
+  <main class="docs-main">
+    <div class="docs-content">
+
+      <div class="docs-hero">
+        <h1>Components — Display</h1>
+        <p>Components that communicate state, structure content, or guide users through a workflow. Most are pure CSS; dialogs, toasts, and tabs require <code>immaterial.js</code>.</p>
+      </div>
+
+      <!-- ════════════════════════
+           BADGES & PRIORITY
+      ═════════════════════════ -->
+      <section class="docs-section" id="badges">
+        <div class="docs-section__label">Badges</div>
+        <div class="docs-section__title">Status badges &amp; priority labels</div>
+        <div class="docs-section__desc">Badges communicate a discrete status. Priority labels use an upward-pointing triangle dot to signal urgency by colour. Both include a quiet dot variant for dense tables.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>Filled vs. dot variant</strong>
+            Use the full badge in card bodies, list items, and detail views where you have space. Use <code>badge--dot</code> in table cells and anywhere four or more badges appear in a single row — the dot reduces visual noise while preserving the colour signal.
+            <br><br>
+            <strong>Badge vs. priority label</strong>
+            Use <strong>badges</strong> for workflow states (In progress, Done, Draft). Use <strong>priority labels</strong> only for urgency levels — they use a fixed colour set (red/amber/teal) that carries a universally understood meaning.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="demo-stack">
+            <div class="demo-row">
+              <span class="badge badge--primary">In progress</span>
+              <span class="badge badge--warning">Queued</span>
+              <span class="badge badge--success">Done</span>
+              <span class="badge badge--neutral">Draft</span>
+              <span class="priority priority--high">High</span>
+              <span class="priority priority--medium">Medium</span>
+              <span class="priority priority--low">Low</span>
+            </div>
+            <div style="font-size:12px;color:var(--on-surface-faint);font-weight:600;letter-spacing:0.4px;text-transform:uppercase">Dot variants — for dense tables</div>
+            <div class="demo-row">
+              <span class="badge badge--dot badge--primary">In progress</span>
+              <span class="badge badge--dot badge--warning">Queued</span>
+              <span class="badge badge--dot badge--success">Done</span>
+              <span class="badge badge--dot badge--neutral">Draft</span>
+            </div>
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.badge</code> + <code>--primary</code> <code>--success</code> <code>--warning</code> <code>--neutral</code> · Add <code>--dot</code> for quiet variant · <code>.priority</code> + <code>--high</code> <code>--medium</code> <code>--low</code></p>
+      </section>
+
+      <!-- PROGRESS -->
+      <section class="docs-section" id="progress">
+        <div class="docs-section__label">Progress</div>
+        <div class="docs-section__title">Progress bar &amp; spinner</div>
+        <div class="docs-section__desc">Linear progress for known-duration tasks; spinner for indeterminate loading states. Set the bar width inline as a percentage.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use</strong>
+            Use a <strong>progress bar</strong> when you know the percentage of completion — plan completion, upload progress, multi-step forms. Use a <strong>spinner</strong> for indeterminate operations where you can't quantify progress (API calls, initial page loads, background syncs). Choose spinner size: <code>--sm</code> inline next to a button label, default inside a card, <code>--lg</code> as a full-page loading indicator.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="demo-row demo-row--top" style="gap:40px">
+            <div style="flex:1;min-width:220px">
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span style="font-weight:600">Monthly PM plan</span><span style="font-weight:700;color:var(--primary)">68%</span></div>
+              <div class="progress"><div class="progress__bar" style="width:68%"></div></div>
+            </div>
+            <div class="demo-row" style="gap:18px">
+              <div class="spinner spinner--sm"></div>
+              <div class="spinner"></div>
+              <div class="spinner spinner--lg"></div>
+            </div>
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.progress &gt; .progress__bar</code> (width = percentage) · <code>.spinner</code> + <code>--sm</code> <code>--lg</code></p>
+      </section>
+
+      <!-- TABS -->
+      <section class="docs-section" id="tabs">
+        <div class="docs-section__label">Tabs</div>
+        <div class="docs-section__title">Tab navigation</div>
+        <div class="docs-section__desc">JS switches panels. Wrap tabs and panels in <code>[data-tabs-scope]</code> so switching stays scoped when a page has multiple tab groups. Counts use <code>.tab__count</code>.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>Line tabs vs. pill tabs</strong>
+            Use the default <strong>line tabs</strong> at the top of a section or page — the underline anchors to the nearest surface edge and reads clearly on <code>--surface-dim</code>. Use <strong>pill tabs</strong> (<code>tabs--pill</code>) inside cards or on tonal surfaces where a floating underline would look unanchored. Panels are optional — for filter bars, listen for the <code>tabchange</code> event and filter data client-side.
+          </div>
+        </div>
+
+        <div class="docs-demo" data-tabs-scope>
+          <div class="demo-stack">
+            <div>
+              <p style="font-size:12px;font-weight:600;color:var(--on-surface-faint);text-transform:uppercase;letter-spacing:0.4px;margin:0 0 10px">Line tabs (default)</p>
+              <div class="tabs" data-tabs>
+                <button class="tab is-active" data-tab="all-d">All <span class="tab__count">9</span></button>
+                <button class="tab" data-tab="queued-d">Queued <span class="tab__count">4</span></button>
+                <button class="tab" data-tab="done-d">Done <span class="tab__count">2</span></button>
+              </div>
+              <div class="tab-panel" data-tab-panel="all-d" style="padding:14px 2px;font-size:13.5px;color:var(--on-surface-variant)">Showing all 9 tasks.</div>
+              <div class="tab-panel" data-tab-panel="queued-d" style="padding:14px 2px;font-size:13.5px;color:var(--on-surface-variant)" hidden>Showing 4 queued tasks.</div>
+              <div class="tab-panel" data-tab-panel="done-d" style="padding:14px 2px;font-size:13.5px;color:var(--on-surface-variant)" hidden>Showing 2 completed tasks.</div>
+            </div>
+            <div style="padding-top:10px">
+              <p style="font-size:12px;font-weight:600;color:var(--on-surface-faint);text-transform:uppercase;letter-spacing:0.4px;margin:0 0 10px">Pill variant — for cards and tonal surfaces</p>
+              <div class="tabs tabs--pill">
+                <button class="tab is-active">All <span class="tab__count">9</span></button>
+                <button class="tab">Queued <span class="tab__count">4</span></button>
+                <button class="tab">Done <span class="tab__count">2</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="docs-ref">Requires <code>immaterial.js</code>. Classes: <code>.tabs</code> + <code>--pill</code> · <code>.tab</code> + <code>.is-active</code> · <code>.tab__count</code> · <code>[data-tabs-scope]</code> wrapper · <code>[data-tab-panel]</code> panels</p>
+      </section>
+
+      <!-- TOOLBAR -->
+      <section class="docs-section" id="toolbar">
+        <div class="docs-section__label">Toolbar</div>
+        <div class="docs-section__title">Action bar</div>
+        <div class="docs-section__desc">A horizontal strip of actions above a card or table. Use <code>.toolbar__spacer</code> to push trailing items right, and <code>.toolbar__divider</code> to group related actions.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use</strong>
+            Use a toolbar above a data table or a card that has several independent actions — density control, column visibility, refresh, export. Keep it to icon buttons for secondary actions; reserve labelled buttons for the single primary action (if any). The toolbar itself has no background — it inherits the surface beneath it.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="toolbar">
+            <span style="font-size:15px;font-weight:650">Maintenance queue</span>
+            <span class="toolbar__spacer"></span>
+            <div class="button-group button-group--icons" id="toolbar-density">
+              <button class="is-active" onclick="pickBtn2(this)" title="Comfortable"><span class="icon">density_medium</span></button>
+              <button onclick="pickBtn2(this)" title="Compact"><span class="icon">density_small</span></button>
+            </div>
+            <span class="toolbar__divider"></span>
+            <button class="icon-btn icon-btn--sm" title="Column visibility"><span class="icon">view_column</span></button>
+            <button class="icon-btn icon-btn--sm" title="Refresh" onclick="Immaterial.toast('Refreshed')"><span class="icon">refresh</span></button>
+            <button class="icon-btn icon-btn--sm" title="Export" onclick="Immaterial.toast('Export started')"><span class="icon">download</span></button>
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.toolbar</code> · <code>.toolbar__spacer</code> (flexible gap) · <code>.toolbar__divider</code> (1px separator)</p>
+      </section>
+
+      <!-- BREADCRUMBS -->
+      <section class="docs-section" id="breadcrumbs">
+        <div class="docs-section__label">Breadcrumbs</div>
+        <div class="docs-section__title">Hierarchical path</div>
+        <div class="docs-section__desc">Ancestor links separated by <code>chevron_right</code> icons. The current page is a plain <code>.breadcrumbs__current</code> span, not a link.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use</strong>
+            Use breadcrumbs when the app has 3+ levels of hierarchy and users regularly need to navigate up. Skip them on flat apps, dashboards, or wizard flows where the concept of "going up a level" doesn't apply. Don't duplicate breadcrumbs and a back button — one or the other is enough.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <nav class="breadcrumbs">
+            <a href="#">Dashboard</a>
+            <span class="icon">chevron_right</span>
+            <a href="#">Facilities</a>
+            <span class="icon">chevron_right</span>
+            <span class="breadcrumbs__current">Zone 4</span>
+          </nav>
+        </div>
+        <p class="docs-ref">Classes: <code>.breadcrumbs</code> nav · <code>.breadcrumbs__current</code> for the active page (not a link)</p>
+      </section>
+
+      <!-- ════════════════════════
+           FEEDBACK & NAVIGATION
+      ═════════════════════════ -->
+      <section class="docs-section" id="feedback">
+        <div class="docs-section__label">Alerts</div>
+        <div class="docs-section__title">Alert banners</div>
+        <div class="docs-section__desc">Persistent inline messaging for conditions that need ongoing attention. For one-off feedback after an action, use a toast instead. An optional <code>.alert__title</code> and dismiss button are supported.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use</strong>
+            Use alerts for stateful, persistent conditions the user needs to be aware of throughout a session: a degraded connection, a sensor that's been offline for an hour, a scheduled maintenance window. Remove the alert when the condition clears. Don't use alerts for transient action feedback (saved, deleted) — use a toast. Don't stack more than 2–3 alerts; if many conditions need to be surfaced, use a summary list instead.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div style="display:flex;flex-direction:column;gap:12px;max-width:640px">
+            <div class="alert alert--info"><span class="icon">info</span><div class="alert__content"><span>Scheduled maintenance window starts Friday at 22:00.</span></div></div>
+            <div class="alert alert--success"><span class="icon">check_circle</span><div class="alert__content"><span class="alert__title">Sync complete</span><span>All 42 sensors reported within the last 5 minutes.</span></div></div>
+            <div class="alert alert--warning"><span class="icon">warning</span><div class="alert__content"><span>3 sensors have not reported in over an hour.</span></div><button class="icon-btn icon-btn--sm" title="Dismiss" onclick="this.closest('.alert').remove()"><span class="icon">close</span></button></div>
+            <div class="alert alert--error"><span class="icon">error</span><div class="alert__content"><span class="alert__title">Connection lost</span><span>Live data paused — reconnecting…</span></div></div>
+          </div>
+        </div>
+        <p class="docs-ref">Classes: <code>.alert</code> + <code>--info</code> <code>--success</code> <code>--warning</code> <code>--error</code> · Children: <code>.alert__content</code> <code>.alert__title</code></p>
+      </section>
+
+      <!-- DIALOG -->
+      <section class="docs-section" id="dialog">
+        <div class="docs-section__label">Dialog</div>
+        <div class="docs-section__title">Modal dialog</div>
+        <div class="docs-section__desc">Markup lives in the page, hidden. Trigger with <code>data-dialog-open="id"</code>. Closes on scrim click, <code>data-dialog-close</code>, or Esc. Use <code>Immaterial.openDialog()</code> / <code>closeDialog()</code> for programmatic control.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use</strong>
+            Use a dialog for actions that are irreversible or high-stakes and require an explicit confirmation: deleting records, submitting a form with significant side effects, overwriting data. Keep dialogs to 1–2 actions (confirm + cancel). Don't use a dialog for non-destructive confirmations — a toast with an undo action is less disruptive. Don't use dialogs as forms for more than 2–3 fields; a drawer or a dedicated page scales better.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="demo-stack">
+            <div>
+              <button class="btn btn--danger" data-dialog-open="demo-dialog-d"><span class="icon">delete</span>Delete tasks</button>
+            </div>
+            <!-- static preview -->
+            <div style="background:var(--scrim);border-radius:16px;padding:44px;display:flex;justify-content:center">
+              <div class="dialog" style="animation:none">
+                <div class="dialog__icon dialog__icon--error"><span class="icon">delete_forever</span></div>
+                <div class="dialog__title">Delete 3 tasks?</div>
+                <div class="dialog__text">This will permanently remove the selected tasks from the maintenance queue. This action can't be undone.</div>
+                <div class="dialog__actions">
+                  <button class="btn btn--outlined">Cancel</button>
+                  <button class="btn btn--danger">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dialog-scrim" id="demo-dialog-d" hidden>
+          <div class="dialog">
+            <div class="dialog__icon dialog__icon--error"><span class="icon">delete_forever</span></div>
+            <div class="dialog__title">Delete 3 tasks?</div>
+            <div class="dialog__text">This will permanently remove the selected tasks from the maintenance queue. This action can't be undone.</div>
+            <div class="dialog__actions">
+              <button class="btn btn--outlined" data-dialog-close>Cancel</button>
+              <button class="btn btn--danger" data-dialog-close onclick="Immaterial.toast('3 tasks deleted')">Delete</button>
+            </div>
+          </div>
+        </div>
+        <p class="docs-ref">Requires <code>immaterial.js</code>. Trigger: <code>data-dialog-open="id"</code> · Close: <code>data-dialog-close</code> · Programmatic: <code>Immaterial.openDialog(id)</code> / <code>closeDialog(id)</code></p>
+      </section>
+
+      <!-- TOAST -->
+      <section class="docs-section" id="toast">
+        <div class="docs-section__label">Toast</div>
+        <div class="docs-section__title">Snackbar / toast notification</div>
+        <div class="docs-section__desc">No markup needed — call <code>Immaterial.toast()</code>. Toasts stack at the bottom of the screen and auto-dismiss. An optional action label (e.g. "Undo") can be passed in the options.</div>
+
+        <div class="docs-when">
+          <span class="icon">tips_and_updates</span>
+          <div class="docs-when__body">
+            <strong>When to use</strong>
+            Use toasts for brief, non-blocking feedback after a user action: "Task created", "3 items deleted", "Settings saved". Keep messages under ~60 characters. Use the action label for a single recoverable action (Undo, Retry). Don't stack multiple toasts for a single user action — summarise. Don't use toasts for errors that require attention — use an alert banner instead. Set <code>duration: 0</code> for sticky toasts that require user dismissal.
+          </div>
+        </div>
+
+        <div class="docs-demo">
+          <div class="demo-row">
+            <button class="btn btn--tonal" onclick="Immaterial.toast('Task created and added to the queue')">Simple toast</button>
+            <button class="btn btn--tonal" onclick="Immaterial.toast('Task deleted', { actionLabel: 'Undo', onAction: function(){ Immaterial.toast('Restored'); } })">With undo action</button>
+            <button class="btn btn--tonal" onclick="Immaterial.toast('Changes saved', { duration: 2000 })">Short duration</button>
+          </div>
+        </div>
+        <p class="docs-ref">Requires <code>immaterial.js</code>. <code>Immaterial.toast(message, { actionLabel, onAction, duration })</code> → returns <code>dismiss()</code></p>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="../immaterial.js"></script>
+<script>
+  (function () {
+    var saved = localStorage.getItem('immaterial-theme') || 'light';
+    document.querySelectorAll('[name="theme"]').forEach(function (r) {
+      r.checked = r.value === saved;
+    });
+    Immaterial.setTheme(saved);
+  }());
+
+  function pickBtn2(btn) {
+    Array.from(btn.parentElement.children).forEach(function (b) { b.classList.remove('is-active'); });
+    btn.classList.add('is-active');
+  }
+</script>
+</body>
+</html>
