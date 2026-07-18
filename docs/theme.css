@@ -1,0 +1,121 @@
+/* ============================================================
+   IMMATERIAL — THEME TOKENS  (designer input file)
+   ------------------------------------------------------------
+   Rebrand by editing the SEED colours below — every other token
+   is CALCULATED from them with relative colour syntax (oklch)
+   and light-dark(). immaterial.css never hardcodes a colour.
+
+   Load order:  theme.css  BEFORE  immaterial.css
+
+   Light/dark: every token carries both values via light-dark().
+   Follow the OS (default), or force with
+   <html data-theme="light"> / <html data-theme="dark">.
+
+   Escape hatch: any computed token can be overridden with a
+   literal colour in your own stylesheet — e.g. if an extreme
+   seed (neon yellow) produces a low-contrast on-colour:
+     :root { --on-primary-container: #1A1400; }
+
+   ------------------------------------------------------------
+   RENAMING MAP (v1 token → Material role name)
+   Search-and-replace in this order if migrating an existing app:
+     --text-muted   →  --on-surface-variant
+     --text-faint   →  --on-surface-faint
+     --text         →  --on-surface
+     --bg           →  --surface-dim
+     --surface-3    →  --surface-container-high
+     --surface-2    →  --surface-container
+     --border       →  --outline-variant
+     --danger-hover →  --error-hover
+     --danger-text  →  --error-text
+     --on-danger    →  --on-error
+     --danger       →  --error
+   Unchanged: --surface --primary* --on-primary* --outline
+   --divider --success* --warning* --disabled-* --track
+   --row-* --chart-bar --ring --scrim --snackbar-* --shadow-*
+   ============================================================ */
+
+:root { color-scheme: light dark; }
+[data-theme="light"] { color-scheme: light; }
+[data-theme="dark"]  { color-scheme: dark; }
+
+:root {
+  /* ---------- SEEDS — the values a designer edits ---------- */
+  --seed-primary:   #6D28D9;
+  /* secondary/tertiary default to derivations of primary
+     (muted sibling / hue-shifted accent) — replace with your
+     own hexes to break the link. */
+  --seed-secondary: oklch(from var(--seed-primary) l calc(c * 0.45) h);
+  --seed-tertiary:  oklch(from var(--seed-primary) l calc(c * 0.75) calc(h + 60));
+  --seed-error:     #B3261E;
+  --seed-success:   #0E7A43;
+  --seed-warning:   #9A6A00;
+
+  /* ---------- PRIMARY ---------- */
+  --primary:              light-dark(var(--seed-primary), oklch(from var(--seed-primary) 0.78 calc(c * 0.45) h));
+  --primary-hover:        light-dark(oklch(from var(--seed-primary) 0.52 c h), oklch(from var(--seed-primary) 0.84 calc(c * 0.35) h));
+  --primary-strong:       light-dark(oklch(from var(--seed-primary) 0.38 c h), oklch(from var(--seed-primary) 0.89 calc(c * 0.25) h));
+  --on-primary:           light-dark(#FFFFFF, oklch(from var(--seed-primary) 0.25 calc(c * 0.5) h));
+  --primary-container:    light-dark(oklch(from var(--seed-primary) 0.86 calc(c * 0.38) h), oklch(from var(--seed-primary) 0.37 calc(c * 0.5) h));
+  --on-primary-container: light-dark(oklch(from var(--seed-primary) 0.25 calc(c * 0.5) h), oklch(from var(--seed-primary) 0.90 calc(c * 0.2) h));
+
+  /* ---------- SECONDARY ---------- */
+  --secondary:              light-dark(var(--seed-secondary), oklch(from var(--seed-secondary) 0.78 calc(c * 0.45) h));
+  --on-secondary:           light-dark(#FFFFFF, oklch(from var(--seed-secondary) 0.25 calc(c * 0.5) h));
+  --secondary-container:    light-dark(oklch(from var(--seed-secondary) 0.86 calc(c * 0.38) h), oklch(from var(--seed-secondary) 0.37 calc(c * 0.5) h));
+  --on-secondary-container: light-dark(oklch(from var(--seed-secondary) 0.25 calc(c * 0.5) h), oklch(from var(--seed-secondary) 0.90 calc(c * 0.2) h));
+
+  /* ---------- TERTIARY ---------- */
+  --tertiary:              light-dark(var(--seed-tertiary), oklch(from var(--seed-tertiary) 0.78 calc(c * 0.45) h));
+  --on-tertiary:           light-dark(#FFFFFF, oklch(from var(--seed-tertiary) 0.25 calc(c * 0.5) h));
+  --tertiary-container:    light-dark(oklch(from var(--seed-tertiary) 0.86 calc(c * 0.38) h), oklch(from var(--seed-tertiary) 0.37 calc(c * 0.5) h));
+  --on-tertiary-container: light-dark(oklch(from var(--seed-tertiary) 0.25 calc(c * 0.5) h), oklch(from var(--seed-tertiary) 0.90 calc(c * 0.2) h));
+
+  /* ---------- SURFACES (neutrals tinted by the primary hue) ---------- */
+  --surface:                light-dark(oklch(from var(--seed-primary) 0.965 0.015 h), oklch(from var(--seed-primary) 0.24 0.03 h));
+  --surface-dim:            light-dark(oklch(from var(--seed-primary) 0.91 0.04 h), oklch(from var(--seed-primary) 0.18 0.025 h));  /* page background */
+  --surface-container:      light-dark(oklch(from var(--seed-primary) 0.93 0.03 h), oklch(from var(--seed-primary) 0.28 0.04 h));
+  --surface-container-high: light-dark(oklch(from var(--seed-primary) 0.89 0.05 h), oklch(from var(--seed-primary) 0.32 0.05 h));
+  --outline:                light-dark(oklch(from var(--seed-primary) 0.74 0.06 h), oklch(from var(--seed-primary) 0.52 0.06 h));
+  --outline-variant:        light-dark(oklch(from var(--seed-primary) 0.79 0.075 h), oklch(from var(--seed-primary) 0.40 0.05 h));  /* borders */
+  --divider:                light-dark(oklch(from var(--seed-primary) 0.905 0.04 h), oklch(from var(--seed-primary) 0.30 0.035 h));
+
+  /* ---------- ON-SURFACE (text) ---------- */
+  --on-surface:         light-dark(oklch(from var(--seed-primary) 0.25 0.05 h), oklch(from var(--seed-primary) 0.93 0.02 h));
+  --on-surface-variant: light-dark(oklch(from var(--seed-primary) 0.46 0.04 h), oklch(from var(--seed-primary) 0.75 0.05 h));
+  --on-surface-faint:   light-dark(oklch(from var(--seed-primary) 0.66 0.06 h), oklch(from var(--seed-primary) 0.57 0.04 h));
+
+  /* ---------- ERROR ---------- */
+  --error:       light-dark(var(--seed-error), oklch(from var(--seed-error) 0.42 c h));
+  --error-hover: light-dark(oklch(from var(--seed-error) 0.42 c h), oklch(from var(--seed-error) 0.50 c h));
+  --on-error:    light-dark(#FFFFFF, oklch(from var(--seed-error) 0.90 calc(c * 0.25) h));
+  --error-text:  light-dark(var(--seed-error), oklch(from var(--seed-error) 0.80 calc(c * 0.55) h));
+  --error-container:    light-dark(oklch(from var(--seed-error) 0.88 calc(c * 0.35) h), oklch(from var(--seed-error) 0.30 calc(c * 0.6) h));
+  --on-error-container: light-dark(oklch(from var(--seed-error) 0.28 calc(c * 0.8) h), oklch(from var(--seed-error) 0.90 calc(c * 0.3) h));
+
+  /* ---------- SUCCESS / WARNING ---------- */
+  --success:              light-dark(var(--seed-success), oklch(from var(--seed-success) 0.80 calc(c * 0.8) h));
+  --success-container:    light-dark(oklch(from var(--seed-success) 0.90 calc(c * 0.5) h), oklch(from var(--seed-success) 0.32 calc(c * 0.8) h));
+  --on-success-container: light-dark(oklch(from var(--seed-success) 0.32 calc(c * 0.8) h), oklch(from var(--seed-success) 0.90 calc(c * 0.5) h));
+  --warning:              light-dark(var(--seed-warning), oklch(from var(--seed-warning) 0.80 calc(c * 0.8) h));
+  --warning-container:    light-dark(oklch(from var(--seed-warning) 0.91 calc(c * 0.5) h), oklch(from var(--seed-warning) 0.35 calc(c * 0.8) h));
+  --on-warning-container: light-dark(oklch(from var(--seed-warning) 0.35 c h), oklch(from var(--seed-warning) 0.91 calc(c * 0.5) h));
+
+  /* ---------- STATES & COMPONENT COLOURS ---------- */
+  --disabled-bg:   light-dark(oklch(from var(--seed-primary) 0.92 0.02 h), oklch(from var(--seed-primary) 0.27 0.03 h));
+  --disabled-text: light-dark(oklch(from var(--seed-primary) 0.66 0.03 h), oklch(from var(--seed-primary) 0.50 0.03 h));
+  --track:         light-dark(oklch(from var(--seed-primary) 0.81 0.05 h), oklch(from var(--seed-primary) 0.33 0.05 h));
+  --row-hover:     light-dark(oklch(from var(--seed-primary) 0.94 0.025 h), oklch(from var(--seed-primary) 0.27 0.035 h));
+  --row-selected:  light-dark(oklch(from var(--seed-primary) 0.92 0.045 h), oklch(from var(--seed-primary) 0.35 0.08 h));
+  --chart-bar:     light-dark(oklch(from var(--seed-primary) 0.65 calc(c * 0.65) h), oklch(from var(--seed-primary) 0.62 calc(c * 0.6) h));
+  --ring:          light-dark(oklch(from var(--seed-primary) 0.52 c h), oklch(from var(--seed-primary) 0.78 calc(c * 0.45) h));
+
+  --scrim:           light-dark(oklch(from var(--seed-primary) 0.25 0.05 h / 0.45), oklch(0 0 0 / 0.62));
+  --snackbar-bg:     light-dark(oklch(from var(--seed-primary) 0.32 0.04 h), oklch(from var(--seed-primary) 0.91 0.03 h));
+  --snackbar-text:   light-dark(oklch(from var(--seed-primary) 0.94 0.02 h), oklch(from var(--seed-primary) 0.25 0.05 h));
+  --snackbar-action: light-dark(oklch(from var(--seed-primary) 0.78 calc(c * 0.45) h), var(--seed-primary));
+
+  --shadow-card:   0 4px 14px light-dark(oklch(from var(--seed-primary) 0.38 c h / 0.12), rgb(0 0 0 / 0.40));
+  --shadow-pop:    0 6px 20px light-dark(oklch(from var(--seed-primary) 0.38 c h / 0.22), rgb(0 0 0 / 0.50));
+  --shadow-dialog: 0 12px 40px light-dark(oklch(from var(--seed-primary) 0.25 0.05 h / 0.35), rgb(0 0 0 / 0.60));
+}

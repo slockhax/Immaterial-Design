@@ -1,0 +1,11 @@
+# .github/workflows/sync-docs.yml
+on: push
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cp theme.css immaterial.css immaterial.js docs/
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "sync library files to docs/"
