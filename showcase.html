@@ -224,6 +224,48 @@
     </div>
   </section>
 
+  <!-- MENU POPOVER -->
+  <section class="block">
+    <h2>Menu popover</h2>
+    <p class="desc">One menu surface, two commit modes. The default menu applies on click and closes; add <code>menu--deferred</code> for checkbox selection with a Clear/Apply footer — nothing commits until Apply (fires <code>menuapply</code>). Rich items take a leading <code>.icon</code> and a <code>.menu__trailing</code> shortcut or count.</p>
+    <div class="row row--top" style="gap:72px;min-height:300px;align-items:flex-start">
+      <div class="stack" style="gap:10px">
+        <span class="caption">row actions — instant</span>
+        <div data-menu-wrap style="position:relative;display:inline-flex">
+          <button class="icon-btn icon-btn--filled" data-menu-toggle aria-label="Row actions"><span class="icon">more_vert</span></button>
+          <div class="menu menu--left" hidden style="min-width:220px">
+            <button class="menu__item" onclick="Immaterial.toast('Edit task')"><span class="icon">edit</span>Edit task<span class="menu__trailing">⌘E</span></button>
+            <button class="menu__item" onclick="Immaterial.toast('Reassign')"><span class="icon">person_add</span>Reassign<span class="menu__trailing">⌘R</span></button>
+            <button class="menu__item" onclick="Immaterial.toast('Duplicated')"><span class="icon">content_copy</span>Duplicate</button>
+            <div class="menu__divider"></div>
+            <button class="menu__item menu__item--danger" onclick="Immaterial.toast('Deleted')"><span class="icon">delete</span>Delete</button>
+          </div>
+        </div>
+      </div>
+      <div class="stack" style="gap:10px">
+        <span class="caption">table filter — deferred</span>
+        <div data-menu-wrap style="position:relative;display:inline-flex">
+          <button class="btn btn--tonal" data-menu-toggle><span class="icon">filter_list</span>Status<span class="icon">arrow_drop_down</span></button>
+          <div class="menu menu--left menu--deferred" hidden style="min-width:220px" id="status-filter-menu">
+            <label class="menu__item"><input type="checkbox" class="checkbox" value="Open" checked>Open<span class="menu__trailing">24</span></label>
+            <label class="menu__item"><input type="checkbox" class="checkbox" value="In progress" checked>In progress<span class="menu__trailing">11</span></label>
+            <label class="menu__item"><input type="checkbox" class="checkbox" value="Blocked">Blocked<span class="menu__trailing">3</span></label>
+            <label class="menu__item"><input type="checkbox" class="checkbox" value="Done">Done<span class="menu__trailing">86</span></label>
+            <div class="menu__footer">
+              <button class="btn btn--text btn--sm" data-menu-clear>Clear</button>
+              <button class="btn btn--filled btn--sm" data-menu-apply>Apply</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.getElementById('status-filter-menu').addEventListener('menuapply', function (e) {
+        Immaterial.toast(e.detail.values.length ? 'Filter applied: ' + e.detail.values.join(', ') : 'Filter cleared — showing all');
+      });
+    </script>
+  </section>
+
 <!-- SEGMENTED -->
   <section class="block">
     <h2>Segmented buttons</h2>
@@ -292,6 +334,78 @@
     <p class="caption" style="margin-top:14px">The label’s background = the surface behind the field (<code>var(--surface)</code> inside a card). Put a field directly on the page and set <code>.field__label { background: var(--surface-dim); }</code> so the border still “breaks” cleanly around the text. The small field (<code>field--sm</code>, 32px) is for toolbars and dense contexts — use a placeholder or adjacent label, not the notched label.</p>
   </section>
 
+<!-- COMBOBOX -->
+  <section class="block">
+    <h2>Combobox</h2>
+    <p class="desc">Type-to-filter picker on <code>data-combobox</code>. Single-select fills the field; <code>combobox--multi</code> adds removable input chips. Try typing “mor” or “ro”, the arrow keys, Enter, and Backspace in the tags field.</p>
+    <div class="card"><div class="card__body">
+      <div class="row row--top" style="gap:24px">
+
+        <div style="width:320px" class="stack">
+          <div class="combobox" data-combobox id="demo-cb-single">
+            <div class="field field--block combobox__field">
+              <label class="field__label" for="demo-assignee">Assignee</label>
+              <span class="icon field__leading">person_search</span>
+              <input class="field__input combobox__input" id="demo-assignee" placeholder="Search people">
+              <button class="combobox__clear" type="button" aria-label="Clear"><span class="icon">close</span></button>
+              <span class="icon combobox__caret">arrow_drop_down</span>
+            </div>
+            <div class="combobox__list" hidden>
+              <div class="combobox__option" data-value="mk"><span class="combobox__avatar">MK</span><span class="combobox__text"><span class="combobox__label">Morgan Kim</span><span class="combobox__meta">Facilities lead · Zone 4</span></span></div>
+              <div class="combobox__option" data-value="jm"><span class="combobox__avatar">JM</span><span class="combobox__text"><span class="combobox__label">Javier Moreno</span><span class="combobox__meta">HVAC technician</span></span></div>
+              <div class="combobox__option" data-value="lm" aria-selected="true"><span class="combobox__avatar">LM</span><span class="combobox__text"><span class="combobox__label">Lena Moritz</span><span class="combobox__meta">Electrical</span></span></div>
+              <div class="combobox__option" data-value="pr"><span class="combobox__avatar">PR</span><span class="combobox__text"><span class="combobox__label">Priya Raman</span><span class="combobox__meta">Field technician · Zone 4</span></span></div>
+              <div class="combobox__option" data-value="at"><span class="combobox__avatar">AT</span><span class="combobox__text"><span class="combobox__label">Amara Tse</span><span class="combobox__meta">Plumbing</span></span></div>
+              <div class="combobox__divider"></div>
+              <div class="combobox__create" data-combobox-create><span class="icon">person_add</span>Invite “<span class="combobox__create-label"></span>”</div>
+              <div class="combobox__empty" hidden>No matches</div>
+            </div>
+          </div>
+          <span class="caption" id="demo-cb-single-out">value: lm</span>
+        </div>
+
+        <div style="width:360px" class="stack">
+          <div class="combobox combobox--multi" data-combobox id="demo-cb-multi">
+            <div class="field field--block combobox__field">
+              <label class="field__label" for="demo-tags">Tags</label>
+              <input class="field__input combobox__input" id="demo-tags">
+              <span class="icon combobox__caret">arrow_drop_down</span>
+            </div>
+            <div class="combobox__list" hidden>
+              <div class="combobox__option" aria-selected="true"><span class="combobox__label">HVAC</span><span class="combobox__trailing">31</span></div>
+              <div class="combobox__option"><span class="combobox__label">Electrical</span><span class="combobox__trailing">18</span></div>
+              <div class="combobox__option"><span class="combobox__label">Roof</span><span class="combobox__trailing">14</span></div>
+              <div class="combobox__option"><span class="combobox__label">Routine</span><span class="combobox__trailing">62</span></div>
+              <div class="combobox__option" aria-selected="true"><span class="combobox__label">Urgent</span><span class="combobox__trailing">9</span></div>
+              <div class="combobox__option"><span class="combobox__label">Aerosol hazard</span><span class="combobox__trailing">2</span></div>
+              <div class="combobox__divider"></div>
+              <div class="combobox__create" data-combobox-create><span class="icon">add</span>Create tag “<span class="combobox__create-label"></span>”</div>
+            </div>
+          </div>
+          <span class="caption" id="demo-cb-multi-out">values: HVAC, Urgent</span>
+        </div>
+
+        <div class="stack" style="gap:10px">
+          <span class="caption">.chip--input (standalone)</span>
+          <div class="row" style="gap:8px">
+            <span class="chip chip--input">Zone 4<button class="chip__remove" aria-label="Remove Zone 4" onclick="this.parentElement.remove()"><span class="icon">close</span></button></span>
+            <span class="chip chip--input">Open<button class="chip__remove" aria-label="Remove Open" onclick="this.parentElement.remove()"><span class="icon">close</span></button></span>
+          </div>
+        </div>
+
+      </div>
+    </div></div>
+    <script>
+      // Demo-only: echo the change events
+      document.getElementById('demo-cb-single').addEventListener('comboboxchange', function (e) {
+        document.getElementById('demo-cb-single-out').textContent = 'value: ' + (e.detail.value || '—');
+      });
+      document.getElementById('demo-cb-multi').addEventListener('comboboxchange', function (e) {
+        document.getElementById('demo-cb-multi-out').textContent = 'values: ' + (e.detail.values.join(', ') || '—');
+      });
+    </script>
+  </section>
+
 <!-- SLIDER -->
   <section class="block">
     <h2>Slider</h2>
@@ -349,6 +463,19 @@
       <span class="badge badge--dot badge--warning">Queued</span>
       <span class="badge badge--dot badge--success">Done</span>
       <span class="badge badge--dot badge--neutral">Draft</span>
+    </div>
+  </section>
+
+<!-- DUE DATE -->
+  <section class="block">
+    <h2>Due-date badge</h2>
+    <p class="desc">Escalating states — colour, icon and wording change together. The app sets the state and relative text; the absolute date goes in <code>title</code>.</p>
+    <div class="row">
+      <span class="due due--later" title="Nov 27, 2026"><span class="icon">event</span>Due in 3 days</span>
+      <span class="due due--soon" title="Nov 24, 5:00 PM"><span class="icon">schedule</span>Due in 4h</span>
+      <span class="due due--overdue" title="Nov 22, 2026"><span class="icon">warning</span>Overdue 2d</span>
+      <span class="due due--done" title="Completed Nov 20"><span class="icon">check</span>Done · Nov 20</span>
+      <span class="due due--none">No due date</span>
     </div>
   </section>
 
@@ -425,6 +552,74 @@
     <div class="row">
       <button class="btn btn--tonal" onclick="Immaterial.toast('Task created and added to the queue')">Simple toast</button>
       <button class="btn btn--tonal" onclick="Immaterial.toast('Task deleted', { actionLabel: 'Undo', onAction: function(){ Immaterial.toast('Restored'); } })">With action</button>
+    </div>
+  </section>
+
+<!-- FLOATING TOOLBAR -->
+  <section class="block">
+    <h2>Floating toolbar</h2>
+    <p class="desc">Elevated pill of <code>.icon-btn</code> actions over content. Standard, <code>--vibrant</code> and <code>--vertical</code>; <code>--contextual</code> for bulk actions on a selection (add <code>--tonal</code> for the quieter version). Toggle <code>hidden</code> to show or hide; <code>--fixed</code> pins it to the viewport.</p>
+    <div class="row row--top" style="gap:24px">
+      <div class="stack" style="gap:10px;align-items:flex-start">
+        <span class="caption">.floating-toolbar</span>
+        <div class="floating-toolbar" role="toolbar" aria-label="Report actions">
+          <button class="icon-btn" aria-label="Edit"><span class="icon">edit</span></button>
+          <button class="icon-btn" aria-label="Comment"><span class="icon">add_comment</span></button>
+          <button class="icon-btn icon-btn--selected" aria-pressed="true" aria-label="Show annotations"><span class="icon">visibility</span></button>
+          <span class="floating-toolbar__divider"></span>
+          <button class="icon-btn" aria-label="Share"><span class="icon">share</span></button>
+          <button class="icon-btn" aria-label="More actions"><span class="icon">more_vert</span></button>
+        </div>
+        <span class="caption" style="margin-top:12px">--vibrant</span>
+        <div class="floating-toolbar floating-toolbar--vibrant" role="toolbar" aria-label="Report actions, vibrant">
+          <button class="icon-btn" aria-label="Edit"><span class="icon">edit</span></button>
+          <button class="icon-btn" aria-label="Comment"><span class="icon">add_comment</span></button>
+          <button class="icon-btn icon-btn--selected" aria-pressed="true" aria-label="Show annotations"><span class="icon">visibility</span></button>
+          <span class="floating-toolbar__divider"></span>
+          <button class="icon-btn" aria-label="Share"><span class="icon">share</span></button>
+        </div>
+      </div>
+      <div class="stack" style="gap:10px;align-items:flex-start">
+        <span class="caption">--vertical</span>
+        <div class="floating-toolbar floating-toolbar--vertical" role="toolbar" aria-orientation="vertical" aria-label="Map controls">
+          <button class="icon-btn" aria-label="Zoom in"><span class="icon">add</span></button>
+          <button class="icon-btn" aria-label="Zoom out"><span class="icon">remove</span></button>
+          <span class="floating-toolbar__divider"></span>
+          <button class="icon-btn icon-btn--selected" aria-pressed="true" aria-label="Layers"><span class="icon">layers</span></button>
+          <button class="icon-btn" aria-label="Recenter"><span class="icon">my_location</span></button>
+        </div>
+      </div>
+      <div class="stack" style="gap:10px;align-items:flex-start">
+        <span class="caption">--contextual</span>
+        <div class="floating-toolbar floating-toolbar--contextual" role="toolbar" aria-label="Actions for 3 selected tasks">
+          <button class="icon-btn" aria-label="Clear selection"><span class="icon">close</span></button>
+          <span class="floating-toolbar__label">3 selected</span>
+          <span class="floating-toolbar__divider"></span>
+          <button class="floating-toolbar__action"><span class="icon">person_add</span>Assign</button>
+          <button class="floating-toolbar__action"><span class="icon">sync_alt</span>Status</button>
+          <button class="floating-toolbar__action"><span class="icon">download</span>Export</button>
+          <button class="icon-btn floating-toolbar__danger" aria-label="Delete selected"><span class="icon">delete</span></button>
+        </div>
+        <span class="caption" style="margin-top:12px">--contextual --tonal</span>
+        <div class="floating-toolbar floating-toolbar--contextual floating-toolbar--tonal" role="toolbar" aria-label="Actions for 3 selected tasks, tonal">
+          <button class="icon-btn" aria-label="Clear selection"><span class="icon">close</span></button>
+          <span class="floating-toolbar__label">3 selected</span>
+          <span class="floating-toolbar__divider"></span>
+          <button class="floating-toolbar__action"><span class="icon">person_add</span>Assign</button>
+          <button class="icon-btn floating-toolbar__danger" aria-label="Delete selected"><span class="icon">delete</span></button>
+        </div>
+        <button class="btn btn--tonal btn--sm" style="align-self:flex-start;margin-top:12px" onclick="var t=document.getElementById('demo-ctx-bar'); t.hidden=!t.hidden"><span class="icon">open_in_full</span>Toggle fixed contextual bar</button>
+      </div>
+    </div>
+
+    <div class="floating-toolbar floating-toolbar--contextual floating-toolbar--fixed" role="toolbar" aria-label="Actions for 3 selected tasks" id="demo-ctx-bar" hidden>
+      <button class="icon-btn" aria-label="Clear selection" onclick="document.getElementById('demo-ctx-bar').hidden=true"><span class="icon">close</span></button>
+      <span class="floating-toolbar__label">3 selected</span>
+      <span class="floating-toolbar__divider"></span>
+      <button class="floating-toolbar__action"><span class="icon">person_add</span>Assign</button>
+      <button class="floating-toolbar__action"><span class="icon">sync_alt</span>Status</button>
+      <button class="floating-toolbar__action"><span class="icon">download</span>Export</button>
+      <button class="icon-btn floating-toolbar__danger" aria-label="Delete selected" onclick="document.getElementById('demo-ctx-bar').hidden=true; Immaterial.toast('3 tasks deleted')"><span class="icon">delete</span></button>
     </div>
   </section>
 
@@ -552,6 +747,113 @@
         <tr><td class="is-primary">Plant South</td><td class="is-muted">97.8%</td><td><span class="badge badge--warning">Degraded</span></td></tr>
       </tbody>
     </table>
+  </section>
+
+<!-- INLINE EDIT -->
+  <section class="block">
+    <h2>Inline edit</h2>
+    <p class="desc">Click a task name, hours or status to edit. Enter or click away saves, Esc cancels. This demo fakes a 0.8s save and rejects hours over 40 to show the error state.</p>
+    <div class="card" style="overflow:visible">
+      <table class="table" id="demo-ie-table">
+        <colgroup><col><col style="width:170px"><col style="width:140px"><col style="width:160px"></colgroup>
+        <thead><tr><th>Task</th><th>Owner</th><th>Est. hours</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="inline-edit" data-inline-edit><button class="inline-edit__display" type="button"><span class="inline-edit__value">Compressor A-12 service</span><span class="icon">edit</span></button><input class="inline-edit__input" required aria-label="Task name" data-error="A task needs a name" hidden></div></td>
+            <td class="is-muted">Morgan Kim</td>
+            <td><div class="inline-edit" data-inline-edit><button class="inline-edit__display" type="button"><span class="inline-edit__value">12</span><span class="icon">edit</span></button><input class="inline-edit__input" type="number" min="0" required aria-label="Estimated hours" data-error="Enter a number of hours" hidden></div></td>
+            <td><div class="inline-edit" data-inline-edit data-value="progress"><button class="inline-edit__display" type="button"><span class="inline-edit__value">In progress</span><span class="icon">edit</span></button><select class="inline-edit__input" aria-label="Status" hidden><option value="queued">Queued</option><option value="progress">In progress</option><option value="done">Done</option></select></div></td>
+          </tr>
+          <tr>
+            <td><div class="inline-edit" data-inline-edit><button class="inline-edit__display" type="button"><span class="inline-edit__value">Roof drain inspection</span><span class="icon">edit</span></button><input class="inline-edit__input" required aria-label="Task name" data-error="A task needs a name" hidden></div></td>
+            <td class="is-muted">Priya Raman</td>
+            <td><div class="inline-edit" data-inline-edit><button class="inline-edit__display" type="button"><span class="inline-edit__value">6</span><span class="icon">edit</span></button><input class="inline-edit__input" type="number" min="0" required aria-label="Estimated hours" data-error="Enter a number of hours" hidden></div></td>
+            <td><div class="inline-edit" data-inline-edit data-value="queued"><button class="inline-edit__display" type="button"><span class="inline-edit__value">Queued</span><span class="icon">edit</span></button><select class="inline-edit__input" aria-label="Status" hidden><option value="queued">Queued</option><option value="progress">In progress</option><option value="done">Done</option></select></div></td>
+          </tr>
+          <tr>
+            <td><div class="inline-edit" data-inline-edit><button class="inline-edit__display" type="button"><span class="inline-edit__value">Lobby lighting retrofit</span><span class="icon">edit</span></button><input class="inline-edit__input" required aria-label="Task name" data-error="A task needs a name" hidden></div></td>
+            <td class="is-muted">Lena Moritz</td>
+            <td><div class="inline-edit" data-inline-edit><button class="inline-edit__display" type="button"><span class="inline-edit__value">16</span><span class="icon">edit</span></button><input class="inline-edit__input" type="number" min="0" required aria-label="Estimated hours" data-error="Enter a number of hours" hidden></div></td>
+            <td><div class="inline-edit" data-inline-edit data-value="queued"><button class="inline-edit__display" type="button"><span class="inline-edit__value">Queued</span><span class="icon">edit</span></button><select class="inline-edit__input" aria-label="Status" hidden><option value="queued">Queued</option><option value="progress">In progress</option><option value="done">Done</option></select></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      // Demo-only: fake a save; reject hours over 40
+      document.getElementById('demo-ie-table').addEventListener('inlineedit', function (e) {
+        var isHours = e.target.querySelector('input[type="number"]');
+        e.detail.waitUntil(new Promise(function (resolve, reject) {
+          setTimeout(function () {
+            if (isHours && Number(e.detail.value) > 40) reject('Max 40 hours per task');
+            else resolve();
+          }, 800);
+        }));
+      });
+    </script>
+  </section>
+
+<!-- PROPERTY PANEL -->
+  <section class="block">
+    <h2>Property panel</h2>
+    <p class="desc">Label/value pairs on a <code>&lt;dl&gt;</code>: beside (default), above in a wrapping grid (<code>props--grid</code>), and grouped with editable rows and “show more”.</p>
+    <div class="row row--top" style="gap:24px">
+
+      <div class="card" style="width:360px">
+        <div class="card__header card__header--divider" style="flex-direction:column;align-items:flex-start;gap:2px">
+          <span class="text-mono" style="font-size:12px;color:var(--on-surface-variant)">WO-4211</span>
+          <span class="card__title">Compressor A-12 — quarterly service</span>
+        </div>
+        <div class="card__body" style="padding-top:6px;padding-bottom:12px">
+          <dl class="props">
+            <div class="props__row"><dt class="props__label">Status</dt><dd class="props__value"><span class="badge badge--primary">In progress</span></dd></div>
+            <div class="props__row"><dt class="props__label">Priority</dt><dd class="props__value"><span class="priority priority--high">High</span></dd></div>
+            <div class="props__row"><dt class="props__label">Assignee</dt><dd class="props__value">Morgan Kim</dd></div>
+            <div class="props__row"><dt class="props__label">Due</dt><dd class="props__value"><span class="due due--soon" title="Nov 26, 2026"><span class="icon">schedule</span>Due in 2 days</span></dd></div>
+            <div class="props__row"><dt class="props__label">Location</dt><dd class="props__value"><a href="#">Building C</a> · Roof</dd></div>
+            <div class="props__row"><dt class="props__label">Asset ID</dt><dd class="props__value"><span class="text-mono">AST-00912</span> <button class="icon-btn" aria-label="Copy asset ID" onclick="Immaterial.toast('Asset ID copied')"><span class="icon">content_copy</span></button></dd></div>
+            <div class="props__row"><dt class="props__label">Created</dt><dd class="props__value" style="color:var(--on-surface-variant)">Nov 18 by J. Moreno</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="stack" style="flex:1;min-width:340px;gap:24px">
+        <div class="card"><div class="card__body" style="padding-bottom:8px">
+          <div class="toolbar">
+            <span class="text-title" style="font-size:20px;font-weight:700">Compressor A-12 — quarterly service</span>
+            <span class="toolbar__spacer"></span>
+            <button class="btn btn--filled btn--sm"><span class="icon">check</span>Mark done</button>
+          </div>
+          <dl class="props props--grid" style="margin-top:8px;border-top:1px solid var(--divider)">
+            <div class="props__row"><dt class="props__label">Status</dt><dd class="props__value"><span class="badge badge--primary">In progress</span></dd></div>
+            <div class="props__row"><dt class="props__label">Assignee</dt><dd class="props__value">Morgan Kim</dd></div>
+            <div class="props__row"><dt class="props__label">Due</dt><dd class="props__value">Nov 26, 2026</dd></div>
+            <div class="props__row"><dt class="props__label">Priority</dt><dd class="props__value"><span class="priority priority--high">High</span></dd></div>
+            <div class="props__row"><dt class="props__label">Location</dt><dd class="props__value">Building C · Roof</dd></div>
+            <div class="props__row"><dt class="props__label">Asset</dt><dd class="props__value"><span class="text-mono">AST-00912</span></dd></div>
+          </dl>
+        </div></div>
+
+        <div class="card" style="max-width:400px"><div class="card__body" style="padding-top:12px">
+          <dl class="props" id="demo-props">
+            <div class="props__section">Details</div>
+            <div class="props__row"><dt class="props__label">Status</dt><dd class="props__value"><span class="badge badge--primary">In progress</span></dd></div>
+            <div class="props__row"><dt class="props__label">Priority</dt><dd class="props__value"><div class="inline-edit" data-inline-edit data-value="high"><button class="inline-edit__display" type="button"><span class="inline-edit__value">High</span><span class="icon">edit</span></button><select class="inline-edit__input" aria-label="Priority" hidden><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div></dd></div>
+            <div class="props__row"><dt class="props__label">Category</dt><dd class="props__value"><div class="inline-edit" data-inline-edit><button class="inline-edit__display" type="button"><span class="inline-edit__value">HVAC</span><span class="icon">edit</span></button><input class="inline-edit__input" required aria-label="Category" hidden></div></dd></div>
+            <div class="props__section">Schedule</div>
+            <div class="props__row"><dt class="props__label">Due</dt><dd class="props__value">Nov 26, 2026</dd></div>
+            <div class="props__row"><dt class="props__label">Est. hours</dt><dd class="props__value"><div class="inline-edit" data-inline-edit><button class="inline-edit__display" type="button"><span class="inline-edit__value">12</span><span class="icon">edit</span></button><input class="inline-edit__input" type="number" min="0" required aria-label="Estimated hours" hidden></div></dd></div>
+            <div class="props__row props__row--more"><dt class="props__label">Started</dt><dd class="props__value">Nov 21, 2026</dd></div>
+            <div class="props__section">People</div>
+            <div class="props__row"><dt class="props__label">Assignee</dt><dd class="props__value">Morgan Kim</dd></div>
+            <div class="props__row props__row--more"><dt class="props__label">Reviewer</dt><dd class="props__value">Priya Raman</dd></div>
+            <div class="props__row props__row--more"><dt class="props__label">Requested by</dt><dd class="props__value">J. Moreno</dd></div>
+          </dl>
+          <button class="props__more" data-props-more="demo-props" aria-expanded="false"><span class="icon">expand_more</span><span class="props__more-label">Show 3 more fields</span></button>
+        </div></div>
+      </div>
+
+    </div>
   </section>
 
   <!-- ===== COMPOSED PATTERNS — BUILT FROM THE CORE ===== -->

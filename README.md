@@ -44,7 +44,7 @@ Then load the stylesheets (fonts must resolve to the names above) and, optionall
 
 **Icons.** Anywhere the docs show `<span class="icon">name</span>`, `name` is a Material Symbols Rounded ligature (e.g. `search`, `delete`, `arrow_drop_down`). The `.icon` helper class only sets `font-family: 'Material Symbols Rounded'` — it does not fetch the font, so make sure that family is available locally.
 
-If you inject markup dynamically after load, call `Immaterial.init()` to wire any new sliders/tabs inside it.
+If you inject markup dynamically after load, call `Immaterial.init()` to wire any new sliders/tabs/comboboxes inside it.
 
 ---
 
@@ -198,6 +198,23 @@ Badges carry a 1px border derived from their text colour (30% mix) so they hold 
 <span class="priority priority--low">Low</span>
 ```
 
+### Due-date badge
+Escalates by colour, icon **and** wording, so it reads without colour. Your app picks the state and writes the relative text; put the absolute date in `title`.
+```html
+<span class="due due--later" title="Nov 27, 2026"><span class="icon">event</span>Due in 3 days</span>
+<span class="due due--soon" title="Nov 24, 5:00 PM"><span class="icon">schedule</span>Due in 4h</span>
+<span class="due due--overdue" title="Nov 22, 2026"><span class="icon">warning</span>Overdue 2d</span>
+<span class="due due--done" title="Completed Nov 20"><span class="icon">check</span>Done · Nov 20</span>
+<span class="due due--none">No due date</span>
+```
+| State | When | Icon |
+| --- | --- | --- |
+| `--later` | more than the warning window away | `event` |
+| `--soon` | inside the warning window (24h is a sensible default; choose per use) | `schedule` |
+| `--overdue` | past due — count up ("Overdue 2d") | `warning` |
+| `--done` | completed — show when | `check` |
+| `--none` | no date set | none |
+
 ### Radio buttons — *pure CSS, native inputs*
 ```html
 <div class="radio-group">
@@ -273,6 +290,65 @@ Icon + content + trailing rows, for items where fields are descriptive rather th
 </nav>
 ```
 `.nav-section` is an optional overline-style group header.
+
+### Property panel (description list)
+Label/value pairs on a native `<dl>`. Values take any content — badges, avatars, links, mono IDs, a copy button (`.icon-btn` inside the value is sized down automatically).
+```html
+<dl class="props">
+  <div class="props__row"><dt class="props__label">Status</dt><dd class="props__value"><span class="badge badge--primary">In progress</span></dd></div>
+  <div class="props__row"><dt class="props__label">Assignee</dt><dd class="props__value">Morgan Kim</dd></div>
+  <div class="props__row"><dt class="props__label">Asset ID</dt>
+    <dd class="props__value"><span class="text-mono">AST-00912</span>
+      <button class="icon-btn" aria-label="Copy asset ID"><span class="icon">content_copy</span></button></dd></div>
+</dl>
+```
+- **Label width:** 104px by default; set `--props-label-width` on the `.props` to change it.
+- **Grid (`props--grid`):** label above value in wrapping columns — a summary band at the top of a record page. Column minimum is `--props-min` (160px).
+- **Grouped:** put `<div class="props__section">Details</div>` between rows for overline group headers (hairlines between rows drop away once sections are used).
+- **Editable rows:** put an inline edit (§6) in the value; the whole row tints on hover and the pencil appears at the row end.
+  ```html
+  <div class="props__row"><dt class="props__label">Category</dt>
+    <dd class="props__value"><div class="inline-edit" data-inline-edit>
+      <button class="inline-edit__display" type="button"><span class="inline-edit__value">HVAC</span><span class="icon">edit</span></button>
+      <input class="inline-edit__input" aria-label="Category" hidden>
+    </div></dd></div>
+  ```
+- **Show more:** mark extra rows `props__row--more` and follow the `<dl>` with a toggle (behaviour in `immaterial.js`):
+  ```html
+  <button class="props__more" data-props-more="wo-props" aria-expanded="false"><span class="icon">expand_more</span><span class="props__more-label">Show 4 more fields</span></button>
+  ```
+  `data-props-more` is the panel's `id` (leave it empty if the button directly follows the `<dl>`); `data-less-label` sets the expanded text (default "Show fewer").
+
+### Floating toolbar
+An elevated pill of actions that floats over content (M3 floating toolbar). Reuses `.icon-btn`; `.icon-btn--selected` shows a toggled action. Pure CSS: show or hide it by toggling the `hidden` attribute.
+```html
+<div class="floating-toolbar" role="toolbar" aria-label="Report actions">
+  <button class="icon-btn" aria-label="Edit"><span class="icon">edit</span></button>
+  <button class="icon-btn" aria-label="Comment"><span class="icon">add_comment</span></button>
+  <button class="icon-btn icon-btn--selected" aria-pressed="true" aria-label="Show annotations"><span class="icon">visibility</span></button>
+  <span class="floating-toolbar__divider"></span>
+  <button class="icon-btn" aria-label="Share"><span class="icon">share</span></button>
+</div>
+```
+- **Colour:** standard is `surface-container`; add `floating-toolbar--vibrant` for a `primary-container` fill.
+- **Orientation:** add `floating-toolbar--vertical` (and `aria-orientation="vertical"`) for maps, canvases and side-anchored tools.
+- **Placement:** position it yourself (e.g. `position:absolute` inside a relative container), or add `floating-toolbar--fixed` to pin it to the viewport: bottom-centre, or end-centre when vertical.
+
+**Contextual (bulk-action) variant.** Shown while table rows are selected; carries a clear button, a count, and labelled actions. The inverse fill keeps it distinct from the row-selected tint. Add `floating-toolbar--tonal` for a quieter surface treatment. Put destructive actions last with `floating-toolbar__danger`.
+```html
+<div class="floating-toolbar floating-toolbar--contextual floating-toolbar--fixed" role="toolbar" aria-label="Actions for selected tasks" hidden id="bulk-bar">
+  <button class="icon-btn" aria-label="Clear selection"><span class="icon">close</span></button>
+  <span class="floating-toolbar__label">3 selected</span>
+  <span class="floating-toolbar__divider"></span>
+  <button class="floating-toolbar__action"><span class="icon">person_add</span>Assign</button>
+  <button class="floating-toolbar__action"><span class="icon">sync_alt</span>Status</button>
+  <button class="icon-btn floating-toolbar__danger" aria-label="Delete selected"><span class="icon">delete</span></button>
+</div>
+<script>
+  // app-side: show while anything is selected, keep the count current
+  bulkBar.hidden = selectedCount === 0;
+</script>
+```
 
 ---
 
@@ -361,6 +437,105 @@ Wrap a trigger and a `.menu` in a positioned `[data-menu-wrap]`. The trigger car
 </div>
 ```
 Opens on trigger click; closes on item click, outside click, or Esc. The same pattern works for any dropdown — the trigger doesn't have to be a split-button arrow.
+
+**Rich items** — menu items are flex rows: optional leading `.icon`, label, optional `.menu__trailing` (keyboard shortcut or count). `.menu__divider` separates groups; add `menu__item--danger` to destructive actions (place them last, after a divider).
+
+### Menu popover — deferred commit (filter)
+Add `menu--deferred` for multi-select filters: items become `<label>`s wrapping a native `.checkbox`, and a `.menu__footer` holds Clear/Apply. Clicks inside a deferred menu don't close it; `[data-menu-clear]` unchecks everything, `[data-menu-apply]` closes the menu and fires `menuapply` on it (`e.detail.values` = checked input values). Use the default instant menu for actions and single-select; use deferred when applying each change immediately would be wrong (e.g. re-running a table query per checkbox).
+```html
+<div data-menu-wrap style="position:relative">
+  <button class="btn btn--tonal" data-menu-toggle><span class="icon">filter_list</span>Status</button>
+  <div class="menu menu--left menu--deferred" hidden id="status-menu">
+    <label class="menu__item"><input type="checkbox" class="checkbox" value="Open" checked>Open<span class="menu__trailing">24</span></label>
+    <label class="menu__item"><input type="checkbox" class="checkbox" value="Done">Done<span class="menu__trailing">86</span></label>
+    <div class="menu__footer">
+      <button class="btn btn--text btn--sm" data-menu-clear>Clear</button>
+      <button class="btn btn--filled btn--sm" data-menu-apply>Apply</button>
+    </div>
+  </div>
+</div>
+<script>
+  document.getElementById('status-menu').addEventListener('menuapply',
+    e => applyFilter(e.detail.values));
+</script>
+```
+
+### Combobox — type-to-filter picker
+An outlined `.field` with a listbox under it. Typing filters the options and bolds the match; ↑/↓ + Enter pick, Esc closes. Behaviour comes from `immaterial.js` via `data-combobox` (call `Immaterial.init()` after injecting one dynamically). Each option needs a `.combobox__label` (the text that's matched and shown in the field); `data-value` is optional and defaults to the label.
+
+**Single-select** — picking fills the input and closes; the current value shows a trailing check. Options can be plain or rich (avatar / icon, secondary line, trailing count).
+```html
+<div class="combobox" data-combobox>
+  <div class="field field--block combobox__field">
+    <label class="field__label" for="assignee">Assignee</label>
+    <span class="icon field__leading">person_search</span>
+    <input class="field__input combobox__input" id="assignee" placeholder="Search people">
+    <button class="combobox__clear" type="button" aria-label="Clear"><span class="icon">close</span></button>
+    <span class="icon combobox__caret">arrow_drop_down</span>
+  </div>
+  <div class="combobox__list" hidden>
+    <div class="combobox__option" data-value="mk">
+      <span class="combobox__avatar">MK</span>
+      <span class="combobox__text">
+        <span class="combobox__label">Morgan Kim</span>
+        <span class="combobox__meta">Facilities lead · Zone 4</span>
+      </span>
+    </div>
+    <div class="combobox__option" data-value="jm" aria-selected="true">…</div>   <!-- starts selected -->
+    <div class="combobox__divider"></div>
+    <div class="combobox__create" data-combobox-create><span class="icon">person_add</span>Invite “<span class="combobox__create-label"></span>”</div>
+    <div class="combobox__empty" hidden>No matches</div>
+  </div>
+</div>
+```
+
+**Multi-select** — add `combobox--multi`. Options show a checkbox; each pick becomes a removable input chip inside the field and the list stays open. Backspace on an empty input removes the last chip. (The clear button is for single-select; leave it out here.)
+```html
+<div class="combobox combobox--multi" data-combobox>
+  <div class="field field--block combobox__field">
+    <label class="field__label" for="tags">Tags</label>
+    <input class="field__input combobox__input" id="tags">
+    <span class="icon combobox__caret">arrow_drop_down</span>
+  </div>
+  <div class="combobox__list" hidden>
+    <div class="combobox__option" aria-selected="true"><span class="combobox__label">HVAC</span><span class="combobox__trailing">31</span></div>
+    <div class="combobox__option"><span class="combobox__label">Roof</span><span class="combobox__trailing">14</span></div>
+    <div class="combobox__divider"></div>
+    <div class="combobox__create" data-combobox-create><span class="icon">add</span>Create tag “<span class="combobox__create-label"></span>”</div>
+  </div>
+</div>
+```
+
+- **Events:** `comboboxchange` on the `.combobox` — `e.detail` is `{ value, label }` (single) or `{ values }` (multi). `comboboxcreate` fires when the create row is picked: the library adds the query as a new option and selects it; `e.detail` is `{ value, option }` so you can persist it (or remove `option` if the save fails).
+- **Create row:** optional. It appears only when the query is non-empty and doesn't exactly match an existing option; `.combobox__create-label` is filled with the query. The divider hides with it.
+- **Empty state:** optional `.combobox__empty` shows when nothing matches and there's no create row.
+- **Rich rows:** `.combobox__avatar` (initials circle) or a leading `.icon`, `.combobox__text` wrapping `__label` + `__meta`, and `.combobox__trailing` for a count.
+- **Notch:** the floating label follows the field rule in §9 — match its background to the surface behind the field.
+
+**Input chip on its own.** `.chip--input` with a `.chip__remove` button works outside a combobox (e.g. a row of active filters); wire the remove click yourself.
+```html
+<span class="chip chip--input">HVAC<button class="chip__remove" aria-label="Remove HVAC"><span class="icon">close</span></button></span>
+```
+
+### Inline edit — click-to-edit values
+For table cells and property-panel values. Hovering shows a tint, underline and pencil; click (or Enter on the focused value) swaps in the editor. **Enter** or leaving the field saves, **Esc** cancels. Delegated in `immaterial.js` — no init call, works on rows added later.
+```html
+<td>
+  <div class="inline-edit" data-inline-edit>
+    <button class="inline-edit__display" type="button"><span class="inline-edit__value">12</span><span class="icon">edit</span></button>
+    <input class="inline-edit__input" type="number" min="0" required aria-label="Estimated hours" data-error="Enter a number of hours" hidden>
+  </div>
+</td>
+```
+- **Saving:** listen for `inlineedit` (bubbles) — `e.detail` is `{ value, previous, element, waitUntil }`. Pass your save promise to `waitUntil()` and the cell shows a spinner, then a "Saved" tick. If the promise rejects (with an `Error` or a string), the old value is restored and the message shows under the field with what they typed kept for fixing. Without `waitUntil` the edit just counts as saved.
+  ```js
+  table.addEventListener('inlineedit', e => {
+    e.detail.waitUntil(api.update(rowId(e.detail.element), { hours: e.detail.value }));
+  });
+  ```
+- **Validation:** native constraints on the input (`required`, `min`, `pattern`, `type="number"`…) run before saving; `data-error` replaces the browser's message.
+- **Select editors:** use a `<select class="inline-edit__input">` instead of an input — it saves on change. Put the raw value in `data-value` on the `.inline-edit` when the shown text differs from the option value.
+- **States** (set by the script, styleable): `.is-editing`, `.is-saving`, `.is-saved`, `.is-error`.
 
 ### Slider
 ```html
@@ -543,15 +718,17 @@ Uses modern CSS: custom properties, `:has()`, `color-mix()`, relative colour syn
 | Buttons | `.btn` · `--filled` `--tonal` `--outlined` `--text` `--danger` · `--sm` `--lg` |
 | Icon buttons | `.icon-btn` · `--filled` `--selected` `--sm` |
 | Split button | `.split-button` `.split-button__main` `.split-button__arrow` |
-| Menu | `.menu` `--left` `--right` · `.menu__item` `--selected` |
+| Menu | `.menu` `--left` `--right` `--deferred` · `.menu__item` `--selected` `--danger` · `.menu__trailing` `.menu__divider` `.menu__footer` |
 | Segmented | `.segmented` `.segmented__option` `.segmented__check` |
 | Button group | `.button-group` `--icons` · `.is-active` |
-| Chips | `.chip` `--selected`/`.is-selected` `--assist` |
+| Chips | `.chip` `--selected`/`.is-selected` `--assist` `--input` · `.chip__remove` |
 | Fields | `.field` `--block` `--pill` `--sm` `--error` `--select` `--area` · `.field__label` `__input` `__leading` `__trailing` `__caret` `__error` |
+| Combobox | `.combobox` `--multi` `.is-open` · `.combobox__field` `__input` `__clear` `__caret` `__list` `__option` (`.is-active`, `aria-selected`) `__label` `__text` `__meta` `__avatar` `__trailing` `__match` `__divider` `__create` `__create-label` `__empty` · `[data-combobox]` `[data-combobox-create]` |
 | Slider | `.slider` `.slider__track` `__fill` `__thumb` `__scale` |
 | Switch / checkbox | `.switch` `.switch__track` `__thumb` · `.checkbox` |
 | Cards | `.card` `--clip` · `.card__header` `--divider` `--filled` · `.card__body` `__title` |
 | Badges | `.badge` `--primary` `--success` `--warning` `--neutral` · `--dot` (quiet weight) · `.priority` `--high` `--medium` `--low` |
+| Due date | `.due` `--later` `--soon` `--overdue` `--done` `--none` |
 | Tabs | `.tabs` (`--pill`) `.tab` `.is-active` `.tab__count` `.tab-panel` |
 | Toolbar | `.toolbar` `.toolbar__spacer` `.toolbar__divider` |
 | Dialog | `.dialog-scrim` `.dialog` `.dialog__icon` `--error` `__title` `__text` `__actions` |
@@ -560,8 +737,11 @@ Uses modern CSS: custom properties, `:has()`, `color-mix()`, relative colour syn
 | Table | `.table` (on `<table>`) `--dense` `--standalone` · `tr.is-selected` · `th/td.is-hidden` · `td.is-primary` `td.is-muted` · `.table__sort` `.is-active` · `.table__group` `--collapsible` `.table__group-toggle` · `.table__filters` `.table__filter-input` `__filter-select` `.has-value` `__filter-clear` · `.pagination` |
 | Radio | `.radio` · `.radio-group` `.radio-group__option` |
 | Alert | `.alert` `--info` `--success` `--warning` `--error` · `.alert__content` `__title` |
+| Floating toolbar | `.floating-toolbar` `--vibrant` `--vertical` `--fixed` `--contextual` `--tonal` · `.floating-toolbar__divider` `__label` `__action` `__danger` · reuses `.icon-btn` `--selected` |
 | Breadcrumbs | `.breadcrumbs` `.breadcrumbs__current` |
 | List | `.list` `--interactive` · `.list__item` `__content` `__title` `__meta` `__trailing` |
+| Property panel | `.props` (on `<dl>`) `--grid` `.is-expanded` · `.props__row` `--more` · `.props__label` `__value` `__section` `__more` `__more-label` · `[data-props-more]` |
+| Inline edit | `.inline-edit` `[data-inline-edit]` `.is-editing` `.is-saving` `.is-saved` `.is-error` · `.inline-edit__display` `__value` `__input` `__status` `__spinner` `__error` |
 | Chart | `.bar-chart` `.bar-chart__bar` `.bar-chart__labels` `.bar-chart__label` |
 | Nav / stats | `.sidebar` `.nav-section` `.nav-item` `--active`/`.is-active` · `.stat-card` `--accent` `.stat-card__label` `__value` `__delta` `--up` `--down` |
 
@@ -570,4 +750,4 @@ Uses modern CSS: custom properties, `:has()`, `color-mix()`, relative colour syn
 | `Immaterial.toast(msg, opts)` | show a snackbar → returns `dismiss()` |
 | `Immaterial.openDialog(id)` / `closeDialog(id)` | control dialogs |
 | `Immaterial.setTheme('light'\|'dark'\|'auto')` | switch theme |
-| `Immaterial.init(root?)` | wire sliders/tabs in newly-added markup |
+| `Immaterial.init(root?)` | wire sliders/tabs/comboboxes in newly-added markup |
