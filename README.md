@@ -80,6 +80,31 @@ From `--seed-primary` the system derives the full role set — containers, on-co
 
 `Immaterial.setTheme('light' \| 'dark' \| 'auto')` sets this at runtime and remembers the choice in `localStorage`.
 
+**Intensity.** How much colour the palette carries. The default is Material's muted look; three dials in `theme.css` blend each token from its muted value (`0`) to a vibrant one (`1`):
+
+| Dial | Moves | Notes |
+| --- | --- | --- |
+| `--intensity-tint` | surfaces, containers, dividers, row hover/selected | pale tints also step slightly **darker** as they gain colour — very light tones can't hold much chroma on screen |
+| `--intensity-mid` | outlines, tracks, secondary text | |
+| `--intensity-accent` | dark-mode primary, secondary / tertiary, chart bars | light-mode primary is the seed itself and never changes |
+
+Text on containers and the error / success / warning colours are fixed at every intensity. Use a preset, or set the dials yourself (in-between values work; above `1` isn't contrast-checked):
+
+| Preset | tint | mid | accent | How |
+| --- | --- | --- | --- | --- |
+| Muted (default) | 0 | 0 | 0 | do nothing, or `data-intensity="muted"` |
+| Balanced | 1 | 0.5 | 0 | `<html data-intensity="balanced">` |
+| Vibrant | 1 | 1 | 1 | `<html data-intensity="vibrant">` |
+
+```css
+/* custom: between muted and balanced */
+:root { --intensity-tint: 0.6; --intensity-mid: 0.3; }
+```
+
+`data-intensity` also works on any element (a sidebar, a card) to give that section its own intensity — the tokens are recalculated there. If you override tokens on `:root` yourself, repeat those overrides on `[data-intensity]` for them to apply inside such sections. `Immaterial.setIntensity('muted' | 'balanced' | 'vibrant')` sets the page at runtime and remembers the choice in `localStorage`; pass an element as a second argument to set just that section (not remembered).
+
+How strong a given intensity looks varies a little by hue: yellows and greens can carry more colour in pale tones than blues and purples, so the same dial setting reads stronger on some seeds.
+
 Token roles (see `theme.css` for the formulas):
 
 - Brand — `--primary` `--primary-hover` `--primary-strong` `--on-primary` `--primary-container` `--on-primary-container` (same set for `secondary` and `tertiary`)
@@ -750,4 +775,5 @@ Uses modern CSS: custom properties, `:has()`, `color-mix()`, relative colour syn
 | `Immaterial.toast(msg, opts)` | show a snackbar → returns `dismiss()` |
 | `Immaterial.openDialog(id)` / `closeDialog(id)` | control dialogs |
 | `Immaterial.setTheme('light'\|'dark'\|'auto')` | switch theme |
+| `Immaterial.setIntensity('muted'\|'balanced'\|'vibrant', el?)` | set colour intensity (page, or one section) |
 | `Immaterial.init(root?)` | wire sliders/tabs/comboboxes in newly-added markup |

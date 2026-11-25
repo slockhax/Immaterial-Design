@@ -5,7 +5,7 @@
    Only covers behaviours that pure CSS cannot express:
      · menus (dropdowns / deferred filter popovers) · dialogs
      · toasts (snackbars)                  · sliders
-     · tabs (panel switching)              · theme control
+     · tabs (panel switching)              · theme + intensity control
      · comboboxes (filter, keyboard, chips)
      · inline edit (table cells, props)  · property panel show-more
    ============================================================ */
@@ -665,9 +665,24 @@
     try { localStorage.setItem('im-theme', mode); } catch (e) {}
   }
   function initTheme() {
-    var saved;
-    try { saved = localStorage.getItem('im-theme'); } catch (e) {}
+    var saved, intensity;
+    try { saved = localStorage.getItem('im-theme'); intensity = localStorage.getItem('im-intensity'); } catch (e) {}
     if (saved && saved !== 'auto') document.documentElement.setAttribute('data-theme', saved);
+    if (intensity && intensity !== 'muted') document.documentElement.setAttribute('data-intensity', intensity);
+  }
+
+  /* ========================================================
+     INTENSITY  —  Immaterial.setIntensity('muted' | 'balanced' | 'vibrant' [, element])
+     Without an element: sets the page (<html>) and remembers the
+     choice in localStorage ('muted' removes the attribute — it's the
+     default). With an element: sets just that section, not remembered.
+     ======================================================== */
+  function setIntensity(mode, el) {
+    if (el) { el.setAttribute('data-intensity', mode); return; }
+    var root = document.documentElement;
+    if (mode === 'muted') root.removeAttribute('data-intensity');
+    else root.setAttribute('data-intensity', mode);
+    try { localStorage.setItem('im-intensity', mode); } catch (e) {}
   }
 
   /* ---------- global Esc handler ---------- */
@@ -690,6 +705,7 @@
     openDialog: openDialog,
     closeDialog: closeDialog,
     setTheme: setTheme,
+    setIntensity: setIntensity,
     init: init            // call after injecting markup dynamically (sliders, tabs, comboboxes)
   };
 })(window);

@@ -11,6 +11,13 @@
    Follow the OS (default), or force with
    <html data-theme="light"> / <html data-theme="dark">.
 
+   Intensity: how much colour the palette carries. Three 0–1 dials
+   (see INTENSITY below) blend each token from its muted value (0,
+   the Material default) to a vibrant value (1). Presets:
+   <html data-intensity="muted | balanced | vibrant">, or set the
+   dials yourself. data-intensity also works on any element to give
+   one section its own intensity.
+
    Escape hatch: any computed token can be overridden with a
    literal colour in your own stylesheet — e.g. if an extreme
    seed (neon yellow) produces a low-contrast on-colour:
@@ -51,41 +58,98 @@
   --seed-success:   #0E7A43;
   --seed-warning:   #9A6A00;
 
+  /* ---------- INTENSITY — three 0–1 dials ----------
+     0 = muted (Material default) · 1 = vibrant. Each token blends
+     between the two, so in-between values work. Values above 1 are
+     not contrast-checked.
+       tint   — pale tints: surfaces, containers, dividers, row states.
+                Most tints step slightly DARKER as they gain colour, because
+                very light tones can't hold much chroma on screen (surface nudges slightly lighter to compensate).
+       mid    — mid-tones: outlines, tracks, secondary text.
+       accent — strong colours: dark-mode primary, secondary/tertiary,
+                chart bars. (Light-mode primary is the seed itself and
+                never changes; text on containers and the status
+                colours are fixed at every intensity.) */
+  --intensity-tint:   0;
+  --intensity-mid:    0;
+  --intensity-accent: 0;
+}
+
+/* ---------- INTENSITY PRESETS ---------- */
+[data-intensity="muted"]    { --intensity-tint: 0; --intensity-mid: 0;   --intensity-accent: 0; }
+[data-intensity="balanced"] { --intensity-tint: 1; --intensity-mid: 0.5; --intensity-accent: 0; }
+[data-intensity="vibrant"]  { --intensity-tint: 1; --intensity-mid: 1;   --intensity-accent: 1; }
+
+/* ---------- DERIVED TOKENS ----------
+   Declared on :root AND on [data-intensity] so a section with its
+   own data-intensity recalculates them (custom properties resolve
+   var() where they are declared, not where they are used).
+   Note: your own :root overrides of these tokens won't reach inside
+   such a section — repeat them on [data-intensity] if needed. */
+:root, [data-intensity] {
   /* ---------- PRIMARY ---------- */
-  --primary:              light-dark(var(--seed-primary), oklch(from var(--seed-primary) 0.78 calc(c * 0.45) h));
+  --primary: light-dark(
+    var(--seed-primary),
+    oklch(from var(--seed-primary) calc(0.78 - 0.02 * var(--intensity-accent)) calc(c * (0.45 + 0.1 * var(--intensity-accent))) h));
   --primary-hover:        light-dark(oklch(from var(--seed-primary) 0.52 c h), oklch(from var(--seed-primary) 0.84 calc(c * 0.35) h));
   --primary-strong:       light-dark(oklch(from var(--seed-primary) 0.38 c h), oklch(from var(--seed-primary) 0.89 calc(c * 0.25) h));
   --on-primary:           light-dark(#FFFFFF, oklch(from var(--seed-primary) 0.25 calc(c * 0.5) h));
-  --primary-container:    light-dark(oklch(from var(--seed-primary) 0.86 calc(c * 0.38) h), oklch(from var(--seed-primary) 0.37 calc(c * 0.5) h));
+  --primary-container: light-dark(
+    oklch(from var(--seed-primary) calc(0.86 - 0.06 * var(--intensity-tint)) calc(c * (0.38 + 0.08 * var(--intensity-tint))) h),
+    oklch(from var(--seed-primary) calc(0.37 + 0.03 * var(--intensity-tint)) calc(c * (0.5 + 0.18 * var(--intensity-tint))) h));
   --on-primary-container: light-dark(oklch(from var(--seed-primary) 0.25 calc(c * 0.5) h), oklch(from var(--seed-primary) 0.90 calc(c * 0.2) h));
 
   /* ---------- SECONDARY ---------- */
-  --secondary:              light-dark(var(--seed-secondary), oklch(from var(--seed-secondary) 0.78 calc(c * 0.45) h));
+  --secondary: light-dark(
+    oklch(from var(--seed-secondary) l calc(c * (1 + 0.556 * var(--intensity-accent))) h),
+    oklch(from var(--seed-secondary) 0.78 calc(c * 0.45 * (1 + 0.556 * var(--intensity-accent))) h));
   --on-secondary:           light-dark(#FFFFFF, oklch(from var(--seed-secondary) 0.25 calc(c * 0.5) h));
-  --secondary-container:    light-dark(oklch(from var(--seed-secondary) 0.86 calc(c * 0.38) h), oklch(from var(--seed-secondary) 0.37 calc(c * 0.5) h));
+  --secondary-container: light-dark(
+    oklch(from var(--seed-secondary) calc(0.86 - 0.02 * var(--intensity-tint)) calc(c * (0.38 + 0.4 * var(--intensity-tint))) h),
+    oklch(from var(--seed-secondary) calc(0.37 + 0.03 * var(--intensity-tint)) calc(c * (0.5 + 0.56 * var(--intensity-tint))) h));
   --on-secondary-container: light-dark(oklch(from var(--seed-secondary) 0.25 calc(c * 0.5) h), oklch(from var(--seed-secondary) 0.90 calc(c * 0.2) h));
 
   /* ---------- TERTIARY ---------- */
-  --tertiary:              light-dark(var(--seed-tertiary), oklch(from var(--seed-tertiary) 0.78 calc(c * 0.45) h));
+  --tertiary: light-dark(
+    oklch(from var(--seed-tertiary) l calc(c * (1 + 0.2 * var(--intensity-accent))) h),
+    oklch(from var(--seed-tertiary) 0.78 calc(c * 0.45 * (1 + 0.2 * var(--intensity-accent))) h));
   --on-tertiary:           light-dark(#FFFFFF, oklch(from var(--seed-tertiary) 0.25 calc(c * 0.5) h));
-  --tertiary-container:    light-dark(oklch(from var(--seed-tertiary) 0.86 calc(c * 0.38) h), oklch(from var(--seed-tertiary) 0.37 calc(c * 0.5) h));
+  --tertiary-container: light-dark(
+    oklch(from var(--seed-tertiary) calc(0.86 - 0.04 * var(--intensity-tint)) calc(c * (0.38 + 0.16 * var(--intensity-tint))) h),
+    oklch(from var(--seed-tertiary) calc(0.37 + 0.03 * var(--intensity-tint)) calc(c * (0.5 + 0.32 * var(--intensity-tint))) h));
   --on-tertiary-container: light-dark(oklch(from var(--seed-tertiary) 0.25 calc(c * 0.5) h), oklch(from var(--seed-tertiary) 0.90 calc(c * 0.2) h));
 
   /* ---------- SURFACES (neutrals tinted by the primary hue) ---------- */
-  --surface:                light-dark(oklch(from var(--seed-primary) 0.965 0.015 h), oklch(from var(--seed-primary) 0.24 0.03 h));
-  --surface-dim:            light-dark(oklch(from var(--seed-primary) 0.91 0.04 h), oklch(from var(--seed-primary) 0.18 0.025 h));  /* page background */
-  --surface-container:      light-dark(oklch(from var(--seed-primary) 0.93 0.03 h), oklch(from var(--seed-primary) 0.28 0.04 h));
-  --surface-container-high: light-dark(oklch(from var(--seed-primary) 0.89 0.05 h), oklch(from var(--seed-primary) 0.32 0.05 h));
-  --outline:                light-dark(oklch(from var(--seed-primary) 0.74 0.06 h), oklch(from var(--seed-primary) 0.52 0.06 h));
-  --outline-variant:        light-dark(oklch(from var(--seed-primary) 0.79 0.075 h), oklch(from var(--seed-primary) 0.40 0.05 h));  /* borders */
-  --divider:                light-dark(oklch(from var(--seed-primary) 0.905 0.04 h), oklch(from var(--seed-primary) 0.30 0.035 h));
+  --surface: light-dark(
+    oklch(from var(--seed-primary) calc(0.965 + 0.005 * var(--intensity-tint)) 0.015 h),
+    oklch(from var(--seed-primary) calc(0.24 + 0.005 * var(--intensity-tint)) calc(0.03 + 0.018 * var(--intensity-tint)) h));
+  --surface-dim: light-dark(
+    oklch(from var(--seed-primary) calc(0.91 - 0.015 * var(--intensity-tint)) calc(0.04 + 0.015 * var(--intensity-tint)) h),
+    oklch(from var(--seed-primary) 0.18 calc(0.025 + 0.015 * var(--intensity-tint)) h));  /* page background */
+  --surface-container: light-dark(
+    oklch(from var(--seed-primary) calc(0.93 - 0.005 * var(--intensity-tint)) calc(0.03 + 0.008 * var(--intensity-tint)) h),
+    oklch(from var(--seed-primary) calc(0.28 + 0.005 * var(--intensity-tint)) calc(0.04 + 0.025 * var(--intensity-tint)) h));
+  --surface-container-high: light-dark(
+    oklch(from var(--seed-primary) calc(0.89 - 0.01 * var(--intensity-tint)) calc(0.05 + 0.012 * var(--intensity-tint)) h),
+    oklch(from var(--seed-primary) calc(0.32 + 0.005 * var(--intensity-tint)) calc(0.05 + 0.03 * var(--intensity-tint)) h));
+  --outline: light-dark(
+    oklch(from var(--seed-primary) calc(0.74 - 0.04 * var(--intensity-mid)) calc(0.06 + 0.03 * var(--intensity-mid)) h),
+    oklch(from var(--seed-primary) calc(0.52 + 0.02 * var(--intensity-mid)) calc(0.06 + 0.03 * var(--intensity-mid)) h));
+  --outline-variant: light-dark(
+    oklch(from var(--seed-primary) calc(0.79 - 0.03 * var(--intensity-mid)) calc(0.075 + 0.035 * var(--intensity-mid)) h),
+    oklch(from var(--seed-primary) calc(0.4 + 0.02 * var(--intensity-mid)) calc(0.05 + 0.04 * var(--intensity-mid)) h));  /* borders */
+  --divider: light-dark(
+    oklch(from var(--seed-primary) calc(0.905 - 0.01 * var(--intensity-tint)) calc(0.04 + 0.014 * var(--intensity-tint)) h),
+    oklch(from var(--seed-primary) calc(0.3 + 0.01 * var(--intensity-tint)) calc(0.035 + 0.025 * var(--intensity-tint)) h));
 
   /* ---------- ON-SURFACE (text) ---------- */
   --on-surface:         light-dark(oklch(from var(--seed-primary) 0.25 0.05 h), oklch(from var(--seed-primary) 0.93 0.02 h));
-  --on-surface-variant: light-dark(oklch(from var(--seed-primary) 0.46 0.04 h), oklch(from var(--seed-primary) 0.75 0.05 h));
+  --on-surface-variant: light-dark(
+    oklch(from var(--seed-primary) calc(0.46 - 0.02 * var(--intensity-mid)) calc(0.04 + 0.03 * var(--intensity-mid)) h),
+    oklch(from var(--seed-primary) calc(0.75 + 0.02 * var(--intensity-mid)) calc(0.05 + 0.02 * var(--intensity-mid)) h));
   --on-surface-faint:   light-dark(oklch(from var(--seed-primary) 0.66 0.06 h), oklch(from var(--seed-primary) 0.57 0.04 h));
 
-  /* ---------- ERROR ---------- */
+  /* ---------- ERROR (fixed at every intensity) ---------- */
   --error:       light-dark(var(--seed-error), oklch(from var(--seed-error) 0.42 c h));
   --error-hover: light-dark(oklch(from var(--seed-error) 0.42 c h), oklch(from var(--seed-error) 0.50 c h));
   --on-error:    light-dark(#FFFFFF, oklch(from var(--seed-error) 0.90 calc(c * 0.25) h));
@@ -93,7 +157,7 @@
   --error-container:    light-dark(oklch(from var(--seed-error) 0.88 calc(c * 0.35) h), oklch(from var(--seed-error) 0.30 calc(c * 0.6) h));
   --on-error-container: light-dark(oklch(from var(--seed-error) 0.28 calc(c * 0.8) h), oklch(from var(--seed-error) 0.90 calc(c * 0.3) h));
 
-  /* ---------- SUCCESS / WARNING ---------- */
+  /* ---------- SUCCESS / WARNING (fixed at every intensity) ---------- */
   --success:              light-dark(var(--seed-success), oklch(from var(--seed-success) 0.80 calc(c * 0.8) h));
   --success-container:    light-dark(oklch(from var(--seed-success) 0.90 calc(c * 0.5) h), oklch(from var(--seed-success) 0.32 calc(c * 0.8) h));
   --on-success-container: light-dark(oklch(from var(--seed-success) 0.32 calc(c * 0.8) h), oklch(from var(--seed-success) 0.90 calc(c * 0.5) h));
@@ -104,10 +168,18 @@
   /* ---------- STATES & COMPONENT COLOURS ---------- */
   --disabled-bg:   light-dark(oklch(from var(--seed-primary) 0.92 0.02 h), oklch(from var(--seed-primary) 0.27 0.03 h));
   --disabled-text: light-dark(oklch(from var(--seed-primary) 0.66 0.03 h), oklch(from var(--seed-primary) 0.50 0.03 h));
-  --track:         light-dark(oklch(from var(--seed-primary) 0.81 0.05 h), oklch(from var(--seed-primary) 0.33 0.05 h));
-  --row-hover:     light-dark(oklch(from var(--seed-primary) 0.94 0.025 h), oklch(from var(--seed-primary) 0.27 0.035 h));
-  --row-selected:  light-dark(oklch(from var(--seed-primary) 0.92 0.045 h), oklch(from var(--seed-primary) 0.35 0.08 h));
-  --chart-bar:     light-dark(oklch(from var(--seed-primary) 0.65 calc(c * 0.65) h), oklch(from var(--seed-primary) 0.62 calc(c * 0.6) h));
+  --track: light-dark(
+    oklch(from var(--seed-primary) calc(0.81 - 0.03 * var(--intensity-mid)) calc(0.05 + 0.05 * var(--intensity-mid)) h),
+    oklch(from var(--seed-primary) calc(0.33 + 0.02 * var(--intensity-mid)) calc(0.05 + 0.03 * var(--intensity-mid)) h));
+  --row-hover: light-dark(
+    oklch(from var(--seed-primary) calc(0.94 - 0.005 * var(--intensity-tint)) calc(0.025 + 0.009 * var(--intensity-tint)) h),
+    oklch(from var(--seed-primary) calc(0.27 + 0.02 * var(--intensity-tint)) calc(0.035 + 0.025 * var(--intensity-tint)) h));
+  --row-selected: light-dark(
+    oklch(from var(--seed-primary) calc(0.92 - 0.02 * var(--intensity-tint)) calc(0.045 + 0.007 * var(--intensity-tint)) h),
+    oklch(from var(--seed-primary) calc(0.35 + 0.01 * var(--intensity-tint)) calc(0.08 + 0.03 * var(--intensity-tint)) h));
+  --chart-bar: light-dark(
+    oklch(from var(--seed-primary) calc(0.65 - 0.05 * var(--intensity-accent)) calc(c * (0.65 + 0.2 * var(--intensity-accent))) h),
+    oklch(from var(--seed-primary) calc(0.62 + 0.02 * var(--intensity-accent)) calc(c * (0.6 + 0.15 * var(--intensity-accent))) h));
   --ring:          light-dark(oklch(from var(--seed-primary) 0.52 c h), oklch(from var(--seed-primary) 0.78 calc(c * 0.45) h));
 
   --scrim:           light-dark(oklch(from var(--seed-primary) 0.25 0.05 h / 0.45), oklch(0 0 0 / 0.62));
