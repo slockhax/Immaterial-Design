@@ -71,6 +71,11 @@
 <!-- ══════ TOP BAR ══════ -->
 <div class="topbar">
   <div class="topbar__title"><span class="topbar__logo">I</span> Immaterial Design System</div>
+  <div class="segmented" role="radiogroup" aria-label="Colour intensity">
+    <label class="segmented__option"><input type="radio" name="intensity" value="muted" checked onchange="Immaterial.setIntensity('muted')"><span class="icon segmented__check">check</span>Muted</label>
+    <label class="segmented__option"><input type="radio" name="intensity" value="balanced" onchange="Immaterial.setIntensity('balanced')"><span class="icon segmented__check">check</span>Balanced</label>
+    <label class="segmented__option"><input type="radio" name="intensity" value="vibrant" onchange="Immaterial.setIntensity('vibrant')"><span class="icon segmented__check">check</span>Vibrant</label>
+  </div>
   <div class="segmented" role="radiogroup" aria-label="Theme">
     <label class="segmented__option"><input type="radio" name="theme" value="light" checked onchange="Immaterial.setTheme('light')"><span class="icon segmented__check">check</span>Light</label>
     <label class="segmented__option"><input type="radio" name="theme" value="dark" onchange="Immaterial.setTheme('dark')"><span class="icon segmented__check">check</span>Dark</label>
@@ -82,7 +87,7 @@
 
   <div class="lead">
     <h1>Component reference</h1>
-    <p>Every element in the Immaterial system, rendered live from <code>immaterial.css</code> + <code>immaterial.js</code>. Toggle the theme above. See <strong>README.md</strong> for markup and construction notes.</p>
+    <p>Every element in the Immaterial system, rendered live from <code>immaterial.css</code> + <code>immaterial.js</code>. Toggle the theme and colour intensity above. See <strong>README.md</strong> for markup and construction notes.</p>
   </div>
 
     <!-- ===== CORE — BATTERIES INCLUDED ===== -->
@@ -999,6 +1004,16 @@
 
 <script src="immaterial.js"></script>
 <script>
+  // Demo-only: reflect a remembered theme / intensity in the top-bar toggles
+  (function () {
+    var root = document.documentElement;
+    var t = root.getAttribute('data-theme') || 'auto';
+    var i = root.getAttribute('data-intensity') || 'muted';
+    var tr = document.querySelector('input[name="theme"][value="' + t + '"]');
+    var ir = document.querySelector('input[name="intensity"][value="' + i + '"]');
+    if (tr) tr.checked = true;
+    if (ir) ir.checked = true;
+  })();
   // Demo-only glue for the connected button group
   function pick(btn){ [...btn.parentElement.children].forEach(function(b){ b.classList.remove('is-active'); }); btn.classList.add('is-active'); }
 </script>
