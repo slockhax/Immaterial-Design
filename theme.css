@@ -63,8 +63,8 @@
      between the two, so in-between values work. Values above 1 are
      not contrast-checked.
        tint   — pale tints: surfaces, containers, dividers, row states.
-                Tints step slightly DARKER as they gain colour, because
-                very light tones can't hold much chroma on screen.
+                Most tints step slightly DARKER as they gain colour, because
+                very light tones can't hold much chroma on screen (surface nudges slightly lighter to compensate).
        mid    — mid-tones: outlines, tracks, secondary text.
        accent — strong colours: dark-mode primary, secondary/tertiary,
                 chart bars. (Light-mode primary is the seed itself and
